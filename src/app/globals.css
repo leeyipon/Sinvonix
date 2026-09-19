@@ -1,0 +1,440 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: toggled by adding `.dark` to <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==================================================================== */
+/*  DESIGN SYSTEM — 4-layer token architecture                          */
+/*  (mirrors the Figma "Brand → Alias → Mapped → Responsive" model)     */
+/*                                                                      */
+/*  Layer 1 · BRAND     raw primitives, named by HUE (Blue/Green/…)     */
+/*  Layer 2 · ALIAS     role mapping (Primary/Success/Error/…) → Brand  */
+/*  Layer 3 · MAPPED    semantic UI tokens (Surface/Text/Border),       */
+/*                      Light/Dark, → Alias  (never straight to Brand)   */
+/*  Layer 4 · RESPONSIVE handled by Tailwind breakpoints + clamp()      */
+/*                      (sm 393 · md 1024 · lg 1440 in the Figma model)  */
+/*                                                                      */
+/*  Inheritance is one-directional: Mapped → Alias → Brand.             */
+/*  See DESIGN.md for the full spec.                                    */
+/* ==================================================================== */
+
+@theme {
+  /* ================================================================ */
+  /*  LAYER 1 — BRAND (raw hue scales, single value mode)             */
+  /*  Named by hue, never by role. Role lives one layer up (Alias).   */
+  /* ================================================================ */
+
+  /* Blue — source of Primary. Core #0152A5 (a dark blue → white ink  */
+  /* on solid fills). This is the shipped Aurora brand ramp, kept as   */
+  /* the committed scale rather than regenerated.                      */
+  --color-blue-50: #EBF3FD;
+  --color-blue-100: #D6E7FA;
+  --color-blue-200: #AAD1F8;
+  --color-blue-300: #72B2F3;
+  --color-blue-400: #2A8CEF;
+  --color-blue-500: #0152A5;
+  --color-blue-600: #01478E;
+  --color-blue-700: #013A74;
+  --color-blue-800: #012D5A;
+  --color-blue-900: #022141;
+  --color-blue-950: #021529;
+
+  /* Green — source of Success. 500 = the shipped success green. */
+  --color-green-50: #E8F8EE;
+  --color-green-100: #D0F1DC;
+  --color-green-200: #A0EFBD;
+  --color-green-300: #6BE698;
+  --color-green-400: #37DD74;
+  --color-green-500: #22C55E;
+  --color-green-600: #1DA54F;
+  --color-green-700: #178740;
+  --color-green-800: #126932;
+  --color-green-900: #104724;
+  --color-green-950: #0A2E17;
+
+  /* Red — source of Error (hue 4°, generated per the DS algorithm). */
+  --color-red-50: #F9EBEA;
+  --color-red-100: #F2D5D3;
+  --color-red-200: #F0A7A2;
+  --color-red-300: #E7756D;
+  --color-red-400: #DE4439;
+  --color-red-500: #DB3024;
+  --color-red-600: #AA251C;
+  --color-red-700: #8B1E17;
+  --color-red-800: #6C1812;
+  --color-red-900: #4A1410;
+  --color-red-950: #310D0B;
+
+  /* Yellow — source of Warning (hue 38°, generated per the algorithm). */
+  --color-yellow-50: #FBF4E8;
+  --color-yellow-100: #F6E8CE;
+  --color-yellow-200: #FBD697;
+  --color-yellow-300: #F8BF5C;
+  --color-yellow-400: #F6A821;
+  --color-yellow-500: #F59F0A;
+  --color-yellow-600: #BE7B08;
+  --color-yellow-700: #9C6506;
+  --color-yellow-800: #794F05;
+  --color-yellow-900: #533708;
+  --color-yellow-950: #372505;
+
+  /* Grey — source of Neutral. The shipped Aurora teal ramp (brand-    */
+  /* tinted neutral, hue ~193°), kept as the committed scale. Adds a   */
+  /* half-step 850 the UI genuinely uses, plus flat White / Black.     */
+  --color-grey-50: #EFF5F6;
+  --color-grey-100: #D6E4E8;
+  --color-grey-200: #AEC9D0;
+  --color-grey-300: #6BA3B1;
+  --color-grey-400: #4890A4;
+  --color-grey-500: #317689;
+  --color-grey-600: #1F5A6B;
+  --color-grey-700: #113E4A;
+  --color-grey-800: #0A2E38;
+  --color-grey-850: #06232B;
+  --color-grey-900: #041D24;
+  --color-grey-950: #021920;
+  --color-grey-white: #FFFFFF;
+  --color-grey-black: #000000;
+
+  /* ================================================================ */
+  /*  LAYER 2 — ALIAS (role mapping → Brand). "Blue Theme" mode.       */
+  /*  Swapping the whole brand identity = re-point Primary here only.  */
+  /* ================================================================ */
+
+  /* Primary — kept under its shipped `brand-*` name (= Blue). */
+  --color-brand-50: var(--color-blue-50);
+  --color-brand-100: var(--color-blue-100);
+  --color-brand-200: var(--color-blue-200);
+  --color-brand-300: var(--color-blue-300);
+  --color-brand-400: var(--color-blue-400);
+  --color-brand-500: var(--color-blue-500);
+  --color-brand-600: var(--color-blue-600);
+  --color-brand-700: var(--color-blue-700);
+  --color-brand-800: var(--color-blue-800);
+  --color-brand-900: var(--color-blue-900);
+  --color-brand-950: var(--color-blue-950);
+
+  /* Success / Error / Warning / Neutral — fixed across theme modes. */
+  --color-success-50: var(--color-green-50);
+  --color-success-100: var(--color-green-100);
+  --color-success-200: var(--color-green-200);
+  --color-success-300: var(--color-green-300);
+  --color-success-400: var(--color-green-400);
+  --color-success-500: var(--color-green-500);
+  --color-success-600: var(--color-green-600);
+  --color-success-700: var(--color-green-700);
+  --color-success-800: var(--color-green-800);
+  --color-success-900: var(--color-green-900);
+  --color-success-950: var(--color-green-950);
+
+  --color-error-50: var(--color-red-50);
+  --color-error-100: var(--color-red-100);
+  --color-error-200: var(--color-red-200);
+  --color-error-300: var(--color-red-300);
+  --color-error-400: var(--color-red-400);
+  --color-error-500: var(--color-red-500);
+  --color-error-600: var(--color-red-600);
+  --color-error-700: var(--color-red-700);
+  --color-error-800: var(--color-red-800);
+  --color-error-900: var(--color-red-900);
+  --color-error-950: var(--color-red-950);
+
+  --color-warning-50: var(--color-yellow-50);
+  --color-warning-100: var(--color-yellow-100);
+  --color-warning-200: var(--color-yellow-200);
+  --color-warning-300: var(--color-yellow-300);
+  --color-warning-400: var(--color-yellow-400);
+  --color-warning-500: var(--color-yellow-500);
+  --color-warning-600: var(--color-yellow-600);
+  --color-warning-700: var(--color-yellow-700);
+  --color-warning-800: var(--color-yellow-800);
+  --color-warning-900: var(--color-yellow-900);
+  --color-warning-950: var(--color-yellow-950);
+
+  --color-neutral-50: var(--color-grey-50);
+  --color-neutral-100: var(--color-grey-100);
+  --color-neutral-200: var(--color-grey-200);
+  --color-neutral-300: var(--color-grey-300);
+  --color-neutral-400: var(--color-grey-400);
+  --color-neutral-500: var(--color-grey-500);
+  --color-neutral-600: var(--color-grey-600);
+  --color-neutral-700: var(--color-grey-700);
+  --color-neutral-800: var(--color-grey-800);
+  --color-neutral-850: var(--color-grey-850);
+  --color-neutral-900: var(--color-grey-900);
+  --color-neutral-950: var(--color-grey-950);
+  --color-neutral-white: var(--color-grey-white);
+  --color-neutral-black: var(--color-grey-black);
+
+  /* Legacy gradient / accent aliases (used by CTA bands, chat, mascot, */
+  /* avatars, shadow-glow). Re-pointed onto the scale — values unchanged. */
+  --color-electric: var(--color-blue-500);
+  --color-indigo: var(--color-blue-700);
+  --color-purple: var(--color-blue-800);
+  --color-cyan: var(--color-blue-400);
+  --color-emerald: var(--color-green-500);
+
+  /* Fonts (wired in layout.tsx via next/font) */
+  --font-display: var(--font-display-var), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-var), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-var), "JetBrains Mono", ui-monospace, monospace;
+  --font-hand: var(--font-hand-var), "Caveat", ui-rounded, cursive;
+
+  /* Radii */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+
+  /* Motion — 300–700ms with premium easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Keyframes → utilities */
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+  --animate-pulse-ring: pulse-ring 3s var(--ease-out-expo) infinite;
+}
+
+/* ==================================================================== */
+/*  LAYER 3 — MAPPED (semantic UI tokens, Light/Dark)                   */
+/*  Every value aliases an Alias step — never a Brand hue directly,     */
+/*  except the composite "effect" tokens (glass / grid) which are the   */
+/*  code equivalent of Figma Effect Styles.                            */
+/* ==================================================================== */
+
+/* Light theme (Aurora is dark-first; this applies when .dark is off). */
+:root {
+  /* Surface */
+  --bg: var(--color-neutral-50);          /* page   */
+  --bg-subtle: var(--color-neutral-100);  /* app    */
+  --surface: var(--color-neutral-white);  /* card   */
+  --surface-2: var(--color-neutral-white);/* raised */
+
+  /* Text (Icon follows Text 1:1) */
+  --text: var(--color-neutral-950);       /* primary   */
+  --text-muted: var(--color-neutral-700); /* secondary */
+  --text-faint: var(--color-neutral-600); /* tertiary — tuned to clear AA */
+
+  /* Border */
+  --border: var(--color-neutral-100);
+
+  /* Status (text role) */
+  --success: var(--color-success-700);
+  --error: var(--color-error-700);
+  --warning: var(--color-warning-800);
+
+  /* Accent text — deep blue on light (Primary 500/600/700, AA ≥7:1 on white) */
+  --accent-a: var(--color-brand-500);
+  --accent-b: var(--color-brand-600);
+  --accent-c: var(--color-brand-700);
+  --accent-ink: var(--color-brand-500);
+
+  /* Effect tokens (composite — the code's Effect Styles) */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 8px 40px -12px rgba(2, 25, 32, 0.16);
+  --grid-line: rgba(2, 25, 32, 0.05);
+}
+
+/* Dark theme — Aurora's native look (default). */
+.dark {
+  /* Surface */
+  --bg: var(--color-neutral-950);
+  --bg-subtle: var(--color-neutral-900);
+  --surface: var(--color-neutral-900);
+  --surface-2: var(--color-neutral-850);
+
+  /* Text */
+  --text: var(--color-neutral-50);
+  --text-muted: var(--color-neutral-200);
+  --text-faint: var(--color-neutral-300); /* lightened to clear AA */
+
+  /* Border */
+  --border: var(--color-neutral-800);
+
+  /* Status (text role — one step brighter for dark surfaces) */
+  --success: var(--color-success-400);
+  --error: var(--color-error-400);
+  --warning: var(--color-warning-400);
+
+  /* Accent text — bright blue on dark (Primary 400/300, AA ≥5:1 on bg) */
+  --accent-a: var(--color-brand-400);
+  --accent-b: var(--color-brand-300);
+  --accent-c: #4C9BF2; /* off-ramp mid-blue, hand-tuned for dark accent */
+  --accent-ink: var(--color-brand-400);
+
+  /* Effect tokens */
+  --glass-bg: rgba(6, 35, 43, 0.62);
+  --glass-border: rgba(174, 201, 208, 0.14);
+  --glass-shadow: 0 12px 48px -16px rgba(0, 0, 0, 0.6);
+  --grid-line: rgba(174, 201, 208, 0.06);
+}
+
+/* Expose Mapped tokens as Tailwind color utilities (bg-bg, text-muted, …). */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-content: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-line: var(--border);
+  /* Accent for text/icons — carries the brand in both themes
+     (deep blue on light, bright blue on dark). */
+  --color-accent: var(--accent-ink);
+  /* Status text roles — theme-aware (text-success / text-error / text-warning). */
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+* {
+  border-color: var(--border);
+}
+
+html {
+  /* Smooth scrolling is handled entirely by Lenis (see smooth-scroll.tsx).
+     Native `scroll-behavior: smooth` here would double-animate every
+     programmatic scroll Lenis issues, fighting its own interpolation and
+     causing stalled/janky scrolling in Chromium-based browsers. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-brand-500);
+  color: #FFFFFF;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+/* Custom scrollbar (desktop) */
+@media (pointer: fine) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--text-faint) 40%, transparent);
+    border-radius: 99px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--text-faint) 65%, transparent);
+    background-clip: padding-box;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+@utility glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Accent words in headings — a solid, readable primary (not a gradient),
+   so they stay clearly legible on every page and both themes. */
+@utility text-gradient {
+  color: var(--accent-ink);
+  -webkit-text-fill-color: var(--accent-ink);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(var(--grid-line) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Fine film-grain noise overlay (SVG fractal noise, GPU-cheap) */
+@utility noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Premium multi-color glow shadow */
+@utility shadow-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-indigo) 12%, transparent),
+    0 18px 60px -18px color-mix(in oklab, var(--color-indigo) 55%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                          */
+/* ------------------------------------------------------------------ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(-1.2deg); }
+}
+
+@keyframes aurora {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
+  50% { transform: translate3d(4%, -3%, 0) scale(1.12); opacity: 1; }
+  100% { transform: translate3d(-3%, 4%, 0) scale(1.05); opacity: 0.85; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  70% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                     */
+/* ------------------------------------------------------------------ */
+/* Hide native cursor once the custom cursor is active (fine pointers only) */
+body.custom-cursor,
+body.custom-cursor * {
+  cursor: none !important;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -30px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

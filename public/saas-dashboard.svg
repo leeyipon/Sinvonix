@@ -1,0 +1,285 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, system-ui, sans-serif">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <!-- Page background -->
+  <rect width="1440" height="900" fill="#F5F6F8"/>
+
+  <!-- ============ SIDEBAR ============ -->
+  <rect x="0" y="0" width="248" height="900" fill="#FFFFFF"/>
+  <line x1="248" y1="0" x2="248" y2="900" stroke="#E8EAED" stroke-width="1"/>
+
+  <!-- Logo -->
+  <rect x="24" y="24" width="32" height="32" rx="9" fill="#6366F1"/>
+  <path d="M34 47 L40 33 L46 47 L40 42 Z" fill="#FFFFFF"/>
+  <text x="68" y="46" font-size="18" font-weight="700" fill="#0F172A">Nimbus</text>
+
+  <text x="28" y="90" font-size="11" font-weight="600" letter-spacing="1" fill="#94A3B8">MENU</text>
+
+  <!-- Active pill -->
+  <rect x="16" y="104" width="216" height="44" rx="11" fill="#EEF0FF"/>
+
+  <!-- Nav: Dashboard (active) -->
+  <g stroke="#4F46E5" stroke-width="1.6" fill="none">
+    <rect x="28" y="117" width="7" height="7" rx="2"/>
+    <rect x="39" y="117" width="7" height="7" rx="2"/>
+    <rect x="28" y="128" width="7" height="7" rx="2"/>
+    <rect x="39" y="128" width="7" height="7" rx="2"/>
+  </g>
+  <text x="56" y="131" font-size="14" font-weight="600" fill="#4F46E5">Dashboard</text>
+
+  <!-- Analytics -->
+  <g fill="#475569">
+    <rect x="29" y="175" width="3.4" height="7" rx="1"/>
+    <rect x="35" y="171" width="3.4" height="11" rx="1"/>
+    <rect x="41" y="167" width="3.4" height="15" rx="1"/>
+  </g>
+  <text x="56" y="179" font-size="14" font-weight="500" fill="#475569">Analytics</text>
+
+  <!-- Customers -->
+  <g stroke="#475569" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <circle cx="37" cy="216" r="4"/>
+    <path d="M30 230 a7 7 0 0 1 14 0"/>
+  </g>
+  <text x="56" y="227" font-size="14" font-weight="500" fill="#475569">Customers</text>
+
+  <!-- Billing -->
+  <g stroke="#475569" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <rect x="28" y="263" width="18" height="13" rx="2.5"/>
+    <line x1="28" y1="268" x2="46" y2="268"/>
+  </g>
+  <text x="56" y="275" font-size="14" font-weight="500" fill="#475569">Billing</text>
+
+  <!-- Reports -->
+  <g stroke="#475569" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <rect x="30" y="309" width="14" height="18" rx="2.5"/>
+    <line x1="34" y1="315" x2="40" y2="315"/>
+    <line x1="34" y1="319" x2="40" y2="319"/>
+    <line x1="34" y1="323" x2="38" y2="323"/>
+  </g>
+  <text x="56" y="323" font-size="14" font-weight="500" fill="#475569">Reports</text>
+
+  <!-- Settings -->
+  <g stroke="#475569" stroke-width="1.6" fill="none" stroke-linecap="round">
+    <line x1="28" y1="362" x2="46" y2="362"/>
+    <line x1="28" y1="370" x2="46" y2="370"/>
+    <circle cx="37" cy="362" r="2.6" fill="#FFFFFF"/>
+    <circle cx="41" cy="370" r="2.6" fill="#FFFFFF"/>
+  </g>
+  <text x="56" y="371" font-size="14" font-weight="500" fill="#475569">Settings</text>
+
+  <!-- User card -->
+  <line x1="24" y1="818" x2="224" y2="818" stroke="#EEF0F3" stroke-width="1"/>
+  <circle cx="42" cy="856" r="18" fill="#EEF0FF"/>
+  <text x="42" y="861" font-size="13" font-weight="700" fill="#4F46E5" text-anchor="middle">SC</text>
+  <text x="70" y="852" font-size="14" font-weight="600" fill="#0F172A">Sarah Chen</text>
+  <text x="70" y="870" font-size="12" fill="#94A3B8">Pro plan</text>
+  <path d="M210 851 l5 5 l-5 5" stroke="#CBD5E1" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+  <!-- ============ TOPBAR ============ -->
+  <text x="280" y="52" font-size="22" font-weight="700" fill="#0F172A">Dashboard</text>
+  <text x="280" y="74" font-size="13" fill="#94A3B8">Welcome back, here's your overview</text>
+
+  <!-- Search -->
+  <rect x="980" y="36" width="200" height="40" rx="10" fill="#FFFFFF" stroke="#E8EAED"/>
+  <circle cx="1001" cy="56" r="5.5" stroke="#94A3B8" stroke-width="1.6" fill="none"/>
+  <line x1="1005" y1="60" x2="1009" y2="64" stroke="#94A3B8" stroke-width="1.6" stroke-linecap="round"/>
+  <text x="1020" y="61" font-size="13" fill="#94A3B8">Search</text>
+
+  <!-- Bell -->
+  <rect x="1196" y="36" width="40" height="40" rx="10" fill="#FFFFFF" stroke="#E8EAED"/>
+  <path d="M1210 58 v-3 a6 6 0 0 1 12 0 v3 l2 3 h-16 z" stroke="#64748B" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path d="M1214 64 a2 2 0 0 0 4 0" stroke="#64748B" stroke-width="1.5" fill="none"/>
+  <circle cx="1226" cy="45" r="3" fill="#EF4444"/>
+
+  <!-- Avatar -->
+  <circle cx="1388" cy="56" r="20" fill="#6366F1"/>
+  <text x="1388" y="61" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">SC</text>
+
+  <!-- ============ KPI CARDS ============ -->
+  <!-- Card 1: Total revenue -->
+  <rect x="280" y="108" width="264" height="132" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="302" y="142" font-size="13" fill="#64748B">Total revenue</text>
+  <text x="302" y="182" font-size="26" font-weight="700" fill="#0F172A">$48,290</text>
+  <rect x="302" y="200" width="66" height="24" rx="12" fill="#DCFCE7"/>
+  <path d="M312 216 l4 -6 l4 6 z" fill="#15803D"/>
+  <text x="322" y="216" font-size="12" font-weight="600" fill="#15803D">12.4%</text>
+  <polyline points="452,196 466,190 480,193 494,182 508,186 522,174" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Card 2: Active users -->
+  <rect x="568" y="108" width="264" height="132" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="590" y="142" font-size="13" fill="#64748B">Active users</text>
+  <text x="590" y="182" font-size="26" font-weight="700" fill="#0F172A">8,642</text>
+  <rect x="590" y="200" width="60" height="24" rx="12" fill="#DCFCE7"/>
+  <path d="M600 216 l4 -6 l4 6 z" fill="#15803D"/>
+  <text x="610" y="216" font-size="12" font-weight="600" fill="#15803D">3.1%</text>
+  <polyline points="740,192 754,194 768,186 782,188 796,180 810,178" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Card 3: Conversion rate -->
+  <rect x="856" y="108" width="264" height="132" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="878" y="142" font-size="13" fill="#64748B">Conversion rate</text>
+  <text x="878" y="182" font-size="26" font-weight="700" fill="#0F172A">3.8%</text>
+  <rect x="878" y="200" width="60" height="24" rx="12" fill="#FEE2E2"/>
+  <path d="M888 210 l4 6 l4 -6 z" fill="#B91C1C"/>
+  <text x="898" y="216" font-size="12" font-weight="600" fill="#B91C1C">0.6%</text>
+  <polyline points="1028,178 1042,182 1056,180 1070,188 1084,186 1098,196" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Card 4: Churn rate -->
+  <rect x="1144" y="108" width="264" height="132" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="1166" y="142" font-size="13" fill="#64748B">Churn rate</text>
+  <text x="1166" y="182" font-size="26" font-weight="700" fill="#0F172A">1.2%</text>
+  <rect x="1166" y="200" width="60" height="24" rx="12" fill="#DCFCE7"/>
+  <path d="M1176 210 l4 6 l4 -6 z" fill="#15803D"/>
+  <text x="1186" y="216" font-size="12" font-weight="600" fill="#15803D">0.4%</text>
+  <polyline points="1316,180 1330,184 1344,182 1358,190 1372,188 1386,194" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ============ REVENUE CHART ============ -->
+  <rect x="280" y="264" width="728" height="320" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="304" y="300" font-size="16" font-weight="600" fill="#0F172A">Revenue overview</text>
+  <text x="304" y="320" font-size="12" fill="#94A3B8">Last 7 months</text>
+  <!-- Legend -->
+  <circle cx="820" cy="296" r="4" fill="#6366F1"/>
+  <text x="832" y="300" font-size="12" fill="#64748B">This year</text>
+  <circle cx="912" cy="296" r="4" fill="#CBD5E1"/>
+  <text x="924" y="300" font-size="12" fill="#64748B">Last year</text>
+
+  <!-- Gridlines + Y labels -->
+  <g stroke="#EEF1F4" stroke-width="1">
+    <line x1="344" y1="356" x2="984" y2="356"/>
+    <line x1="344" y1="402" x2="984" y2="402"/>
+    <line x1="344" y1="448" x2="984" y2="448"/>
+    <line x1="344" y1="494" x2="984" y2="494"/>
+    <line x1="344" y1="540" x2="984" y2="540"/>
+  </g>
+  <g font-size="11" fill="#94A3B8" text-anchor="end">
+    <text x="332" y="360">$60k</text>
+    <text x="332" y="406">$45k</text>
+    <text x="332" y="452">$30k</text>
+    <text x="332" y="498">$15k</text>
+    <text x="332" y="544">$0</text>
+  </g>
+
+  <!-- Last year (faint) -->
+  <polyline points="344,485 451,479 557,466 664,460 771,448 877,442 984,436" fill="none" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- This year area + line -->
+  <path d="M344,473 L451,454 L557,460 L664,433 L771,417 L877,424 L984,393 L984,540 L344,540 Z" fill="#6366F1" fill-opacity="0.10"/>
+  <polyline points="344,473 451,454 557,460 664,433 771,417 877,424 984,393" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#FFFFFF" stroke="#6366F1" stroke-width="2">
+    <circle cx="344" cy="473" r="3.5"/>
+    <circle cx="451" cy="454" r="3.5"/>
+    <circle cx="557" cy="460" r="3.5"/>
+    <circle cx="664" cy="433" r="3.5"/>
+    <circle cx="771" cy="417" r="3.5"/>
+    <circle cx="877" cy="424" r="3.5"/>
+    <circle cx="984" cy="393" r="3.5"/>
+  </g>
+
+  <!-- X labels -->
+  <g font-size="11" fill="#94A3B8" text-anchor="middle">
+    <text x="344" y="560">Jan</text>
+    <text x="451" y="560">Feb</text>
+    <text x="557" y="560">Mar</text>
+    <text x="664" y="560">Apr</text>
+    <text x="771" y="560">May</text>
+    <text x="877" y="560">Jun</text>
+    <text x="984" y="560">Jul</text>
+  </g>
+
+  <!-- ============ TRAFFIC DONUT ============ -->
+  <rect x="1032" y="264" width="376" height="320" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="1056" y="300" font-size="16" font-weight="600" fill="#0F172A">Traffic by source</text>
+
+  <g transform="rotate(-90 1120 428)" fill="none" stroke-width="24">
+    <circle cx="1120" cy="428" r="68" stroke="#6366F1" stroke-dasharray="179.5 247.8" stroke-dashoffset="0"/>
+    <circle cx="1120" cy="428" r="68" stroke="#22C55E" stroke-dasharray="115.4 311.9" stroke-dashoffset="-179.5"/>
+    <circle cx="1120" cy="428" r="68" stroke="#F59E0B" stroke-dasharray="76.9 350.4" stroke-dashoffset="-294.9"/>
+    <circle cx="1120" cy="428" r="68" stroke="#EC4899" stroke-dasharray="55.5 371.8" stroke-dashoffset="-371.8"/>
+  </g>
+  <text x="1120" y="424" font-size="22" font-weight="700" fill="#0F172A" text-anchor="middle">48.2k</text>
+  <text x="1120" y="444" font-size="12" fill="#94A3B8" text-anchor="middle">visits</text>
+
+  <!-- Donut legend -->
+  <g font-size="13">
+    <circle cx="1240" cy="366" r="5" fill="#6366F1"/>
+    <text x="1254" y="370" fill="#334155">Organic</text>
+    <text x="1384" y="370" font-weight="600" fill="#0F172A" text-anchor="end">42%</text>
+
+    <circle cx="1240" cy="404" r="5" fill="#22C55E"/>
+    <text x="1254" y="408" fill="#334155">Direct</text>
+    <text x="1384" y="408" font-weight="600" fill="#0F172A" text-anchor="end">27%</text>
+
+    <circle cx="1240" cy="442" r="5" fill="#F59E0B"/>
+    <text x="1254" y="446" fill="#334155">Referral</text>
+    <text x="1384" y="446" font-weight="600" fill="#0F172A" text-anchor="end">18%</text>
+
+    <circle cx="1240" cy="480" r="5" fill="#EC4899"/>
+    <text x="1254" y="484" fill="#334155">Social</text>
+    <text x="1384" y="484" font-weight="600" fill="#0F172A" text-anchor="end">13%</text>
+  </g>
+
+  <!-- ============ TRANSACTIONS TABLE ============ -->
+  <rect x="280" y="608" width="1128" height="268" rx="16" fill="#FFFFFF" stroke="#E8EAED" filter="url(#cardShadow)"/>
+  <text x="304" y="644" font-size="16" font-weight="600" fill="#0F172A">Recent transactions</text>
+  <text x="1384" y="644" font-size="13" font-weight="500" fill="#6366F1" text-anchor="end">View all</text>
+
+  <!-- Column headers -->
+  <g font-size="11" font-weight="600" letter-spacing="0.5" fill="#94A3B8">
+    <text x="352" y="686">CUSTOMER</text>
+    <text x="640" y="686">PLAN</text>
+    <text x="820" y="686">STATUS</text>
+    <text x="1010" y="686">AMOUNT</text>
+    <text x="1180" y="686">DATE</text>
+  </g>
+  <line x1="304" y1="700" x2="1384" y2="700" stroke="#EEF0F3" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <circle cx="318" cy="727" r="14" fill="#EEF0FF"/>
+  <text x="318" y="731" font-size="11" font-weight="700" fill="#4F46E5" text-anchor="middle">OM</text>
+  <text x="352" y="724" font-size="13" font-weight="600" fill="#0F172A">Olivia Martin</text>
+  <text x="352" y="740" font-size="11" fill="#94A3B8">olivia@mail.com</text>
+  <text x="640" y="732" font-size="13" fill="#334155">Pro</text>
+  <rect x="820" y="715" width="60" height="24" rx="12" fill="#DCFCE7"/>
+  <text x="850" y="731" font-size="12" font-weight="600" fill="#15803D" text-anchor="middle">Paid</text>
+  <text x="1010" y="732" font-size="13" font-weight="600" fill="#0F172A">$2,400</text>
+  <text x="1180" y="732" font-size="13" fill="#64748B">Jul 1, 2026</text>
+  <line x1="304" y1="748" x2="1384" y2="748" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Row 2 -->
+  <circle cx="318" cy="769" r="14" fill="#DCFCE7"/>
+  <text x="318" y="773" font-size="11" font-weight="700" fill="#15803D" text-anchor="middle">JL</text>
+  <text x="352" y="766" font-size="13" font-weight="600" fill="#0F172A">Jackson Lee</text>
+  <text x="352" y="782" font-size="11" fill="#94A3B8">jackson@mail.com</text>
+  <text x="640" y="774" font-size="13" fill="#334155">Team</text>
+  <rect x="820" y="757" width="60" height="24" rx="12" fill="#DCFCE7"/>
+  <text x="850" y="773" font-size="12" font-weight="600" fill="#15803D" text-anchor="middle">Paid</text>
+  <text x="1010" y="774" font-size="13" font-weight="600" fill="#0F172A">$1,200</text>
+  <text x="1180" y="774" font-size="13" fill="#64748B">Jun 28, 2026</text>
+  <line x1="304" y1="790" x2="1384" y2="790" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Row 3 -->
+  <circle cx="318" cy="811" r="14" fill="#FCE7F3"/>
+  <text x="318" y="815" font-size="11" font-weight="700" fill="#BE185D" text-anchor="middle">IN</text>
+  <text x="352" y="808" font-size="13" font-weight="600" fill="#0F172A">Isabella Nguyen</text>
+  <text x="352" y="824" font-size="11" fill="#94A3B8">bella@mail.com</text>
+  <text x="640" y="816" font-size="13" fill="#334155">Pro</text>
+  <rect x="820" y="799" width="76" height="24" rx="12" fill="#FEF3C7"/>
+  <text x="858" y="815" font-size="12" font-weight="600" fill="#B45309" text-anchor="middle">Pending</text>
+  <text x="1010" y="816" font-size="13" font-weight="600" fill="#0F172A">$2,400</text>
+  <text x="1180" y="816" font-size="13" fill="#64748B">Jun 27, 2026</text>
+  <line x1="304" y1="832" x2="1384" y2="832" stroke="#F1F5F9" stroke-width="1"/>
+
+  <!-- Row 4 -->
+  <circle cx="318" cy="853" r="14" fill="#FEF3C7"/>
+  <text x="318" y="857" font-size="11" font-weight="700" fill="#B45309" text-anchor="middle">WK</text>
+  <text x="352" y="850" font-size="13" font-weight="600" fill="#0F172A">William Kim</text>
+  <text x="352" y="866" font-size="11" fill="#94A3B8">will@mail.com</text>
+  <text x="640" y="858" font-size="13" fill="#334155">Starter</text>
+  <rect x="820" y="841" width="64" height="24" rx="12" fill="#FEE2E2"/>
+  <text x="852" y="857" font-size="12" font-weight="600" fill="#B91C1C" text-anchor="middle">Failed</text>
+  <text x="1010" y="858" font-size="13" font-weight="600" fill="#0F172A">$290</text>
+  <text x="1180" y="858" font-size="13" fill="#64748B">Jun 25, 2026</text>
+</svg>

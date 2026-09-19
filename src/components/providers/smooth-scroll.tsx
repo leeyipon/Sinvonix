@@ -1,0 +1,59 @@
+"use client";
+
+import { useEffect, type ReactNode } from "react";
+import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+/**
+ * App-wide smooth scrolling via Lenis, synced with GSAP ScrollTrigger and
+ * (through the native scroll it drives) Motion's useScroll. Disabled for
+ * users who prefer reduced motion — native scroll is used instead.
+ */
+export function SmoothScroll({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+
+    const lenis = new Lenis({
+      lerp: 0.1,
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+    });
+
+    // Keep ScrollTrigger in sync with Lenis' virtual scroll position
+    lenis.on("scroll", ScrollTrigger.update);
+
+    // Drive Lenis from GSAP's ticker for a single, jank-free RAF loop
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    // Anchor links → smooth scroll through Lenis
+    const onClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest?.('a[href^="#"]');
+      if (!target) return;
+      const id = target.getAttribute("href");
+      if (!id || id === "#") return;
+      const el = document.querySelector(id);
+      if (el) {
+        e.preventDefault();
+        lenis.scrollTo(el as HTMLElement, { offset: -80 });
+      }
+    };
+    document.addEventListener("click", onClick);
+
+    return () => {
+      document.removeEventListener("click", onClick);
+      gsap.ticker.remove(raf);
+      lenis.destroy();
+    };
+  }, []);
+
+  return <>{children}</>;
+}

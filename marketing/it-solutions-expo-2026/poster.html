@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IT Solutions Expo 2026 — Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0E0D0D;
+    --lime:#BCE927;
+    --cyan:#00D4FF;
+    --green:#3DE58B;
+    --white:#F5FBF0;
+    --muted:rgba(233,243,225,.60);
+    --faint:rgba(233,243,225,.34);
+    --glass:rgba(255,255,255,.045);
+    --glass-line:rgba(188,233,39,.18);
+    --pad:58px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#050505;}
+  body{display:flex;align-items:flex-start;justify-content:center;font-family:'Inter',sans-serif;padding:24px;}
+
+  .poster{
+    position:relative;width:1080px;height:1350px;overflow:hidden;color:var(--white);
+    background:
+      radial-gradient(120% 80% at 82% 8%, rgba(0,212,255,.20), transparent 55%),
+      radial-gradient(120% 90% at 12% 30%, rgba(61,229,139,.14), transparent 52%),
+      radial-gradient(140% 100% at 50% 118%, rgba(188,233,39,.16), transparent 55%),
+      radial-gradient(100% 120% at 50% 0%, #0b1524 0%, #0a1018 34%, var(--ink) 78%);
+    isolation:isolate;
+  }
+
+  /* faint circuit grid + traces */
+  .circuit{position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none}
+  .grain{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .vignette{position:absolute;inset:0;z-index:5;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 42%, transparent 58%, rgba(0,0,0,.55) 100%);}
+
+  .frame{position:relative;z-index:7;height:100%;padding:var(--pad);display:flex;flex-direction:column;}
+
+  /* ---------- top bar ---------- */
+  .top{display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:14px;}
+  .logo .mark{width:46px;height:46px;display:grid;place-items:center;border-radius:13px;
+    background:linear-gradient(135deg,var(--lime),var(--cyan));box-shadow:0 0 26px rgba(0,212,255,.45);}
+  .logo .mark svg{width:24px;height:24px}
+  .logo .lt{line-height:1.05}
+  .logo .lt b{font-family:'Sora';font-weight:800;font-size:16px;letter-spacing:.5px;display:block}
+  .logo .lt span{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:3px;color:var(--faint);text-transform:uppercase}
+  .datepill{font-family:'JetBrains Mono';font-weight:600;font-size:12px;letter-spacing:2px;color:var(--white);
+    padding:9px 16px;border:1px solid var(--glass-line);border-radius:999px;background:var(--glass);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+  .datepill b{color:var(--lime)}
+
+  /* ---------- hero headline ---------- */
+  .top,.hero,.stage,.sols,.events,.cta{flex:0 0 auto}
+  .hero{margin-top:26px}
+  .eyebrow{font-family:'JetBrains Mono';font-weight:600;font-size:13px;letter-spacing:5px;text-transform:uppercase;
+    color:var(--cyan);display:flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:34px;height:2px;background:linear-gradient(90deg,var(--cyan),transparent)}
+  h1{font-family:'Sora';font-weight:800;font-size:90px;line-height:.94;letter-spacing:-2px;margin-top:14px;text-transform:uppercase}
+  h1 .g{background:linear-gradient(100deg,var(--lime) 8%,var(--green) 48%,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 26px rgba(0,212,255,.35));}
+  h1 .yr{-webkit-text-stroke:2px rgba(188,233,39,.85);color:transparent;filter:drop-shadow(0 0 18px rgba(188,233,39,.35))}
+  .sub{margin-top:14px;font-size:21px;font-weight:500;color:var(--muted);max-width:660px;line-height:1.38}
+  .sub b{color:var(--white);font-weight:600}
+
+  /* ---------- hero control-plane panel ---------- */
+  .stage{position:relative;margin-top:22px;height:284px;border-radius:22px;overflow:hidden;
+    border:1px solid var(--glass-line);background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    box-shadow:0 30px 80px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.08);}
+  .stage .glow{position:absolute;width:340px;height:340px;border-radius:50%;filter:blur(60px);z-index:0}
+
+  /* ---------- section label ---------- */
+  .slabel{display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono';font-weight:600;font-size:12px;
+    letter-spacing:4px;text-transform:uppercase;color:var(--faint);margin:20px 0 12px}
+  .slabel::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--glass-line),transparent)}
+
+  /* ---------- solutions ---------- */
+  .sols{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:11px;font-size:13.5px;font-weight:500;
+    color:var(--white);background:var(--glass);border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .chip .d{width:7px;height:7px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+  .chip.a .d{color:var(--lime);background:var(--lime)}
+  .chip.b .d{color:var(--cyan);background:var(--cyan)}
+  .chip.c .d{color:var(--green);background:var(--green)}
+
+  /* ---------- event info bar ---------- */
+  .events{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:18px;border-radius:16px;overflow:hidden;
+    border:1px solid var(--glass-line);background:rgba(188,233,39,.10)}
+  .ev{background:linear-gradient(180deg,rgba(12,20,28,.86),rgba(8,12,18,.9));padding:14px 16px 15px;display:flex;flex-direction:column;gap:5px}
+  .ev .ic{font-size:18px}
+  .ev .k{font-family:'JetBrains Mono';font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan)}
+  .ev .v{font-size:15px;font-weight:600;line-height:1.25}
+  .ev .v small{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+
+  /* ---------- CTA ---------- */
+  .cta{display:flex;align-items:stretch;gap:18px;margin-top:18px}
+  .cta .main{flex:1;border-radius:18px;padding:22px 26px;position:relative;overflow:hidden;
+    background:linear-gradient(105deg,var(--lime),var(--green) 88%);color:#0b1206;
+    box-shadow:0 20px 60px -18px rgba(188,233,39,.55)}
+  .cta .main .booth{font-family:'JetBrains Mono';font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.72}
+  .cta .main h3{font-family:'Sora';font-weight:800;font-size:40px;line-height:1;letter-spacing:-1px;margin:6px 0 8px}
+  .cta .main p{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .cta .main .arrow{width:26px;height:26px;border-radius:50%;background:#0b1206;color:var(--lime);display:grid;place-items:center;font-size:14px}
+  .cta .qr{width:150px;flex:none;border-radius:18px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;
+    background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .cta .qr img{width:112px;height:112px;border-radius:9px;background:#fff;padding:6px;display:block}
+  .cta .qr span{font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
+
+  /* ---------- footer ---------- */
+  .foot{margin-top:auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.09);
+    display:flex;align-items:center;justify-content:space-between}
+  .contacts{display:flex;gap:22px;font-size:13px;color:var(--muted)}
+  .contacts .c{display:flex;align-items:center;gap:8px}
+  .contacts .c svg{width:15px;height:15px;color:var(--lime)}
+  .socials{display:flex;gap:9px}
+  .socials a{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:var(--glass);border:1px solid rgba(255,255,255,.1)}
+  .socials a svg{width:16px;height:16px;color:var(--white)}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- circuit background -->
+  <svg class="circuit" viewBox="0 0 1080 1350" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="trace" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#00D4FF" stop-opacity="0"/>
+        <stop offset=".5" stop-color="#00D4FF" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#BCE927" stop-opacity="0"/>
+      </linearGradient>
+      <pattern id="dots" width="46" height="46" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="#8fb3c9" fill-opacity="0.10"/>
+      </pattern>
+    </defs>
+    <rect width="1080" height="1350" fill="url(#dots)"/>
+    <g stroke="url(#trace)" stroke-width="1.4">
+      <path d="M-20 210 H360 L420 270 H760 L820 210 H1100"/>
+      <path d="M-20 1150 H240 L300 1090 H620 L680 1150 H1100"/>
+      <path d="M120 -20 V180 L180 240 V520"/>
+      <path d="M960 -20 V300 L900 360 V640"/>
+    </g>
+    <g fill="#00D4FF" fill-opacity=".5">
+      <circle cx="420" cy="270" r="3.5"/><circle cx="760" cy="270" r="3.5"/>
+      <circle cx="300" cy="1090" r="3.5"/><circle cx="620" cy="1090" r="3.5"/>
+      <circle cx="180" cy="240" r="3.5"/><circle cx="900" cy="360" r="3.5"/>
+    </g>
+  </svg>
+
+  <div class="frame">
+
+    <!-- top bar -->
+    <div class="top">
+      <div class="logo">
+        <span class="mark" aria-label="logo placeholder">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 7l8-4 8 4v10l-8 4-8-4V7z" stroke="#0b1206" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 3v18M4 7l8 4 8-4" stroke="#0b1206" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="lt"><b>YOUR&nbsp;LOGO</b><span>company placeholder</span></span>
+      </div>
+      <div class="datepill"><b>SEP 25–27</b> · 2026</div>
+    </div>
+
+    <!-- hero -->
+    <div class="hero">
+      <div class="eyebrow">Phnom Penh · Diamond Island Convention Center</div>
+      <h1><span class="g">IT Solutions</span><br/>Expo <span class="yr">2026</span></h1>
+      <p class="sub">Discover <b>Smart Business Systems</b> &amp; <b>eCommerce Solutions</b> — the region's premium showcase for AI, cloud, and digital transformation.</p>
+    </div>
+
+    <!-- hero control-plane panel -->
+    <div class="stage">
+      <div class="glow" style="left:-70px;top:-90px;background:rgba(0,212,255,.5)"></div>
+      <div class="glow" style="right:-90px;bottom:-110px;background:rgba(188,233,39,.42)"></div>
+      <svg viewBox="0 0 940 322" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#00D4FF" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#00D4FF" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="area2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#BCE927" stop-opacity=".5"/>
+            <stop offset="1" stop-color="#BCE927" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="core" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#eafff9"/><stop offset=".4" stop-color="#3DE58B"/>
+            <stop offset="1" stop-color="#00D4FF" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="link" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#3DE58B" stop-opacity=".9"/><stop offset="1" stop-color="#00D4FF" stop-opacity=".1"/>
+          </linearGradient>
+        </defs>
+
+        <!-- floating analytics panel (glass) -->
+        <g transform="translate(470,40)">
+          <rect x="0" y="0" width="430" height="242" rx="16" fill="rgba(8,16,24,.55)" stroke="rgba(0,212,255,.25)"/>
+          <text x="20" y="34" fill="#9fe9ff" font-family="JetBrains Mono" font-size="13" letter-spacing="2">BUSINESS ANALYTICS</text>
+          <text x="20" y="66" fill="#F5FBF0" font-family="Sora" font-weight="800" font-size="30">+42.8%</text>
+          <text x="150" y="66" fill="#BCE927" font-family="Inter" font-size="13" font-weight="600">revenue ↑</text>
+          <!-- gridlines -->
+          <g stroke="rgba(255,255,255,.06)"><line x1="20" y1="110" x2="410" y2="110"/><line x1="20" y1="150" x2="410" y2="150"/><line x1="20" y1="190" x2="410" y2="190"/></g>
+          <!-- area chart cyan -->
+          <path d="M20 190 L80 168 L140 176 L200 138 L260 150 L320 108 L380 120 L410 92 L410 224 L20 224 Z" fill="url(#area)"/>
+          <path d="M20 190 L80 168 L140 176 L200 138 L260 150 L320 108 L380 120 L410 92" fill="none" stroke="#00D4FF" stroke-width="2.4"/>
+          <!-- area chart lime -->
+          <path d="M20 206 L80 198 L140 200 L200 182 L260 190 L320 170 L380 178 L410 160 L410 224 L20 224 Z" fill="url(#area2)"/>
+          <path d="M20 206 L80 198 L140 200 L200 182 L260 190 L320 170 L380 178 L410 160" fill="none" stroke="#BCE927" stroke-width="2.2"/>
+          <circle cx="410" cy="92" r="4.5" fill="#00D4FF"/><circle cx="410" cy="160" r="4.5" fill="#BCE927"/>
+        </g>
+
+        <!-- AI core + circuit links to nodes -->
+        <g transform="translate(288,161)">
+          <path d="M0 0 C110 -40 200 -80 260 -100" stroke="url(#link)" stroke-width="1.6" fill="none"/>
+          <path d="M0 0 C120 10 210 40 260 60" stroke="url(#link)" stroke-width="1.6" fill="none"/>
+          <path d="M0 0 C-120 -30 -160 -70 -180 -110" stroke="url(#link)" stroke-width="1.6" fill="none"/>
+          <path d="M0 0 C-120 30 -150 70 -170 118" stroke="url(#link)" stroke-width="1.6" fill="none"/>
+          <circle cx="0" cy="0" r="86" fill="url(#core)" opacity=".55"/>
+          <circle cx="0" cy="0" r="52" fill="none" stroke="rgba(61,229,139,.5)" stroke-width="1.2"/>
+          <circle cx="0" cy="0" r="70" fill="none" stroke="rgba(0,212,255,.28)" stroke-width="1" stroke-dasharray="3 7"/>
+          <circle cx="0" cy="0" r="30" fill="rgba(6,14,20,.7)" stroke="#3DE58B" stroke-width="1.4"/>
+          <text x="0" y="6" text-anchor="middle" fill="#eafff9" font-family="Sora" font-weight="800" font-size="20">AI</text>
+          <!-- node chips -->
+          <g font-family="JetBrains Mono" font-size="10" fill="#cfeee1">
+            <g transform="translate(238,-116)"><rect x="-6" y="-14" width="86" height="24" rx="7" fill="rgba(8,16,24,.7)" stroke="rgba(188,233,39,.4)"/><text x="8" y="2">CLOUD</text></g>
+            <g transform="translate(238,48)"><rect x="-6" y="-14" width="72" height="24" rx="7" fill="rgba(8,16,24,.7)" stroke="rgba(0,212,255,.4)"/><text x="8" y="2">ERP</text></g>
+            <g transform="translate(-256,-128)"><rect x="-6" y="-14" width="78" height="24" rx="7" fill="rgba(8,16,24,.7)" stroke="rgba(0,212,255,.4)"/><text x="8" y="2">CRM</text></g>
+            <g transform="translate(-250,102)"><rect x="-6" y="-14" width="112" height="24" rx="7" fill="rgba(8,16,24,.7)" stroke="rgba(61,229,139,.4)"/><text x="8" y="2">eCOMMERCE</text></g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- featured solutions -->
+    <div class="slabel">Featured Solutions</div>
+    <div class="sols">
+      <span class="chip a"><i class="d"></i>AI Business Automation</span>
+      <span class="chip b"><i class="d"></i>ERP System</span>
+      <span class="chip c"><i class="d"></i>CRM Platform</span>
+      <span class="chip a"><i class="d"></i>Inventory Management</span>
+      <span class="chip b"><i class="d"></i>POS System</span>
+      <span class="chip c"><i class="d"></i>HR Management</span>
+      <span class="chip a"><i class="d"></i>Accounting Software</span>
+      <span class="chip b"><i class="d"></i>Logistics Management</span>
+      <span class="chip c"><i class="d"></i>eCommerce Platform</span>
+      <span class="chip a"><i class="d"></i>Mobile App Development</span>
+      <span class="chip b"><i class="d"></i>Website Development</span>
+      <span class="chip c"><i class="d"></i>Cloud Solutions</span>
+      <span class="chip a"><i class="d"></i>API Integration</span>
+      <span class="chip b"><i class="d"></i>Digital Marketing Automation</span>
+    </div>
+
+    <!-- event info -->
+    <div class="events">
+      <div class="ev"><span class="ic">📅</span><span class="k">Dates</span><span class="v">25–27 Sep<small>2026</small></span></div>
+      <div class="ev"><span class="ic">🕘</span><span class="k">Hours</span><span class="v">9:00 AM<small>– 6:00 PM</small></span></div>
+      <div class="ev"><span class="ic">📍</span><span class="k">Venue</span><span class="v">Diamond Island<small>Convention Center</small></span></div>
+      <div class="ev"><span class="ic">🎟️</span><span class="k">Entry</span><span class="v">Free<small>Registration</small></span></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div class="main">
+        <div class="booth">Come meet us · Booth A12</div>
+        <h3>VISIT BOOTH A12</h3>
+        <p><span class="arrow">→</span> Book a Free Consultation &amp; Live Demo</p>
+      </div>
+      <div class="qr">
+        <img src="qr.png" alt="QR code placeholder" />
+        <span>Scan to register</span>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="foot">
+      <div class="contacts">
+        <span class="c"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.3"/></svg>www.yourwebsite.com</span>
+        <span class="c"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.7"/></svg>hello@yourcompany.com</span>
+        <span class="c"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>+855 00 000 000</span>
+      </div>
+      <div class="socials">
+        <a aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3.5 1.5-3.5 3.5V11H8v3h2.5v6h3v-6H16l.5-3h-3V9.8c0-.5.3-.8.8-.8z"/></svg></a>
+        <a aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="7" r="1.2" fill="currentColor"/></svg></a>
+        <a aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8A1.5 1.5 0 106.5 5a1.5 1.5 0 000 3zM5 10h3v9H5v-9zm5 0h3v1.3c.5-.9 1.6-1.6 3-1.6 2.3 0 3.5 1.5 3.5 4.3V19h-3v-4.4c0-1.3-.5-2.1-1.6-2.1-1 0-1.6.7-1.6 2.1V19h-3v-9z"/></svg></a>
+        <a aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 5L3 12l5 2 2 5 3-3 4 3 4-14zM8 14l9-6-7 7-.3 3z"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+</div>
+</body>
+</html>

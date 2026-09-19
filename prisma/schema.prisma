@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model JobApplication {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  role       String?
+  portfolio  String?
+  message    String
+  resumeName String?
+  resumeType String?
+  resumeData Bytes?
+  createdAt  DateTime @default(now())
+}
+
+/// Consultation bookings from the scheduler widget.
+model Booking {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  dateLabel String // e.g. "Monday, July 27" — the mock calendar's chosen day
+  time      String // e.g. "10:00 AM"
+  duration  Int // minutes
+  meeting   String // "Google Meet" | "Zoom" | "Microsoft Teams" | "In-person"
+  timezone  String
+  createdAt DateTime @default(now())
+}
+
+/// Sales/website leads — CRM "Leads" module + dashboard "New leads" KPI.
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String
+  service   String?
+  budget    String?
+  message   String?
+  source    String // "Website form" | "Newsletter" | "Demo request" | "Referral" | "Ads"
+  status    String   @default("New") // "New" | "Contacted" | "Qualified" | "Unqualified"
+  createdAt DateTime @default(now())
+}
+
+/// CRM "Pipeline" / "Deals" module + dashboard pipeline-by-stage snapshot.
+model Deal {
+  id        String   @id @default(cuid())
+  name      String
+  company   String
+  value     Int
+  stage     String // "Discovery" | "Proposal" | "Negotiation" | "Won" | "Lost"
+  owner     String
+  closeDate DateTime
+}
+
+/// Dashboard "Recent activity" feed.
+model Activity {
+  id   String   @id @default(cuid())
+  kind String // "lead" | "deal" | "ticket" | "email" | "task"
+  text String
+  who  String
+  at   DateTime @default(now())
+}
+
+/// Dashboard "Upcoming tasks" list.
+model Task {
+  id       String  @id @default(cuid())
+  title    String
+  due      String
+  priority String // "High" | "Medium" | "Low"
+  done     Boolean @default(false)
+}
