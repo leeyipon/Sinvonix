@@ -3,7 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
+  // Prisma 7: connection URLs live in prisma.config.ts (migrations) and in
+  // the driver adapter in src/lib/db.ts (runtime), not here.
 }
 
 model JobApplication {
