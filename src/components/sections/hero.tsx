@@ -16,13 +16,27 @@ import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/magnetic";
 import { GradientMesh } from "@/components/effects/gradient-mesh";
 import { useScheduler } from "@/components/scheduler/scheduler-provider";
-import { heroHighlights, site } from "@/lib/site";
+import { heroHighlights } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const SPRING = { stiffness: 110, damping: 20, mass: 0.6 } as const;
 
 const stackLogos = ["react", "nextdotjs", "typescript", "openai", "python", "docker"];
+
+// Industry ranges the Sinvonix platform serves.
+const industries = [
+  {
+    title: "Financial Services",
+    blurb:
+      "The product and service range in the Financial Services industry covers a wide variety of banking, investment, insurance, and advisory offerings designed for individuals and businesses.",
+  },
+  {
+    title: "Logistics",
+    blurb:
+      "Logistics products and services cover the planning, execution, and management of moving goods, information, and services from origin to final consumption. This includes transportation, warehousing, inventory management, and supply chain management.",
+  },
+];
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -109,7 +123,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-3.5 py-1.5 text-xs font-medium text-muted backdrop-blur"
           >
             <Sparkles className="h-3.5 w-3.5 text-accent" />
-            AI-native software, design &amp; growth studio
+            Five integrated platform products, one unified Sinvonix platform
           </motion.div>
 
           <h1 className="mt-6 text-balance text-5xl font-semibold leading-[1.03] tracking-tight sm:text-6xl xl:text-7xl">
@@ -135,9 +149,18 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
-            className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted"
+            className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted"
           >
-            {site.description}
+            We develop and deploy five integrated platform products:{" "}
+            <span className="text-content">CORDON</span> (fraud and AML
+            intelligence), <span className="text-content">AEVIX</span> (payment
+            and quantum security),{" "}
+            <span className="text-content">Conversa CI Hub</span> (enterprise
+            contact centre), <span className="text-content">Chronicle AI</span>{" "}
+            (intelligent automation), and{" "}
+            <span className="text-content">Managed Security</span> (MDR and
+            digital risk protection). Each product operates standalone or as part
+            of the unified Sinvonix platform.
           </motion.p>
 
           <motion.div
@@ -171,6 +194,23 @@ export function Hero() {
               </li>
             ))}
           </motion.ul>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9, ease: EASE }}
+            className="mt-10 grid w-full max-w-2xl gap-4 text-left sm:grid-cols-2"
+          >
+            {industries.map(({ title, blurb }) => (
+              <div
+                key={title}
+                className="rounded-2xl border border-line bg-surface/50 p-5 backdrop-blur"
+              >
+                <h3 className="text-sm font-semibold text-content">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{blurb}</p>
+              </div>
+            ))}
+          </motion.div>
         </motion.div>
       </Container>
 
