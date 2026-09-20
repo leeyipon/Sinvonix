@@ -186,29 +186,31 @@ export function Hero() {
             </Button>
           </motion.div>
 
-          {/* Product strip — identity + category only; full descriptions live on their own pages */}
+          {/* Product strip — identity + category only; full descriptions live on their own pages.
+              A grid (not flex-wrap) so every card is equal-width — flex-wrap let the 5th card
+              orphan onto its own centered row once 4 fit per line. */}
           <motion.ul
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.74, ease: EASE }}
-            className="mt-10 flex w-full flex-wrap items-stretch justify-center gap-2.5"
+            className="mt-10 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
           >
             {products.map(({ name, tag, icon: Icon, accent }) => (
               <li
                 key={name}
-                className="flex items-center gap-2.5 rounded-2xl border border-line bg-surface/50 py-2.5 pl-2.5 pr-4 text-left backdrop-blur"
+                className="flex items-center gap-3 rounded-2xl border border-line bg-surface py-3 pl-3 pr-4 text-left shadow-[0_1px_2px_rgba(2,25,32,0.04)] transition-shadow duration-200 hover:shadow-[0_12px_28px_-14px_rgba(2,25,32,0.18)]"
               >
                 <span
                   className={cn(
-                    "grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br text-white",
+                    "grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br text-white",
                     accent
                   )}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-4.5 w-4.5" />
                 </span>
-                <div>
-                  <p className="text-sm font-semibold leading-none text-content">{name}</p>
-                  <p className="mt-1 text-[11px] leading-none text-faint">{tag}</p>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold leading-none text-content">{name}</p>
+                  <p className="mt-1.5 truncate text-[11px] leading-none text-faint">{tag}</p>
                 </div>
               </li>
             ))}
