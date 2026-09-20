@@ -4,7 +4,9 @@
  * against every entry and returns the best match (or null, which the engine
  * treats as a cue to offer a human).
  *
- * Answers are grounded in the real company data in `src/lib/site.ts`.
+ * Answers are grounded in the real company data in `src/lib/site.ts`. There
+ * is no pricing entry that quotes a number — Sinvonix doesn't publish
+ * self-serve pricing, so pricing questions route to a briefing instead.
  */
 
 import { services } from "@/lib/site";
@@ -17,120 +19,113 @@ export type KbEntry = {
   suggestions?: string[];
 };
 
-const servicesList = services.map((s) => `**${s.title}** — ${s.blurb}`).join("\n");
+const productsList = services.map((s) => `**${s.title}** — ${s.blurb}`).join("\n");
 
 export const KB: KbEntry[] = [
   {
-    id: "services",
-    keywords: ["service", "services", "offer", "do you do", "what do you", "capabilities", "help with"],
+    id: "products",
+    keywords: ["product", "products", "offer", "do you do", "what do you", "capabilities", "help with", "platform"],
     answer:
-      `We're a full-stack digital partner. Our core services:\n\n${servicesList}\n\nWant me to recommend the right fit for your project?`,
-    suggestions: ["Recommend a solution", "Get a project estimate"],
+      `We're a unified security and fintech platform. Our five products:\n\n${productsList}\n\nEach one runs standalone or as part of the unified platform. Want a recommendation for your situation?`,
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   },
   {
     id: "company",
-    keywords: ["who are you", "about you", "about nimbus", "your company", "your team", "your background", "tell me about"],
+    keywords: ["who are you", "about you", "about sinvonix", "your company", "your team", "your background", "tell me about"],
     answer:
-      "We're **Nimbus** — a product studio building web apps, AI systems and growth marketing for ambitious teams. 100+ projects delivered, 98% client satisfaction, and 24/7 support & monitoring. Design, engineering and strategy sit in one team, so what we design is what ships.",
-    suggestions: ["See your work", "Book a consultation"],
+      "We're **Sinvonix** — built by a team with over 50 years of combined experience selling, deploying and supporting enterprise technology across ASEAN's toughest regulated markets. Five integrated products, active recurring contracts across multiple ASEAN markets, and senior-led engagements — you work directly with the people who built the platform.",
+    suggestions: ["See our track record", "Schedule a briefing"],
   },
   {
     id: "pricing",
     keywords: ["price", "pricing", "cost", "how much", "budget", "expensive", "rate", "quote", "fee"],
     answer:
-      "Every project is scoped to what you actually need, so pricing depends on complexity, team and timeline. As a rough guide: **startup MVPs start around $15–40k**, mid-size builds land **$60–150k**, and enterprise platforms go higher. I can generate a tailored estimate in under a minute — want one?",
-    suggestions: ["Get a project estimate", "Book a consultation"],
+      "We don't publish self-serve pricing — every deployment is scoped to your institution, regulatory environment and whether you're going standalone or unified. The fastest way to a real number is a briefing with our team.",
+    suggestions: ["Schedule a briefing", "Recommend a product"],
   },
   {
     id: "process",
-    keywords: ["process", "how do you work", "methodology", "workflow", "steps", "approach", "engagement"],
+    keywords: ["process", "how do you work", "methodology", "workflow", "steps", "approach", "engagement", "deployment process"],
     answer:
-      "We work in tight, visible iterations: **Discovery → Strategy → Design → Development → Testing → Deployment → Optimization**. You see working software every week in vertical slices — no big-bang reveal at the end.",
-    suggestions: ["Get a project estimate", "Talk to an expert"],
+      "Our deployment journey: **Discovery & Risk Assessment → Solution Design → Compliance Alignment → Integration & Deployment → Live Monitoring → Continuous Optimization**. Every configuration is checked against FATF, NIST and your local regulator's requirements before go-live — and detection/response starts live from day one, not as a pilot.",
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   },
   {
     id: "timeline",
-    keywords: ["how long", "timeline", "duration", "time", "weeks", "months", "fast", "when"],
+    keywords: ["how long", "timeline", "duration", "time", "weeks", "months", "fast", "when", "go live"],
     answer:
-      "Timelines depend on scope. A **startup MVP** is typically **6–10 weeks**; a **mid-size product** runs **4–6 months**; enterprise platforms are longer. We ship in weekly increments so value lands early. Tell me a bit about your project and I'll estimate it.",
-    suggestions: ["Get a project estimate", "Recommend a solution"],
+      "Timelines depend on scope — a single standalone product can be live in a few weeks once scoped; running a few products or the full platform is a phased rollout, typically over a few months. We'll give you an accurate timeline at your briefing, not a guess.",
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   },
   {
-    id: "tech",
-    keywords: ["tech", "stack", "technology", "framework", "language", "react", "next", "node", "python", "build with"],
+    id: "compliance",
+    keywords: ["compliance", "gdpr", "pdpa", "data protection", "privacy", "encryption", "soc2", "fatf", "nist", "regulation", "regulatory"],
     answer:
-      "A modern, boring-reliable-where-it-matters stack: **React / Next.js + TypeScript** on the front end, **Node or Python** on the back end, **PostgreSQL / MongoDB** for data, containerised with **Docker** and deployed to **AWS**. For AI we're model-agnostic (Claude, OpenAI, open models).",
-    suggestions: ["What services do you offer?"],
+      "Our platforms are built **compliance-first**, not retrofitted: aligned to FATF recommendations, regional data protection laws (including PDPA/PDPO), and NIST cryptographic standards. Every configuration is checked against your local regulator's requirements before go-live.",
+    suggestions: ["Which industries do you serve?", "Schedule a briefing"],
   },
   {
-    id: "ai",
-    keywords: ["ai", "artificial intelligence", "chatbot", "agent", "llm", "gpt", "machine learning", "automation ai", "rag"],
+    id: "chronicle-ai",
+    keywords: ["ai", "artificial intelligence", "chatbot", "agent", "llm", "automation ai", "orchestration", "predictive analytics"],
     answer:
-      "We build **AI that does real work** — agents that resolve tickets, retrieval-grounded chatbots, workflow automation and voice AI. We're model-agnostic, ground responses in your own data, and add evals plus human-in-the-loop for high-stakes paths. One client's agent auto-resolves **68% of 10k+ monthly tickets**.",
-    suggestions: ["Develop an AI Agent", "Get a project estimate"],
+      "**Chronicle AI** is our AI orchestration layer — conversational intelligence, automated compliance workflows and predictive analytics. It runs standalone or extends into CORDON, AEVIX, Conversa CI Hub and Managed Security. Every automated decision is logged and explainable — built for institutions that answer to a regulator, not a black box.",
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   },
   {
-    id: "maintenance",
-    keywords: ["maintenance", "maintain", "support", "ongoing", "retainer", "after launch", "updates", "bug"],
+    id: "support",
+    keywords: ["maintenance", "maintain", "support", "ongoing", "retainer", "after launch", "updates", "monitoring"],
     answer:
-      "Yes — most engagements include deployment, monitoring and a support window. Beyond that, ongoing maintenance, optimization and new features are available as a monthly retainer, with **24/7 monitoring** on production systems.",
-    suggestions: ["Book a consultation"],
+      "Managed Security runs **24/7 managed detection and response** as live, recurring operations — not scheduled reviews. Beyond that, every engagement is senior-led: you work directly with the people who built the platform, not layers of account management.",
+    suggestions: ["Schedule a briefing"],
   },
   {
-    id: "hosting",
-    keywords: ["host", "hosting", "server", "infrastructure", "deploy", "deployment", "devops", "ci/cd", "cloud host"],
+    id: "deployment",
+    keywords: ["deploy", "deployment", "standalone", "unified", "single product", "integrate products", "how does it work"],
     answer:
-      "We handle the whole path to production: infrastructure, **CI/CD, zero-downtime deploys** and monitoring — typically on **AWS, Azure or Google Cloud**. We can deploy into your own cloud account so you own the infrastructure.",
-    suggestions: ["Cloud Migration", "Talk to an expert"],
+      "Every Sinvonix product runs **standalone or as part of the unified platform** — your call. Most clients start with one product (often CORDON or Managed Security) and expand as the relationship proves out, rather than committing to all five up front.",
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   },
   {
-    id: "cloud",
-    keywords: ["cloud", "aws", "azure", "gcp", "google cloud", "migration", "migrate", "scalab", "kubernetes"],
+    id: "partners",
+    keywords: ["partner", "partners", "alliance", "google cloud", "mandiant", "idemia", "trellix", "nutanix", "technology partner"],
     answer:
-      "We design and run cloud infrastructure on **AWS, Azure and Google Cloud** — migrations, DevOps, CI/CD, autoscaling and cost optimization. Whether you're moving off legacy servers or scaling a fast-growing product, we've got it covered.",
-    suggestions: ["Get a project estimate", "Book a consultation"],
+      "We deliver through **world-class technology alliances** — including Google Cloud, Mandiant, IDEMIA, Trellix, Nutanix, AhnLab, NETAND and FORCS. Global technology, brought to local ASEAN markets with implementation expertise that scales.",
+    suggestions: ["Schedule a briefing"],
   },
   {
-    id: "security",
-    keywords: ["security", "secure", "gdpr", "compliance", "data protection", "privacy", "encryption", "soc2", "hipaa"],
+    id: "integration",
+    keywords: ["api", "integration", "integrate", "third party", "core banking", "webhook", "connect", "sync"],
     answer:
-      "Security is built in, not bolted on: encrypted data in transit and at rest, role-based access, audited dependencies and secure deployment pipelines. For AI, we use enterprise tiers that **don't train on your data** and can deploy in-region for residency. We work with GDPR/HIPAA-sensitive teams.",
-    suggestions: ["Talk to an expert"],
+      "Our products connect into your existing core banking, telco or infrastructure systems, with zero-downtime cutover as part of the deployment journey. Integration & Deployment is a dedicated step in our process, not an afterthought.",
+    suggestions: ["How does your process work?", "Schedule a briefing"],
   },
   {
-    id: "api",
-    keywords: ["api", "integration", "integrate", "third party", "webhook", "connect", "sync", "erp integration"],
+    id: "track-record",
+    keywords: ["track record", "case study", "case studies", "proof", "results", "examples", "deployments", "live"],
     answer:
-      "We build **typed, documented REST and realtime APIs**, and integrate with the tools you already run — payment providers, CRMs, ERPs, messaging, analytics and more. Clean integration is usually where the real leverage is.",
-    suggestions: ["Get a project estimate"],
+      "Three deployment tracks run live in production today, not in pilot: **24/7 Threat Monitoring & Endpoint Security** (Managed Security), **Omnichannel Customer Operations** (Conversa CI Hub), and **Privileged Access & Governance** (zero-trust IAM). All recurring revenue, across multiple ASEAN markets.",
+    suggestions: ["Schedule a briefing", "Recommend a product"],
   },
   {
-    id: "case-studies",
-    keywords: ["case study", "case studies", "portfolio", "examples", "clients", "work", "results", "proof", "success"],
+    id: "regions",
+    keywords: ["region", "regions", "market", "markets", "country", "countries", "where", "asean", "location", "office"],
     answer:
-      "A few results we're proud of:\n\n- **Atlas CRM** — unified a 200-person sales org, +42% productivity, 3.1s → 0.4s load.\n- **Helix AI** — an agent resolving 68% of 10k+ monthly tickets, <30s first response.\n- **Pulse Analytics** — −27% CAC while scaling to 3.4x ROAS in one quarter.",
-    suggestions: ["Book a consultation", "Get a project estimate"],
+      "Headquartered in **Singapore**, with active deployments in **Brunei, Cambodia and Laos**, partner networks in the **Philippines and Malaysia**, and a subsidiary in **Australia** — seven ASEAN markets served today.",
+    suggestions: ["Which industries do you serve?", "Schedule a briefing"],
   },
   {
-    id: "mobile",
-    keywords: ["mobile", "ios", "android", "flutter", "react native", "app store", "phone app"],
+    id: "industries",
+    keywords: ["industry", "industries", "sector", "banking", "finance", "telco", "telecommunications", "government", "critical infrastructure"],
     answer:
-      "We build **native-feeling iOS and Android apps** with React Native or Flutter, backed by a solid API and admin dashboard. Push notifications, offline mode, in-app payments, maps — whatever the product needs.",
-    suggestions: ["Build a Mobile App", "Get a project estimate"],
-  },
-  {
-    id: "design",
-    keywords: ["design", "ui", "ux", "figma", "prototype", "user research", "wireframe", "design system"],
-    answer:
-      "Research-led **product design and design systems** people love to use — UX research, flows, polished UI and token-driven component libraries, delivered as production-ready specs your engineers can build from directly. Accessibility (WCAG AA) is included by default.",
-    suggestions: ["UI/UX Design", "Book a consultation"],
+      "Primarily **Banking & Finance**, **Telecommunications**, **Payment Networks**, and **Government & Critical Information Infrastructure** — built for institutions with real regulatory exposure, not generic SMB tooling.",
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   },
   {
     id: "contact",
     keywords: ["contact", "email", "phone", "reach", "get in touch", "talk", "call", "human", "sales"],
     answer:
-      "You can reach the team at **hello@nimbus.dev**, or I can connect you with a solution architect right now. Prefer to pick a time? I can open our booking calendar.",
-    suggestions: ["Talk to an expert", "Book a consultation"],
+      "You can reach the team at **hello@sinvonix.com**, or I can connect you with a solution architect right now. Prefer to pick a time? I can open our booking calendar.",
+    suggestions: ["Talk to an expert", "Schedule a briefing"],
   },
 ];
 

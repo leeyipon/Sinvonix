@@ -8,7 +8,6 @@ import { NimbusMascot } from "./mascot";
 import { Markdown } from "./markdown";
 import { OptionChips } from "./widgets/option-chips";
 import { RecommendationCard } from "./widgets/recommendation-card";
-import { EstimateCards } from "./widgets/estimate-cards";
 import { LeadForm } from "./widgets/lead-form";
 import { EscalationCard } from "./widgets/escalation-card";
 import type { Attachment, Message, Widget } from "@/lib/chat/types";
@@ -111,8 +110,6 @@ function WidgetView({ widget, active }: { widget: Widget; active: boolean }) {
       );
     case "recommendation":
       return <RecommendationCard data={widget.data} />;
-    case "estimate":
-      return <EstimateCards data={widget.data} />;
     case "lead-form":
       return <LeadForm active={active} />;
     case "escalation":

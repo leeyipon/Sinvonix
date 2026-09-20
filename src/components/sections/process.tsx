@@ -61,7 +61,7 @@ export function Process() {
         <SectionHeading
           eyebrow="How we work"
           title="A process built for momentum"
-          description="Seven deliberate steps that take an idea from discovery to continuous optimization — and a shared board so you can watch every one of them move."
+          description="A deliberate sequence from discovery to continuous optimization — and a shared board so you can watch every one of them move."
         />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">

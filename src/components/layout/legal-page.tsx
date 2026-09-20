@@ -62,10 +62,10 @@ export function LegalPage({
               This page is provided for general informational purposes and does not
               constitute legal advice. Questions? Email{" "}
               <a
-                href="mailto:hello@nimbus.dev"
+                href="mailto:hello@sinvonix.com"
                 className="font-medium text-content underline decoration-line underline-offset-4 transition-colors hover:decoration-brand-500"
               >
-                hello@nimbus.dev
+                hello@sinvonix.com
               </a>
               .
             </p>

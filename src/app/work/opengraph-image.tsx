@@ -2,12 +2,12 @@ import { ogImage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "Nimbus case studies — work that moved the numbers";
+export const alt = "Sinvonix track record — live in production, not in pilot";
 
 export default function Image() {
   return ogImage({
-    eyebrow: "Case Studies",
-    title: "Work that moved the numbers.",
-    subtitle: "Software, AI, growth and design engagements — the challenge, the build, and the results that followed.",
+    eyebrow: "Track Record",
+    title: "Live in production, not in pilot.",
+    subtitle: "Three deployment tracks running as recurring operations across ASEAN.",
   });
 }

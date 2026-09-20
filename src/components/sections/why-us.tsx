@@ -5,10 +5,10 @@ import { Counter } from "@/components/motion/counter";
 import { stats } from "@/lib/site";
 
 const reasons = [
-  { icon: Gauge, title: "Senior-only team", desc: "No juniors learning on your budget — every contributor is battle-tested." },
-  { icon: ShieldCheck, title: "Ship fast, safely", desc: "Typed, tested code with monitoring and zero-downtime releases." },
-  { icon: Users, title: "One integrated team", desc: "Design, engineering and growth in the same room, aligned on outcomes." },
-  { icon: Sparkles, title: "AI where it counts", desc: "We add intelligence that measurably moves the metric — not gimmicks." },
+  { icon: Users, title: "Senior-led engagements", desc: "You work directly with the people who built the platform — no layers of account managers." },
+  { icon: ShieldCheck, title: "Compliance-first design", desc: "Built from day one for regulators — aligned to FATF, NIST and regional data protection law." },
+  { icon: Gauge, title: "Proven in production", desc: "Active recurring contracts across multiple ASEAN markets, protecting live infrastructure today." },
+  { icon: Sparkles, title: "Five products, one platform", desc: "Fraud intelligence, payments, contact centre, automation and managed security — standalone or unified." },
 ];
 
 export function WhyUs() {
@@ -16,9 +16,9 @@ export function WhyUs() {
     <Section className="bg-bg-subtle/50">
       <Container>
         <SectionHeading
-          eyebrow="Why choose us"
-          title="Results teams actually feel"
-          description="A track record built on shipping outcomes, not deliverables."
+          eyebrow="Why Sinvonix"
+          title="Built for ASEAN's regulated markets"
+          description="Over 50 years of combined experience operating where global vendors overlook the details."
         />
 
         {/* Stat counters */}

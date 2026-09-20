@@ -11,10 +11,11 @@ import { cn } from "@/lib/utils";
 // Wider cards get more breathing room and surface their full capability
 // list; the grid still varies in rhythm without leaning on illustration.
 const layout: Record<string, { featured: boolean }> = {
-  "software-development": { featured: true },
-  "ai-solutions": { featured: false },
-  "digital-marketing": { featured: false },
-  "ui-ux-design": { featured: true },
+  cordon: { featured: true },
+  aevix: { featured: false },
+  "conversa-ci-hub": { featured: false },
+  "chronicle-ai": { featured: false },
+  "managed-security": { featured: true },
 };
 
 export function Services() {
@@ -22,13 +23,13 @@ export function Services() {
     <Section id="services">
       <Container>
         <SectionHeading
-          eyebrow="What we do"
+          eyebrow="The platform"
           title={
             <>
-              One partner for <span className="text-accent">software, AI &amp; growth</span>
+              Five products, <span className="text-accent">one unified platform</span>
             </>
           }
-          description="Four tightly integrated capabilities so strategy, build and marketing never fall out of sync."
+          description="Fraud intelligence, payment security, contact centre, automation and managed security — tightly integrated so nothing falls out of sync."
         />
 
         <Stagger className="mt-14 grid gap-4 lg:grid-cols-3">

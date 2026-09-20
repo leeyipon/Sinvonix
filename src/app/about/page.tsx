@@ -8,11 +8,11 @@ import { Careers } from "@/components/about/careers";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Meet the people building tomorrow's technology. Nimbus is a diverse team of engineers, designers, QA specialists, marketers, and project leaders creating scalable digital products.",
+    "Sinvonix is built by a team with over 50 years of combined experience selling, deploying and supporting enterprise technology across ASEAN's toughest regulated markets.",
   openGraph: {
-    title: "About Us · Nimbus",
+    title: "About Us · Sinvonix",
     description:
-      "Meet the diverse team of engineers, designers and strategists building scalable digital products at Nimbus.",
+      "Built by operators who understand ASEAN's regulatory landscape — not vendors retrofitting global tools to local markets.",
   },
 };
 

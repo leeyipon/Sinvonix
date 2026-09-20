@@ -16,13 +16,13 @@ export function ServicesIndex() {
         <div className="pointer-events-none absolute inset-0 -z-10 bg-grid opacity-[0.35]" />
         <Container>
           <SectionHeading
-            eyebrow="Services"
+            eyebrow="Platform"
             title={
               <>
-                One partner for <span className="text-gradient">software, AI & growth</span>
+                Five products, <span className="text-gradient">one unified platform</span>
               </>
             }
-            description="Four tightly integrated capabilities so strategy, build and marketing never fall out of sync. Explore each below."
+            description="Fraud intelligence, payment security, contact centre, automation and managed security — run standalone or together. Explore each below."
           />
         </Container>
       </section>

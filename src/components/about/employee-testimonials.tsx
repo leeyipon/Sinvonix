@@ -9,8 +9,8 @@ export function EmployeeTestimonials() {
       <Container>
         <SectionHeading
           eyebrow="In their words"
-          title="Why the team loves it here"
-          description="Straight from the people who build with us every day."
+          title="How Sinvonix teams work"
+          description="Straight from the functional teams building and delivering the platform every day."
         />
 
         <Stagger className="mt-14 grid gap-5 md:grid-cols-3">

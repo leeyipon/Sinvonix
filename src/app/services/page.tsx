@@ -3,13 +3,13 @@ import { ServicesIndex } from "@/components/services/services-index";
 import { ServiceCTA } from "@/components/services/service-cta";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Platform",
   description:
-    "Software development, AI solutions, digital marketing and UI/UX design — four tightly integrated capabilities from one team. Explore what Nimbus can build for you.",
+    "CORDON, AEVIX, Conversa CI Hub, Chronicle AI and Managed Security — five integrated products, one unified Sinvonix platform. Explore each below.",
   openGraph: {
-    title: "Services · Nimbus",
+    title: "Platform · Sinvonix",
     description:
-      "Software development, AI solutions, digital marketing and UI/UX design — four tightly integrated capabilities from one team.",
+      "Fraud intelligence, payment security, contact centre, automation and managed security — five products, one unified platform.",
   },
 };
 

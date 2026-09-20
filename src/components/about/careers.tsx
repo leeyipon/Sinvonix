@@ -18,7 +18,7 @@ export function Careers() {
         <SectionHeading
           eyebrow="Careers"
           title="Join our team"
-          description="We're always looking for talented people who enjoy solving complex problems with technology."
+          description="We're looking for people who want to solve hard problems at the intersection of cybersecurity, AI, and regulated industries. If you thrive in ambiguity and care about impact over titles, we should talk."
         />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[1.1fr_1fr]">

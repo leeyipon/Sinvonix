@@ -14,7 +14,7 @@ type OgProps = {
  * A branded 1200×630 social card — near-black ground with a lime accent, built
  * with next/og (satori). Inline flex styles only; no Tailwind, no webfonts.
  */
-export function ogImage({ eyebrow = "Nimbus", title, subtitle }: OgProps) {
+export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
   return new ImageResponse(
     (
       <div
@@ -62,9 +62,9 @@ export function ogImage({ eyebrow = "Nimbus", title, subtitle }: OgProps) {
               fontWeight: 800,
             }}
           >
-            N
+            S
           </div>
-          <div style={{ display: "flex", fontSize: 28, fontWeight: 700 }}>Nimbus</div>
+          <div style={{ display: "flex", fontSize: 28, fontWeight: 700 }}>Sinvonix</div>
         </div>
 
         {/* headline block */}
@@ -118,8 +118,8 @@ export function ogImage({ eyebrow = "Nimbus", title, subtitle }: OgProps) {
             color: "#A6A6AB",
           }}
         >
-          <div style={{ display: "flex", fontWeight: 600, color: "#FAFAFA" }}>nimbus.dev</div>
-          <div style={{ display: "flex" }}>Software · AI · Marketing · Design</div>
+          <div style={{ display: "flex", fontWeight: 600, color: "#FAFAFA" }}>sinvonix.com</div>
+          <div style={{ display: "flex" }}>Fraud · Payments · Contact Centre · AI · Security</div>
         </div>
 
         {/* lime base bar */}

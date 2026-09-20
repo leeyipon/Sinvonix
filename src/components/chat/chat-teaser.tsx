@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { X, Rocket, CalendarDays, Bot, Code2, type LucideIcon } from "lucide-react";
+import { X, Sparkles, CalendarDays, ShieldAlert, ShieldCheck, type LucideIcon } from "lucide-react";
 import { useChat } from "./chat-provider";
 import { NimbusMascot } from "./mascot";
 import type { QuickActionId } from "@/lib/chat/types";
@@ -16,10 +16,10 @@ import type { QuickActionId } from "@/lib/chat/types";
 const DISMISS_KEY = "nimbus.teaser.dismissed";
 
 const SHORTCUTS: { id: QuickActionId; label: string; icon: LucideIcon }[] = [
-  { id: "estimate", label: "Get an estimate", icon: Rocket },
-  { id: "ai-agent", label: "Build an AI agent", icon: Bot },
-  { id: "web", label: "Web application", icon: Code2 },
-  { id: "book", label: "Book a consultation", icon: CalendarDays },
+  { id: "recommend", label: "Recommend a product", icon: Sparkles },
+  { id: "cordon", label: "Fraud & AML", icon: ShieldAlert },
+  { id: "managed-security", label: "Managed Security", icon: ShieldCheck },
+  { id: "book", label: "Schedule a briefing", icon: CalendarDays },
 ];
 
 export function ChatTeaser() {
@@ -72,7 +72,7 @@ export function ChatTeaser() {
               <NimbusMascot animate className="h-7 w-7" />
             </span>
             <p className="min-w-0 flex-1 text-[13px] font-semibold leading-tight">
-              Hi, I&apos;m Navi 👋 How can I help you build?
+              Hi, I&apos;m Navi 👋 How can I help?
             </p>
             <button
               onClick={dismiss}

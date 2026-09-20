@@ -19,8 +19,8 @@ export function CaseStudyHero({ slug }: { slug: string }) {
 
   const meta = [
     { label: "Sector", value: cs.sector },
-    { label: "Year", value: cs.year },
-    { label: "Timeline", value: cs.duration },
+    { label: "Status", value: cs.year },
+    { label: "Operations", value: cs.duration },
   ];
 
   return (
@@ -82,7 +82,7 @@ export function CaseStudyHero({ slug }: { slug: string }) {
             <Reveal delay={0.25}>
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 <span className="text-xs font-medium uppercase tracking-wider text-faint">
-                  Services
+                  Products
                 </span>
                 {cs.serviceSlugs.map((s) => {
                   const service = getService(s);
@@ -105,7 +105,7 @@ export function CaseStudyHero({ slug }: { slug: string }) {
                 <Magnetic>
                   <Button onClick={open} size="lg">
                     <CalendarDays className="h-4 w-4" />
-                    Start a project like this
+                    Book a briefing
                   </Button>
                 </Magnetic>
               </div>

@@ -1,108 +1,85 @@
 /**
- * Turns collected answers into a recommended solution package (the "Step 5"
- * output): a named platform, the modules it includes, a timeline, and the
- * recommended team. Deterministic — same inputs always yield the same result.
+ * Turns collected answers into a product recommendation (the "Step 5"
+ * output): which Sinvonix product(s) fit, the capabilities included, an
+ * honest qualitative timeline, and the deployment scope the visitor chose.
+ * Deterministic — same inputs always yield the same result. There is no
+ * dollar figure here: Sinvonix doesn't publish self-serve pricing, so every
+ * path ends in a recommendation to schedule a briefing, not a quote.
  */
 
-import type { Collected, Recommendation, SolutionId } from "./types";
-import { buildTeam, timelineFor } from "./estimator";
+import type { Collected, Recommendation, SizeId } from "./types";
+import { getService } from "@/lib/site";
 
-const BASE_PACKAGE: Record<SolutionId, { title: string; modules: string[] }> = {
-  web: {
-    title: "Custom Web Platform",
-    modules: ["Web application", "Admin dashboard", "Cloud hosting"],
-  },
-  mobile: {
-    title: "Cross-Platform Mobile App",
-    modules: ["Mobile app (iOS & Android)", "Backend API", "Admin dashboard"],
-  },
-  ai: {
-    title: "AI Solution",
-    modules: ["AI engine", "Knowledge base", "Admin & analytics", "Cloud hosting"],
-  },
-  system: {
-    title: "Business Management Platform",
-    modules: ["Core platform", "Admin dashboard", "Reporting & analytics", "Cloud hosting"],
-  },
-  automation: {
-    title: "Workflow Automation Suite",
-    modules: ["Automation engine", "Integrations layer", "Monitoring dashboard"],
-  },
-  design: {
-    title: "Product Design Engagement",
-    modules: ["UX research", "Product design", "Design system", "Interactive prototype"],
-  },
-  unsure: {
-    title: "Tailored Digital Solution",
-    modules: ["Discovery workshop", "Solution blueprint", "Phased build plan"],
-  },
+const DEPLOYMENT_LABEL: Record<SizeId, string> = {
+  standalone: "Standalone product",
+  multi: "A few integrated products",
+  platform: "Unified platform",
+  evaluating: "To be scoped together",
 };
 
-/** Extra modules that a specific selected feature adds to the package. */
-const FEATURE_MODULE: Record<string, string> = {
-  "GPS / fleet tracking": "Real-time GPS & fleet tracking",
-  "Driver management": "Driver mobile app",
-  "Route planning": "AI route optimization",
-  "Delivery tracking": "Customer tracking portal",
-  "Customer portal": "Customer portal",
-  "Warehouse": "Warehouse management",
-  "Inventory": "Inventory management",
-  "Payments & billing": "Payments & billing",
-  "In-app payments": "In-app payments",
-  "AI agent": "Autonomous AI agent",
-  "AI chatbot": "Conversational AI chatbot",
-  "Voice AI": "Voice AI interface",
-  "Knowledge base (RAG)": "Retrieval knowledge base",
-  "Analytics": "Analytics dashboard",
-  "Analytics dashboard": "Analytics dashboard",
-  "Analytics & BI": "BI & analytics layer",
-  "Multi-tenant / SaaS": "Multi-tenant SaaS architecture",
-  "CRM": "CRM module",
-  "ERP": "ERP module",
-  "POS": "POS module",
+const TIMELINE_BY_SCOPE: Record<SizeId, string> = {
+  standalone: "Live in a few weeks once scoped",
+  multi: "Phased rollout, typically a few months",
+  platform: "Phased rollout across the platform — timeline set at your briefing",
+  evaluating: "We'll scope timeline together once priorities are clear",
 };
 
-/**
- * Industry-flavoured platform names, so the recommendation reads bespoke
- * rather than generic (e.g. "Logistics Management Platform").
- */
+const HIGHLIGHTS = ["Senior-led engagement", "Compliance-first design", "Standalone or unified"];
+
+const DEFAULT_MODULES = [
+  "Fraud & AML intelligence",
+  "Payment & quantum security",
+  "Omnichannel contact centre",
+  "Intelligent automation",
+  "24/7 managed security",
+];
+
 function titleFor(collected: Collected): string {
-  const base = BASE_PACKAGE[collected.solution ?? "unsure"].title;
-  const { industry, solution } = collected;
-  if (solution === "system" && industry && industry !== "Other") {
-    return `${industry} Management Platform`;
+  const industry = collected.industry && collected.industry !== "Other" ? collected.industry : undefined;
+
+  if (collected.size === "platform") {
+    return industry ? `The Unified Platform for ${industry}` : "The Unified Sinvonix Platform";
   }
-  if (industry && industry !== "Other" && solution && solution !== "unsure") {
-    return `${industry} ${base}`;
+
+  const solution = collected.solution ?? "unsure";
+  const service = solution !== "unsure" ? getService(solution) : undefined;
+  const base = service ? service.title : "The right fit";
+  return industry ? `${base} for ${industry}` : base;
+}
+
+function summaryLine(collected: Collected, serviceTitle?: string): string {
+  const industry = collected.industry && collected.industry !== "Other"
+    ? ` for ${collected.industry.toLowerCase()}`
+    : "";
+
+  if (collected.size === "platform") {
+    return `Based on what you've shared, the full unified platform looks like the right fit${industry} — here's what's included.`;
   }
-  return base;
+  if (!serviceTitle) {
+    return `Based on what you've shared, here's where Sinvonix can help${industry} — let's confirm the right fit on a briefing.`;
+  }
+  return `Based on what you've shared, ${serviceTitle}${industry} looks like the right starting point — here's what's included.`;
 }
 
 export function recommend(collected: Collected): Recommendation {
   const solution = collected.solution ?? "unsure";
-  const base = BASE_PACKAGE[solution];
+  const size = collected.size ?? "evaluating";
+  const service = solution !== "unsure" ? getService(solution) : undefined;
   const features = collected.features ?? [];
 
-  // Merge base modules with feature-driven modules, de-duplicated, order-stable.
-  const modules: string[] = [...base.modules];
-  for (const f of features) {
-    const mod = FEATURE_MODULE[f] ?? f;
-    if (!modules.some((m) => m.toLowerCase() === mod.toLowerCase())) {
-      modules.push(mod);
-    }
-  }
+  const modules =
+    features.length > 0
+      ? features
+      : collected.size === "platform"
+        ? DEFAULT_MODULES
+        : (service?.points.slice(0, 4) ?? DEFAULT_MODULES);
 
-  const team = buildTeam(collected);
-  const timeline = timelineFor(collected);
-
-  const summary = summaryLine(collected, modules.length);
-
-  return { title: titleFor(collected), summary, modules, timeline, team };
-}
-
-function summaryLine(collected: Collected, moduleCount: number): string {
-  const industry = collected.industry && collected.industry !== "Other"
-    ? ` for ${collected.industry.toLowerCase()}`
-    : "";
-  return `Based on your requirements, here's the solution we'd recommend${industry} — a ${moduleCount}-part build our team can start scoping right away.`;
+  return {
+    title: titleFor(collected),
+    summary: summaryLine(collected, service?.title),
+    modules,
+    timeline: TIMELINE_BY_SCOPE[size],
+    deployment: DEPLOYMENT_LABEL[size],
+    team: HIGHLIGHTS,
+  };
 }

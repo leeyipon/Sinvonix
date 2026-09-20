@@ -30,35 +30,35 @@ const hand = Caveat({
   display: "swap",
 });
 
-const SITE = "https://nimbus.dev";
-const NAME = "Nimbus — Digital Solutions, AI Systems & Growth Marketing";
+const SITE = "https://sinvonix.com";
+const NAME = "Sinvonix — Securing the Future of Digital Transformation";
 const DESC =
-  "We build custom web applications, AI-powered systems, and marketing strategies that accelerate business growth. Premium software, AI, and design for ambitious teams.";
+  "Five integrated products, one unified platform — fraud intelligence, payment security, contact centre, automation and managed security, built for ASEAN's regulated financial and critical infrastructure sectors.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
     default: NAME,
-    template: "%s · Nimbus",
+    template: "%s · Sinvonix",
   },
   description: DESC,
   keywords: [
-    "software development",
-    "custom web applications",
-    "AI solutions",
-    "AI agents",
-    "workflow automation",
-    "digital marketing",
-    "UI/UX design",
-    "SaaS platforms",
+    "fraud detection",
+    "AML compliance",
+    "payment security",
+    "post-quantum cryptography",
+    "contact centre software",
+    "managed detection and response",
+    "identity and access management",
+    "ASEAN fintech security",
   ],
-  authors: [{ name: "Nimbus" }],
+  authors: [{ name: "Sinvonix" }],
   openGraph: {
     type: "website",
     url: SITE,
     title: NAME,
     description: DESC,
-    siteName: "Nimbus",
+    siteName: "Sinvonix",
   },
   twitter: {
     card: "summary_large_image",
