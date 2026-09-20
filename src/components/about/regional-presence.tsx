@@ -22,15 +22,28 @@ for (let i = 0; i < DOT_PAIRS.length; i += 2) DOTS.push({ x: DOT_PAIRS[i], y: DO
 
 const HQ = { x: 383.9, y: 400.9 }; // Singapore
 
-type Market = { name: string; label: string; x: number; y: number };
+type Dir = "up" | "down" | "left";
+type Market = { name: string; label: string; x: number; y: number; dir: Dir };
 
+// `dir` is hand-placed per point so pill labels fall into open space and
+// never overlap a neighbor, given the real (crowded, geographically
+// accurate) capital coordinates below.
 const markets: Market[] = [
-  { name: "Laos", label: "Active market", x: 363.9, y: 128.2 },
-  { name: "Cambodia", label: "Active market", x: 401.6, y: 233.6 },
-  { name: "Brunei", label: "Active market", x: 566.4, y: 342 },
-  { name: "Malaysia", label: "Partner network", x: 349.1, y: 371.6 },
-  { name: "Philippines", label: "Partner network", x: 665.5, y: 183.5 },
+  { name: "Laos", label: "Active market", x: 363.9, y: 128.2, dir: "up" },
+  { name: "Cambodia", label: "Active market", x: 401.6, y: 233.6, dir: "up" },
+  { name: "Brunei", label: "Active market", x: 566.4, y: 342, dir: "up" },
+  { name: "Malaysia", label: "Partner network", x: 349.1, y: 371.6, dir: "left" },
+  { name: "Philippines", label: "Partner network", x: 665.5, y: 183.5, dir: "up" },
 ];
+
+const PILL_W = 176;
+const PILL_H = 34;
+
+function pillOrigin(x: number, y: number, dir: Dir) {
+  if (dir === "up") return { px: x - PILL_W / 2, py: y - 16 - PILL_H };
+  if (dir === "left") return { px: x - PILL_W - 14, py: y - PILL_H / 2 };
+  return { px: x - PILL_W / 2, py: y + 16 };
+}
 
 export function RegionalPresence() {
   const reduce = useReducedMotion();
@@ -88,6 +101,31 @@ export function RegionalPresence() {
                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.4, ease: "easeOut" }}
                   />
                 ))}
+
+              {/* every market gets its own compact pill, hand-placed to stay clear of its neighbors */}
+              {markets.map((m, i) => {
+                const { px, py } = pillOrigin(m.x, m.y, m.dir);
+                return (
+                  <motion.foreignObject
+                    key={`pill-${m.name}`}
+                    x={px}
+                    y={py}
+                    width={PILL_W}
+                    height={PILL_H}
+                    initial={{ opacity: 0, y: py + 6 }}
+                    whileInView={{ opacity: 1, y: py }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.4, delay: 0.15 + i * 0.08, ease: EASE }}
+                  >
+                    <div className="flex h-full items-center">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1.5 pl-1.5 pr-3 shadow-[0_10px_24px_-10px_rgba(2,25,32,0.28)]">
+                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-brand-500" />
+                        <span className="whitespace-nowrap text-xs font-semibold text-content">{m.name}</span>
+                      </div>
+                    </div>
+                  </motion.foreignObject>
+                );
+              })}
 
               {/* HQ marker — larger, distinct */}
               <motion.circle
