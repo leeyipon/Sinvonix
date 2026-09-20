@@ -1,9 +1,11 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { Building2 } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
+
+const SG_FLAG = "\u{1F1F8}\u{1F1EC}";
+const AU_FLAG = "\u{1F1E6}\u{1F1FA}";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const VB = { w: 1000, h: 560 };
@@ -23,17 +25,17 @@ for (let i = 0; i < DOT_PAIRS.length; i += 2) DOTS.push({ x: DOT_PAIRS[i], y: DO
 const HQ = { x: 383.9, y: 400.9 }; // Singapore
 
 type Dir = "up" | "down" | "left";
-type Market = { name: string; label: string; x: number; y: number; dir: Dir };
+type Market = { name: string; label: string; flag: string; x: number; y: number; dir: Dir };
 
 // `dir` is hand-placed per point so pill labels fall into open space and
 // never overlap a neighbor, given the real (crowded, geographically
 // accurate) capital coordinates below.
 const markets: Market[] = [
-  { name: "Laos", label: "Active market", x: 363.9, y: 128.2, dir: "up" },
-  { name: "Cambodia", label: "Active market", x: 401.6, y: 233.6, dir: "up" },
-  { name: "Brunei", label: "Active market", x: 566.4, y: 342, dir: "up" },
-  { name: "Malaysia", label: "Partner network", x: 349.1, y: 371.6, dir: "left" },
-  { name: "Philippines", label: "Partner network", x: 665.5, y: 183.5, dir: "up" },
+  { name: "Laos", label: "Active market", flag: "\u{1F1F1}\u{1F1E6}", x: 363.9, y: 128.2, dir: "up" },
+  { name: "Cambodia", label: "Active market", flag: "\u{1F1F0}\u{1F1ED}", x: 401.6, y: 233.6, dir: "up" },
+  { name: "Brunei", label: "Active market", flag: "\u{1F1E7}\u{1F1F3}", x: 566.4, y: 342, dir: "up" },
+  { name: "Malaysia", label: "Partner network", flag: "\u{1F1F2}\u{1F1FE}", x: 349.1, y: 371.6, dir: "left" },
+  { name: "Philippines", label: "Partner network", flag: "\u{1F1F5}\u{1F1ED}", x: 665.5, y: 183.5, dir: "up" },
 ];
 
 const PILL_W = 176;
@@ -118,8 +120,10 @@ export function RegionalPresence() {
                     transition={{ duration: 0.4, delay: 0.15 + i * 0.08, ease: EASE }}
                   >
                     <div className="flex h-full items-center">
-                      <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1.5 pl-1.5 pr-3 shadow-[0_10px_24px_-10px_rgba(2,25,32,0.28)]">
-                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-brand-500" />
+                      <div className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3 shadow-[0_10px_24px_-10px_rgba(2,25,32,0.28)]">
+                        <span className="grid h-6 w-6 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-[13px] leading-none ring-1 ring-inset ring-line">
+                          {m.flag}
+                        </span>
                         <span className="whitespace-nowrap text-xs font-semibold text-content">{m.name}</span>
                       </div>
                     </div>
@@ -144,9 +148,9 @@ export function RegionalPresence() {
               {/* One featured callout — Singapore HQ */}
               <foreignObject x={HQ.x - 100} y={HQ.y + 16} width="200" height="70">
                 <div className="flex justify-center">
-                  <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-[0_16px_36px_-14px_rgba(2,25,32,0.3)]">
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-500/12 text-[color:var(--color-brand-700)]">
-                      <Building2 className="h-4.5 w-4.5" />
+                  <div className="inline-flex items-center gap-3 rounded-2xl border border-line bg-surface px-3.5 py-3 shadow-[0_16px_36px_-14px_rgba(2,25,32,0.3)]">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-xl leading-none ring-1 ring-inset ring-line">
+                      {SG_FLAG}
                     </span>
                     <span className="text-left leading-tight">
                       <span className="block text-[13px] font-bold uppercase tracking-wide text-content">Singapore</span>
@@ -165,15 +169,19 @@ export function RegionalPresence() {
             {markets.map((m) => (
               <span
                 key={m.name}
-                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3.5 text-xs font-medium text-muted"
               >
-                <span className="h-2 w-2 rounded-full bg-brand-500" />
+                <span className="grid h-5 w-5 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-[11px] leading-none ring-1 ring-inset ring-line">
+                  {m.flag}
+                </span>
                 <span className="text-content">{m.name}</span>
                 <span className="text-faint">· {m.label}</span>
               </span>
             ))}
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted">
-              <span className="h-2 w-2 rounded-full bg-brand-500" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3.5 text-xs font-medium text-muted">
+              <span className="grid h-5 w-5 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-[11px] leading-none ring-1 ring-inset ring-line">
+                {AU_FLAG}
+              </span>
               <span className="text-content">Australia</span>
               <span className="text-faint">· Subsidiary</span>
             </span>
