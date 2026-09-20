@@ -41,11 +41,11 @@ const complianceBadges = ["SOC 2", "PCI DSS", "ISO 27001", "GDPR", "AML/KYC", "2
 
 // The five Sinvonix products — each stands alone or plugs into the unified platform.
 const products: { name: string; tag: string; icon: LucideIcon; accent: string }[] = [
-  { name: "CORDON", tag: "Fraud & AML", icon: ShieldAlert, accent: "from-[#DC2626] to-[#991B1B]" },
-  { name: "AEVIX", tag: "Payment & Quantum Security", icon: Lock, accent: "from-[#0EA5E9] to-[#0369A1]" },
-  { name: "Conversa CI Hub", tag: "Contact Centre", icon: Headset, accent: "from-[#4F46E5] to-[#3730A3]" },
-  { name: "Chronicle AI", tag: "Intelligent Automation", icon: Workflow, accent: "from-[#059669] to-[#047857]" },
-  { name: "Managed Security", tag: "MDR & Digital Risk", icon: ShieldCheck, accent: "from-[#1E3A8A] to-[#0F172A]" },
+  { name: "CORDON", tag: "Fraud & AML", icon: ShieldAlert, accent: "from-brand-400 to-brand-600" },
+  { name: "AEVIX", tag: "Payment & Quantum Security", icon: Lock, accent: "from-brand-500 to-brand-700" },
+  { name: "Conversa CI Hub", tag: "Contact Centre", icon: Headset, accent: "from-brand-600 to-brand-800" },
+  { name: "Chronicle AI", tag: "Intelligent Automation", icon: Workflow, accent: "from-brand-700 to-brand-900" },
+  { name: "Managed Security", tag: "MDR & Digital Risk", icon: ShieldCheck, accent: "from-brand-800 to-brand-950" },
 ];
 
 // Industry ranges the Sinvonix platform serves.

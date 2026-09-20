@@ -80,7 +80,7 @@ export const services: Service[] = [
       "Mule Network Detection",
       "KYC Risk Typologies",
     ],
-    accent: "from-[#DC2626] to-[#991B1B]",
+    accent: "from-brand-400 to-brand-600",
     deliverables: [
       {
         title: "Real-Time Screening",
@@ -171,7 +171,7 @@ export const services: Service[] = [
       "Payment Infrastructure Hardening",
       "TLS Upgrade Planning",
     ],
-    accent: "from-[#0EA5E9] to-[#0369A1]",
+    accent: "from-brand-500 to-brand-700",
     deliverables: [
       {
         title: "PQC Readiness Assessment",
@@ -262,7 +262,7 @@ export const services: Service[] = [
       "Financial Services Ready",
       "Cross-Sector Deployment",
     ],
-    accent: "from-[#4F46E5] to-[#3730A3]",
+    accent: "from-brand-600 to-brand-800",
     deliverables: [
       {
         title: "Omnichannel Routing",
@@ -353,7 +353,7 @@ export const services: Service[] = [
       "Cross-Product Intelligence",
       "Model Governance",
     ],
-    accent: "from-[#059669] to-[#047857]",
+    accent: "from-brand-700 to-brand-900",
     deliverables: [
       {
         title: "AI Orchestration Layer",
@@ -444,7 +444,7 @@ export const services: Service[] = [
       "Zero-Trust Architecture",
       "World-Class Alliances",
     ],
-    accent: "from-[#1E3A8A] to-[#0F172A]",
+    accent: "from-brand-800 to-brand-950",
     deliverables: [
       {
         title: "24/7 Managed Detection & Response",

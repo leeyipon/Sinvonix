@@ -85,7 +85,7 @@ export const caseStudies: CaseStudy[] = [
     },
     tech: ["24/7 SOC", "EDR", "Digital Risk Protection", "Zero-Trust IAM"],
     serviceSlugs: ["managed-security"],
-    accent: "from-[#1E3A8A] to-[#0F172A]",
+    accent: "from-brand-800 to-brand-950",
     gradient: "from-indigo via-electric to-cyan",
   },
   {
@@ -140,7 +140,7 @@ export const caseStudies: CaseStudy[] = [
     },
     tech: ["Omnichannel", "Intelligent Routing", "Real-Time Agent Assist", "Quality Management"],
     serviceSlugs: ["conversa-ci-hub"],
-    accent: "from-[#4F46E5] to-[#3730A3]",
+    accent: "from-brand-600 to-brand-800",
     gradient: "from-purple via-indigo to-cyan",
   },
   {
@@ -195,7 +195,7 @@ export const caseStudies: CaseStudy[] = [
     },
     tech: ["Zero-Trust", "PAM", "Identity Governance", "Just-in-Time Access"],
     serviceSlugs: ["managed-security"],
-    accent: "from-[#0F172A] to-[#1E3A8A]",
+    accent: "from-brand-700 to-brand-900",
     gradient: "from-electric via-purple to-indigo",
   },
 ];

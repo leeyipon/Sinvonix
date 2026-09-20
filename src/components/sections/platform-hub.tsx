@@ -15,7 +15,11 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 type Shades = { top: string; left: string; right: string };
 
-const HUB: Shades = { top: "#93C5FD", left: "#3B82F6", right: "#1D4ED8" };
+const HUB: Shades = {
+  top: "var(--color-brand-300)",
+  left: "var(--color-brand-500)",
+  right: "var(--color-brand-700)",
+};
 
 type Node = {
   name: string;
@@ -37,7 +41,7 @@ const nodes: Node[] = [
     name: "CORDON",
     tag: "Fraud & AML",
     icon: ShieldAlert,
-    shades: { top: "#FCA5A5", left: "#DC2626", right: "#991B1B" },
+    shades: { top: "var(--color-brand-200)", left: "var(--color-brand-400)", right: "var(--color-brand-600)" },
     x: 450,
     y: 140,
     w: 46,
@@ -49,7 +53,7 @@ const nodes: Node[] = [
     name: "AEVIX",
     tag: "Payment & Quantum Security",
     icon: Lock,
-    shades: { top: "#7DD3FC", left: "#0EA5E9", right: "#0369A1" },
+    shades: { top: "var(--color-brand-300)", left: "var(--color-brand-500)", right: "var(--color-brand-700)" },
     x: 688,
     y: 230,
     w: 48,
@@ -61,7 +65,7 @@ const nodes: Node[] = [
     name: "Conversa CI Hub",
     tag: "Contact Centre",
     icon: Headset,
-    shades: { top: "#A5B4FC", left: "#4F46E5", right: "#3730A3" },
+    shades: { top: "var(--color-brand-400)", left: "var(--color-brand-600)", right: "var(--color-brand-800)" },
     x: 597,
     y: 375,
     w: 44,
@@ -73,7 +77,7 @@ const nodes: Node[] = [
     name: "Chronicle AI",
     tag: "Intelligent Automation",
     icon: Workflow,
-    shades: { top: "#6EE7B7", left: "#059669", right: "#047857" },
+    shades: { top: "var(--color-brand-500)", left: "var(--color-brand-700)", right: "var(--color-brand-900)" },
     x: 303,
     y: 375,
     w: 50,
@@ -85,7 +89,7 @@ const nodes: Node[] = [
     name: "Managed Security",
     tag: "MDR & Digital Risk",
     icon: ShieldCheck,
-    shades: { top: "#60A5FA", left: "#1E3A8A", right: "#0F172A" },
+    shades: { top: "var(--color-brand-600)", left: "var(--color-brand-800)", right: "var(--color-brand-950)" },
     x: 212,
     y: 230,
     w: 47,
