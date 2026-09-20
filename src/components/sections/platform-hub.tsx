@@ -102,8 +102,42 @@ const nodes: Node[] = [
 const HUB_X = 450;
 const HUB_Y = 270;
 
-/** Isometric cube: a rhombus top face plus two shaded side faces. */
-function IsoCube({ x, y, w, h, shades }: { x: number; y: number; w: number; h: number; shades: Shades }) {
+// The isometric diamond the circuit-board base plate is drawn on.
+const BOARD = {
+  top: [HUB_X, HUB_Y - 150] as [number, number],
+  right: [HUB_X + 230, HUB_Y - 20] as [number, number],
+  bottom: [HUB_X, HUB_Y + 110] as [number, number],
+  left: [HUB_X - 230, HUB_Y - 20] as [number, number],
+};
+const GRID_T = [0.2, 0.4, 0.6, 0.8];
+
+/** A line between the same t-fraction along two opposite edges of the
+ *  diamond (a→b and c→d), which stays parallel to the a-c/b-d edges and
+ *  fully inside the shape — used to draw the PCB crosshatch. */
+function lerpEdge(a: [number, number], b: [number, number], c: [number, number], d: [number, number], t: number) {
+  const p1x = a[0] + (b[0] - a[0]) * t;
+  const p1y = a[1] + (b[1] - a[1]) * t;
+  const p2x = c[0] + (d[0] - c[0]) * t;
+  const p2y = c[1] + (d[1] - c[1]) * t;
+  return { x1: p1x, y1: p1y, x2: p2x, y2: p2y };
+}
+
+/** Isometric cube: shaded faces + a glossy sheen highlight + a grounding shadow. */
+function IsoCube({
+  x,
+  y,
+  w,
+  h,
+  shades,
+  glossId,
+}: {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  shades: Shades;
+  glossId: string;
+}) {
   const top = [
     [x, y - w * 0.5],
     [x + w, y],
@@ -131,12 +165,28 @@ function IsoCube({ x, y, w, h, shades }: { x: number; y: number; w: number; h: n
     .map((p) => p.join(","))
     .join(" ");
 
+  // Diagonal sheen streak across the top face — the glossy "plastic" highlight.
+  const sheen = [
+    [x - w * 0.5, y - w * 0.1],
+    [x - w * 0.05, y - w * 0.42],
+    [x + w * 0.2, y - w * 0.28],
+    [x - w * 0.25, y + w * 0.14],
+  ]
+    .map((p) => p.join(","))
+    .join(" ");
+
   return (
     <g>
+      {/* contact shadow */}
+      <ellipse cx={x} cy={y + h + w * 0.5 + 3} rx={w * 0.72} ry={w * 0.16} fill="rgba(2,20,45,0.18)" filter="url(#soft-blur)" />
+
       <polygon points={left} fill={shades.left} />
       <polygon points={right} fill={shades.right} />
       <polygon points={top} fill={shades.top} />
-      <polygon points={top} fill="none" stroke="rgba(255,255,255,.4)" strokeWidth="1" />
+      {/* subtle vertical sheen on the right (darkest) face for glassy depth */}
+      <polygon points={right} fill={`url(#${glossId})`} opacity="0.55" />
+      <polygon points={sheen} fill="white" opacity="0.35" />
+      <polygon points={top} fill="none" stroke="rgba(255,255,255,.5)" strokeWidth="1" />
     </g>
   );
 }
@@ -157,18 +207,68 @@ export function PlatformHub() {
           {/* Ambient glow behind the hub */}
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-500)_30%,transparent),transparent)] opacity-70 blur-3xl"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-500)_32%,transparent),transparent)] opacity-80 blur-3xl"
           />
 
           <svg viewBox="0 0 900 560" className="relative w-full" role="img" aria-label="The Sinvonix platform hub, connecting CORDON, AEVIX, Conversa CI Hub, Chronicle AI and Managed Security">
             <defs>
               <linearGradient id="hub-line" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="var(--color-brand-400)" stopOpacity="0.9" />
-                <stop offset="1" stopColor="var(--color-brand-600)" stopOpacity="0.2" />
+                <stop offset="0" stopColor="var(--color-brand-400)" stopOpacity="0.95" />
+                <stop offset="1" stopColor="var(--color-brand-600)" stopOpacity="0.25" />
               </linearGradient>
+              <linearGradient id="face-gloss" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="white" stopOpacity="0.22" />
+                <stop offset="0.4" stopColor="white" stopOpacity="0" />
+              </linearGradient>
+              <radialGradient id="board-fade" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0" stopColor="var(--color-brand-400)" stopOpacity="0.35" />
+                <stop offset="1" stopColor="var(--color-brand-400)" stopOpacity="0" />
+              </radialGradient>
+              <filter id="soft-blur" x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur stdDeviation="4" />
+              </filter>
+              <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
             </defs>
 
-            {/* Connector lines — same draw-on technique as the About hero's network lines */}
+            {/* Circuit-board base plate under the hub — same isometric diamond, faint PCB crosshatch.
+                Diamond corners: top/right/bottom/left. Grid lines are drawn between matching
+                t-fractions of opposite edge pairs, which keeps every line parallel to a diamond
+                edge and fully inside it — the standard way to grid an isometric rhombus. */}
+            <g opacity="0.8">
+              <polygon points={`${BOARD.top.join(",")} ${BOARD.right.join(",")} ${BOARD.bottom.join(",")} ${BOARD.left.join(",")}`} fill="url(#board-fade)" />
+              {GRID_T.map((t) => (
+                <line key={`grid-a-${t}`} {...lerpEdge(BOARD.top, BOARD.left, BOARD.right, BOARD.bottom, t)} stroke="var(--color-brand-300)" strokeWidth="0.75" opacity="0.28" />
+              ))}
+              {GRID_T.map((t) => (
+                <line key={`grid-b-${t}`} {...lerpEdge(BOARD.top, BOARD.right, BOARD.left, BOARD.bottom, t)} stroke="var(--color-brand-300)" strokeWidth="0.75" opacity="0.28" />
+              ))}
+            </g>
+
+            {/* Connector lines — glow layer + crisp core, same draw-on technique as the About hero's network lines */}
+            {nodes.map((n, i) => (
+              <motion.line
+                key={`glow-${n.name}`}
+                x1={HUB_X}
+                y1={HUB_Y}
+                x2={n.x}
+                y2={n.y}
+                stroke="var(--color-brand-400)"
+                strokeWidth="5"
+                strokeLinecap="round"
+                opacity="0.25"
+                filter="url(#soft-blur)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 0.25 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 1.1, delay: 0.15 + i * 0.08, ease: EASE }}
+              />
+            ))}
             {nodes.map((n, i) => (
               <motion.line
                 key={`line-${n.name}`}
@@ -186,13 +286,14 @@ export function PlatformHub() {
               />
             ))}
 
-            {/* Traveling pulse per connector */}
+            {/* Traveling pulse per connector — glowing */}
             {!reduce &&
               nodes.map((n, i) => (
                 <motion.circle
                   key={`pulse-${n.name}`}
-                  r="4"
-                  fill="var(--color-brand-400)"
+                  r="4.5"
+                  fill="var(--color-brand-300)"
+                  filter="url(#glow)"
                   initial={{ cx: HUB_X, cy: HUB_Y, opacity: 0 }}
                   animate={{ cx: [HUB_X, n.x], cy: [HUB_Y, n.y], opacity: [0, 1, 1, 0] }}
                   transition={{
@@ -220,7 +321,7 @@ export function PlatformHub() {
                     animate={reduce ? undefined : { y: [0, n.float, 0] }}
                     transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: n.delay }}
                   >
-                    <IsoCube x={n.x} y={n.y} w={n.w} h={n.h} shades={n.shades} />
+                    <IsoCube x={n.x} y={n.y} w={n.w} h={n.h} shades={n.shades} glossId="face-gloss" />
                     <foreignObject x={n.x - 16} y={n.y - n.w * 0.28 - 16} width="32" height="32">
                       <div className="grid h-8 w-8 place-items-center rounded-lg bg-white/90 text-[#1c1c1e] shadow-[0_4px_10px_rgba(0,0,0,.25)]">
                         <Icon className="h-4 w-4" />
@@ -239,7 +340,7 @@ export function PlatformHub() {
               );
             })}
 
-            {/* Hub — largest cube, always on top */}
+            {/* Hub — largest cube, always on top, with a soft halo ring */}
             <motion.g
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -250,8 +351,9 @@ export function PlatformHub() {
                 animate={reduce ? undefined : { y: [0, -8, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               >
-                <circle cx={HUB_X} cy={HUB_Y} r="86" fill="var(--color-brand-500)" opacity="0.14" />
-                <IsoCube x={HUB_X} y={HUB_Y} w={70} h={46} shades={HUB} />
+                <circle cx={HUB_X} cy={HUB_Y} r="100" fill="var(--color-brand-500)" opacity="0.12" />
+                <circle cx={HUB_X} cy={HUB_Y} r="78" fill="none" stroke="var(--color-brand-400)" strokeWidth="1" opacity="0.4" />
+                <IsoCube x={HUB_X} y={HUB_Y} w={70} h={46} shades={HUB} glossId="face-gloss" />
                 <foreignObject x={HUB_X - 100} y={HUB_Y - 20} width="200" height="26">
                   <div className="text-center font-display text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,.5)]">
                     Sinvonix
