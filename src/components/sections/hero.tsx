@@ -15,7 +15,6 @@ import {
   Play,
   Sparkles,
   TrendingUp,
-  Bot,
   ShieldCheck,
   ShieldAlert,
   Lock,
@@ -23,7 +22,6 @@ import {
   Workflow,
   Landmark,
   Truck,
-  Check,
   type LucideIcon,
 } from "lucide-react";
 import { Container } from "@/components/ui/primitives";
@@ -109,16 +107,6 @@ export function Hero() {
       <Container className="relative">
         {/* Floating card cluster — drifts with the cursor at layered depths (xl only) */}
         <div aria-hidden className="pointer-events-none absolute inset-0 hidden xl:block">
-          {/* top-left: pinned sticky note (pinboard motif) */}
-          <FloatCard mx={mx} my={my} depth={30} rotate={-5} delay={0.5} float={-11} reduce={reduce} className="left-0 top-[6%]">
-            <StickyNote />
-          </FloatCard>
-
-          {/* top-right: AI agent working */}
-          <FloatCard mx={mx} my={my} depth={38} rotate={3} delay={0.58} float={12} reduce={reduce} className="right-0 top-[7%]">
-            <AgentCard />
-          </FloatCard>
-
           {/* mid-left: live uptime */}
           <FloatCard mx={mx} my={my} depth={54} rotate={-2} delay={0.66} float={9} reduce={reduce} className="left-[3%] top-[47%]">
             <UptimeBadge />
@@ -332,59 +320,6 @@ function FloatCard({
 }
 
 /* ---- Individual floating cards ---------------------------------------- */
-
-function StickyNote() {
-  return (
-    <div
-      className="relative w-52 rounded-[3px] bg-[#FCEEA8] p-4 pt-5 text-[#5b5320] shadow-[0_18px_34px_-16px_rgba(40,36,10,.5)]"
-      style={{ borderRadius: "3px 3px 14px 3px" }}
-    >
-      <span
-        aria-hidden
-        className="absolute -top-2.5 left-1/2 h-4 w-4 -translate-x-1/2 rounded-full"
-        style={{
-          background: "radial-gradient(circle at 34% 28%,#ff8f8f 0 10%,#e23b3b 46%,#9c1f1f 100%)",
-          boxShadow: "0 5px 7px rgba(0,0,0,.35), inset -1.5px -1.5px 3px rgba(0,0,0,.3), inset 1.5px 1.5px 3px rgba(255,255,255,.55)",
-        }}
-      />
-      <p className="font-hand text-2xl font-bold leading-tight">
-        Live in weeks,
-        <br />
-        not quarters.
-      </p>
-      <p className="mt-1.5 font-hand text-lg leading-tight text-[#8a7f37]">
-        — standalone or unified
-      </p>
-    </div>
-  );
-}
-
-function AgentCard() {
-  return (
-    <div className="glass w-56 rounded-2xl p-4">
-      <div className="flex items-center gap-2.5">
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-[linear-gradient(135deg,var(--color-brand-500),var(--color-brand-700))] text-white">
-          <Bot className="h-[18px] w-[18px]" />
-        </span>
-        <div>
-          <p className="text-xs font-semibold text-content">Chronicle AI</p>
-          <p className="text-[11px] text-faint">Triaging fraud case…</p>
-        </div>
-      </div>
-      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
-        <motion.div
-          initial={{ width: "12%" }}
-          animate={{ width: ["12%", "82%", "58%", "95%"] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-brand-700),var(--color-brand-500))]"
-        />
-      </div>
-      <div className="mt-3 flex items-center gap-1.5 text-[11px] font-medium text-accent">
-        <Check className="h-3.5 w-3.5" /> 82% auto-resolved
-      </div>
-    </div>
-  );
-}
 
 function RevenueCard() {
   return (
