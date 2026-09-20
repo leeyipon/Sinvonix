@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { AboutHero } from "@/components/about/about-hero";
-import { TeamGrid } from "@/components/about/team-grid";
 import { AboutStats } from "@/components/about/stats";
 import { Culture } from "@/components/about/culture";
-import { TeamGallery } from "@/components/about/team-gallery";
 import { EmployeeTestimonials } from "@/components/about/employee-testimonials";
 import { Careers } from "@/components/about/careers";
 
@@ -22,10 +20,8 @@ export default function AboutPage() {
   return (
     <>
       <AboutHero />
-      <TeamGrid />
       <AboutStats />
       <Culture />
-      <TeamGallery />
       <EmployeeTestimonials />
       <Careers />
     </>

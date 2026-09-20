@@ -105,7 +105,7 @@ export function AboutHero() {
             className="mt-9 flex flex-wrap items-center justify-center gap-3"
           >
             <Magnetic>
-              <Button href="#team" size="lg">
+              <Button href="#culture" size="lg">
                 Meet Our Experts
                 <ArrowRight className="h-4 w-4" />
               </Button>
