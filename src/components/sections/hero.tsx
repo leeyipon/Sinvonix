@@ -10,7 +10,22 @@ import {
   useReducedMotion,
   type MotionValue,
 } from "motion/react";
-import { ArrowRight, Play, Sparkles, TrendingUp, Bot, Activity, Check } from "lucide-react";
+import {
+  ArrowRight,
+  Play,
+  Sparkles,
+  TrendingUp,
+  Bot,
+  ShieldCheck,
+  ShieldAlert,
+  Lock,
+  Headset,
+  Workflow,
+  Landmark,
+  Truck,
+  Check,
+  type LucideIcon,
+} from "lucide-react";
 import { Container } from "@/components/ui/primitives";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -22,19 +37,28 @@ import { cn } from "@/lib/utils";
 const EASE = [0.16, 1, 0.3, 1] as const;
 const SPRING = { stiffness: 110, damping: 20, mass: 0.6 } as const;
 
-const stackLogos = ["react", "nextdotjs", "typescript", "openai", "python", "docker"];
+const complianceBadges = ["SOC 2", "PCI DSS", "ISO 27001", "GDPR", "AML/KYC", "24/7 MDR"];
+
+// The five Sinvonix products — each stands alone or plugs into the unified platform.
+const products: { name: string; tag: string; icon: LucideIcon; accent: string }[] = [
+  { name: "CORDON", tag: "Fraud & AML", icon: ShieldAlert, accent: "from-[#DC2626] to-[#991B1B]" },
+  { name: "AEVIX", tag: "Payment & Quantum Security", icon: Lock, accent: "from-[#0EA5E9] to-[#0369A1]" },
+  { name: "Conversa CI Hub", tag: "Contact Centre", icon: Headset, accent: "from-[#4F46E5] to-[#3730A3]" },
+  { name: "Chronicle AI", tag: "Intelligent Automation", icon: Workflow, accent: "from-[#059669] to-[#047857]" },
+  { name: "Managed Security", tag: "MDR & Digital Risk", icon: ShieldCheck, accent: "from-[#1E3A8A] to-[#0F172A]" },
+];
 
 // Industry ranges the Sinvonix platform serves.
 const industries = [
   {
     title: "Financial Services",
-    blurb:
-      "The product and service range in the Financial Services industry covers a wide variety of banking, investment, insurance, and advisory offerings designed for individuals and businesses.",
+    icon: Landmark,
+    blurb: "Banking, investment, insurance and advisory — for individuals and businesses.",
   },
   {
     title: "Logistics",
-    blurb:
-      "Logistics products and services cover the planning, execution, and management of moving goods, information, and services from origin to final consumption. This includes transportation, warehousing, inventory management, and supply chain management.",
+    icon: Truck,
+    blurb: "Transportation, warehousing, inventory and supply chain — start to finish.",
   },
 ];
 
@@ -123,7 +147,7 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-3.5 py-1.5 text-xs font-medium text-muted backdrop-blur"
           >
             <Sparkles className="h-3.5 w-3.5 text-accent" />
-            Five integrated platform products, one unified Sinvonix platform
+            One platform &middot; Five products
           </motion.div>
 
           <h1 className="mt-6 text-balance text-5xl font-semibold leading-[1.03] tracking-tight sm:text-6xl xl:text-7xl">
@@ -133,7 +157,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.18, ease: EASE }}
               className="block"
             >
-              Design, build &amp; grow
+              Detect, secure &amp; automate
             </motion.span>
             <motion.span
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 22 }}
@@ -141,7 +165,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.32, ease: EASE }}
               className="block text-muted"
             >
-              all in <span className="text-accent">one studio.</span>
+              all on <span className="text-accent">one platform.</span>
             </motion.span>
           </h1>
 
@@ -151,16 +175,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
             className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted"
           >
-            We develop and deploy five integrated platform products:{" "}
-            <span className="text-content">CORDON</span> (fraud and AML
-            intelligence), <span className="text-content">AEVIX</span> (payment
-            and quantum security),{" "}
-            <span className="text-content">Conversa CI Hub</span> (enterprise
-            contact centre), <span className="text-content">Chronicle AI</span>{" "}
-            (intelligent automation), and{" "}
-            <span className="text-content">Managed Security</span> (MDR and
-            digital risk protection). Each product operates standalone or as part
-            of the unified Sinvonix platform.
+            Sinvonix unifies fraud intelligence, payment security, contact
+            centre, automation and managed security into five products you can
+            run standalone — or together as one platform.
           </motion.p>
 
           <motion.div
@@ -181,11 +198,39 @@ export function Hero() {
             </Button>
           </motion.div>
 
+          {/* Product strip — identity + category only; full descriptions live on their own pages */}
+          <motion.ul
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.74, ease: EASE }}
+            className="mt-10 flex w-full flex-wrap items-stretch justify-center gap-2.5"
+          >
+            {products.map(({ name, tag, icon: Icon, accent }) => (
+              <li
+                key={name}
+                className="flex items-center gap-2.5 rounded-2xl border border-line bg-surface/50 py-2.5 pl-2.5 pr-4 text-left backdrop-blur"
+              >
+                <span
+                  className={cn(
+                    "grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br text-white",
+                    accent
+                  )}
+                >
+                  <Icon className="h-4 w-4" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold leading-none text-content">{name}</p>
+                  <p className="mt-1 text-[11px] leading-none text-faint">{tag}</p>
+                </div>
+              </li>
+            ))}
+          </motion.ul>
+
           <motion.ul
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
+            transition={{ duration: 0.6, delay: 0.86 }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
           >
             {heroHighlights.map(({ icon: Icon, label }) => (
               <li key={label} className="flex items-center gap-2 text-sm text-muted">
@@ -198,16 +243,21 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9, ease: EASE }}
+            transition={{ duration: 0.6, delay: 0.96, ease: EASE }}
             className="mt-10 grid w-full max-w-2xl gap-4 text-left sm:grid-cols-2"
           >
-            {industries.map(({ title, blurb }) => (
+            {industries.map(({ title, icon: Icon, blurb }) => (
               <div
                 key={title}
                 className="rounded-2xl border border-line bg-surface/50 p-5 backdrop-blur"
               >
-                <h3 className="text-sm font-semibold text-content">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{blurb}</p>
+                <div className="flex items-center gap-2.5">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-500/15 text-accent">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <h3 className="text-sm font-semibold text-content">{title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{blurb}</p>
               </div>
             ))}
           </motion.div>
@@ -298,12 +348,12 @@ function StickyNote() {
         }}
       />
       <p className="font-hand text-2xl font-bold leading-tight">
-        Ship in weeks,
+        Live in weeks,
         <br />
-        not months.
+        not quarters.
       </p>
       <p className="mt-1.5 font-hand text-lg leading-tight text-[#8a7f37]">
-        — the whole team, one room
+        — standalone or unified
       </p>
     </div>
   );
@@ -317,8 +367,8 @@ function AgentCard() {
           <Bot className="h-[18px] w-[18px]" />
         </span>
         <div>
-          <p className="text-xs font-semibold text-content">AI Agent</p>
-          <p className="text-[11px] text-faint">Resolving ticket…</p>
+          <p className="text-xs font-semibold text-content">Chronicle AI</p>
+          <p className="text-[11px] text-faint">Triaging fraud case…</p>
         </div>
       </div>
       <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
@@ -330,7 +380,7 @@ function AgentCard() {
         />
       </div>
       <div className="mt-3 flex items-center gap-1.5 text-[11px] font-medium text-accent">
-        <Check className="h-3.5 w-3.5" /> 68% auto-resolved
+        <Check className="h-3.5 w-3.5" /> 82% auto-resolved
       </div>
     </div>
   );
@@ -345,12 +395,12 @@ function RevenueCard() {
           <span className="h-2.5 w-2.5 rounded-full bg-warning-400/70" />
           <span className="h-2.5 w-2.5 rounded-full bg-brand-500/80" />
         </div>
-        <span className="text-[11px] font-medium text-faint">analytics.nimbus.dev</span>
+        <span className="text-[11px] font-medium text-faint">cordon.sinvonix.io</span>
       </div>
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <p className="text-xs text-faint">Monthly Revenue</p>
-          <p className="font-display text-2xl font-semibold text-content">$284,910</p>
+          <p className="text-xs text-faint">Fraud Blocked (MTD)</p>
+          <p className="font-display text-2xl font-semibold text-content">$2.4M</p>
         </div>
         <span className="flex items-center gap-1 rounded-full bg-brand-500/15 px-2 py-1 text-xs font-medium text-accent">
           <TrendingUp className="h-3 w-3" /> +34%
@@ -374,23 +424,15 @@ function RevenueCard() {
 function IntegrationsCard() {
   return (
     <div className="glass w-56 rounded-2xl p-4">
-      <p className="text-xs font-semibold text-content">30+ integrations</p>
-      <p className="mt-0.5 text-[11px] text-faint">Wired into your stack</p>
-      <div className="mt-3 grid grid-cols-3 gap-2">
-        {stackLogos.map((slug) => (
+      <p className="text-xs font-semibold text-content">Compliance &amp; standards</p>
+      <p className="mt-0.5 text-[11px] text-faint">Built to certified controls</p>
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {complianceBadges.map((label) => (
           <span
-            key={slug}
-            className="grid h-11 place-items-center rounded-xl border border-line bg-surface/60"
+            key={label}
+            className="rounded-full border border-line bg-surface/60 px-2.5 py-1 text-[11px] font-medium text-muted"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`/icons/${slug}.svg`}
-              alt=""
-              width={20}
-              height={20}
-              loading="lazy"
-              className="h-5 w-5 opacity-80 grayscale"
-            />
+            {label}
           </span>
         ))}
       </div>
@@ -402,7 +444,7 @@ function UptimeBadge() {
   return (
     <div className="glass w-44 rounded-2xl p-4">
       <div className="flex items-center gap-2 text-accent">
-        <Activity className="h-4 w-4" />
+        <ShieldCheck className="h-4 w-4" />
         <span className="text-xs font-semibold">99.98% uptime</span>
       </div>
       <div className="mt-3 flex items-end gap-1">

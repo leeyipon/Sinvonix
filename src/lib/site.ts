@@ -10,6 +10,7 @@ import {
   TestTube2,
   CloudUpload,
   LineChart,
+  ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -510,7 +511,7 @@ export const faqs: { q: string; a: string }[] = [
 ];
 
 export const heroHighlights: { icon: LucideIcon; label: string }[] = [
-  { icon: Rocket, label: "Ship in weeks" },
-  { icon: Brain, label: "AI-native" },
-  { icon: LineChart, label: "Growth-focused" },
+  { icon: Rocket, label: "Live in weeks" },
+  { icon: ShieldCheck, label: "Bank-grade security" },
+  { icon: Brain, label: "AI-native detection" },
 ];
