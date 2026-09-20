@@ -1,69 +1,96 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { Building2 } from "lucide-react";
 import { Container } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const VB = { w: 1000, h: 620 };
 
-/* ---- stylized regional map data ---------------------------------------
- * Simplified, illustrative country outlines (not survey-grade cartography)
- * in a 1000×620 viewBox, oriented roughly like a real map of mainland +
- * maritime Southeast Asia. Unlabeled neighbors (Vietnam, Thailand, Borneo,
- * Sumatra) are drawn as faint context shapes; only Sinvonix's real markets
- * are labeled and colored. */
+/* ---- dotted region texture ---------------------------------------------
+ * Same pattern as the "dotted world map" reference: no hand-drawn borders,
+ * just a stipple grid clipped to loose landmass ellipses. Deterministic
+ * (no Math.random) so it's stable across server/client renders. */
 
-const HQ = { x: 244, y: 520 }; // Singapore
+type Ellipse = { cx: number; cy: number; rx: number; ry: number };
 
-type Market = { code: string; name: string; x: number; y: number; status: "active" | "partner" };
+const REGIONS: Ellipse[] = [
+  { cx: 380, cy: 190, rx: 150, ry: 170 }, // mainland Indochina
+  { cx: 250, cy: 460, rx: 55, ry: 110 }, // Malay peninsula + Singapore
+  { cx: 700, cy: 370, rx: 115, ry: 75 }, // Borneo
+  { cx: 850, cy: 210, rx: 95, ry: 150 }, // Philippine archipelago
+  { cx: 140, cy: 560, rx: 95, ry: 55 }, // Sumatra hint
+];
+
+function buildDots(step = 15) {
+  const dots: { x: number; y: number }[] = [];
+  for (let x = 0; x <= VB.w; x += step) {
+    for (let y = 0; y <= VB.h; y += step) {
+      const inside = REGIONS.some(
+        (r) => ((x - r.cx) / r.rx) ** 2 + ((y - r.cy) / r.ry) ** 2 <= 1
+      );
+      if (inside) dots.push({ x, y });
+    }
+  }
+  return dots;
+}
+
+const DOTS = buildDots();
+
+/* ---- markets ------------------------------------------------------------ */
+
+const HQ = { x: 244, y: 520 };
+
+type Market = { name: string; x: number; y: number; status: "active" | "partner" };
 
 const markets: Market[] = [
-  { code: "LA", name: "Laos", x: 372, y: 145, status: "active" },
-  { code: "KH", name: "Cambodia", x: 362, y: 292, status: "active" },
-  { code: "BN", name: "Brunei", x: 698, y: 347, status: "active" },
-  { code: "MY", name: "Malaysia", x: 232, y: 470, status: "partner" },
-  { code: "PH", name: "Philippines", x: 850, y: 165, status: "partner" },
+  { name: "Laos", x: 372, y: 145, status: "active" },
+  { name: "Cambodia", x: 362, y: 292, status: "active" },
+  { name: "Brunei", x: 698, y: 347, status: "active" },
+  { name: "Malaysia", x: 232, y: 470, status: "partner" },
+  { name: "Philippines", x: 850, y: 165, status: "partner" },
 ];
 
-const CONTEXT_SHAPES = [
-  // Vietnam — thin coastal crescent east of Laos/Cambodia
-  "M420,58 L460,78 L476,150 L460,220 L442,268 L452,330 L430,346 L410,300 L416,240 L400,180 L410,110 Z",
-  // Thailand — west of Laos/Cambodia, tapering into the peninsula
-  "M260,78 L302,68 L312,120 L296,170 L312,212 L296,262 L270,322 L255,382 L245,428 L218,382 L208,300 L214,220 L230,150 Z",
-  // East Malaysia / Borneo — landmass hosting Brunei
-  "M618,340 L700,318 L762,330 L792,362 L770,402 L698,412 L638,392 L608,364 Z",
-  // Sumatra hint — bottom-left corner
-  "M140,540 L182,560 L160,612 L98,616 L70,580 L92,544 Z",
-];
-
-const MALAYSIA_PENINSULA =
-  "M246,430 L262,440 L272,472 L260,502 L240,522 L214,506 L204,470 L216,440 Z";
-const PHILIPPINES_ISLANDS = [
-  "M830,70 L862,80 L876,122 L864,172 L840,192 L810,172 L800,120 L810,86 Z", // Luzon
-  "M828,210 L850,214 L846,236 L820,232 L814,216 Z", // Visayas
-  "M850,260 L892,254 L912,292 L896,332 L854,336 L834,300 L840,270 Z", // Mindanao
-];
-
-const STATUS_COLOR: Record<Market["status"], { stroke: string; fill: string; dot: string }> = {
-  active: { stroke: "#4ADE80", fill: "rgba(74,222,128,0.12)", dot: "#4ADE80" },
-  partner: { stroke: "#FBBF24", fill: "rgba(251,191,36,0.10)", dot: "#FBBF24" },
+const STATUS_DOT: Record<Market["status"], string> = {
+  active: "var(--color-emerald)",
+  partner: "var(--color-warning-400)",
 };
+
+/** Quadratic-bezier "flight path" arc, always curving upward. */
+function arcPath(x1: number, y1: number, x2: number, y2: number) {
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+  const curve = Math.min(Math.hypot(x2 - x1, y2 - y1) * 0.28, 150);
+  return { d: `M ${x1},${y1} Q ${mx},${my - curve} ${x2},${y2}`, cx: mx, cy: my - curve };
+}
+
+/** Point on that same quadratic bezier at t, for sampling pulse keyframes. */
+function bezierPoint(t: number, x1: number, y1: number, cx: number, cy: number, x2: number, y2: number) {
+  const u = 1 - t;
+  return {
+    x: u * u * x1 + 2 * u * t * cx + t * t * x2,
+    y: u * u * y1 + 2 * u * t * cy + t * t * y2,
+  };
+}
+
+const SAMPLE_T = [0, 0.2, 0.4, 0.6, 0.8, 1];
 
 export function RegionalPresence() {
   const reduce = useReducedMotion();
 
   return (
     <section className="relative overflow-hidden bg-[#070a12] py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.12]" />
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.08]" />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/4 top-0 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(59,130,246,0.18),transparent)] blur-3xl"
+        className="pointer-events-none absolute left-1/4 top-0 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-500)_25%,transparent),transparent)] blur-3xl"
       />
 
       <Container className="relative">
         <Reveal>
-          <span className="inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-[#60A5FA]">
-            <span aria-hidden className="h-px w-6 bg-[#60A5FA]" />
+          <span className="inline-flex items-center gap-2.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-brand-400)]">
+            <span aria-hidden className="h-px w-6 bg-[color:var(--color-brand-400)]" />
             Regional presence
           </span>
         </Reveal>
@@ -85,79 +112,81 @@ export function RegionalPresence() {
 
         <Reveal delay={0.15}>
           <div className="relative mt-14 overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b1120] shadow-[0_40px_80px_-40px_rgba(0,0,0,0.6)]">
-            {/* Console header */}
+            {/* Header — same mono-label + live-pulse pattern as the Process section's board */}
             <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 sm:px-8">
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7DD3FC]">
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
                 {"// Regional operations map"}
               </span>
-              <span className="flex items-center gap-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#4ADE80]">
+              <span className="flex items-center gap-1.5 rounded-full bg-[color-mix(in_oklab,var(--color-emerald)_16%,transparent)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[color:var(--color-emerald)]">
                 <span className="relative flex h-1.5 w-1.5">
                   {!reduce && (
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ADE80] opacity-70" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--color-emerald)] opacity-70" />
                   )}
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#4ADE80]" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--color-emerald)]" />
                 </span>
                 Live monitoring
               </span>
             </div>
 
             {/* Map */}
-            <div className="relative">
-              <svg viewBox="0 0 1000 620" className="w-full" role="img" aria-label="Map of Sinvonix's Southeast Asian footprint: headquartered in Singapore, active in Laos, Cambodia and Brunei, with partner networks in Malaysia and the Philippines">
+            <div className="relative px-2 pb-16 pt-6 sm:px-4">
+              <svg viewBox={`0 0 ${VB.w} ${VB.h}`} className="w-full" role="img" aria-label="Map of Sinvonix's Southeast Asian footprint: headquartered in Singapore, active in Laos, Cambodia and Brunei, with partner networks in Malaysia, the Philippines and Australia">
+                {/* dotted region texture */}
+                {DOTS.map((d, i) => (
+                  <circle key={i} cx={d.x} cy={d.y} r="1.4" fill="rgba(255,255,255,0.14)" />
+                ))}
+
+                {/* curved connector arcs, HQ → each market */}
+                {markets.map((m, i) => {
+                  const arc = arcPath(HQ.x, HQ.y, m.x, m.y);
+                  return (
+                    <motion.path
+                      key={`arc-${m.name}`}
+                      d={arc.d}
+                      fill="none"
+                      stroke="url(#reg-line)"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 1.1, delay: 0.2 + i * 0.12, ease: EASE }}
+                    />
+                  );
+                })}
                 <defs>
                   <linearGradient id="reg-line" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stopColor="#60A5FA" stopOpacity="0.9" />
-                    <stop offset="1" stopColor="#60A5FA" stopOpacity="0.15" />
+                    <stop offset="0" stopColor="var(--color-brand-400)" stopOpacity="0.95" />
+                    <stop offset="1" stopColor="var(--color-brand-400)" stopOpacity="0.15" />
                   </linearGradient>
                 </defs>
 
-                {/* faint unlabeled context landmasses */}
-                {CONTEXT_SHAPES.map((d, i) => (
-                  <path key={i} d={d} fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" strokeWidth="1.5" />
-                ))}
-
-                {/* connector lines from HQ to every labeled market */}
-                {markets.map((m, i) => (
-                  <motion.line
-                    key={`line-${m.code}`}
-                    x1={HQ.x}
-                    y1={HQ.y}
-                    x2={m.x}
-                    y2={m.y}
-                    stroke="url(#reg-line)"
-                    strokeWidth="1.5"
-                    strokeDasharray="3 5"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    whileInView={{ pathLength: 1, opacity: 1 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: EASE }}
-                  />
-                ))}
-
-                {/* traveling pulses */}
+                {/* traveling pulses, sampled along each arc */}
                 {!reduce &&
-                  markets.map((m, i) => (
-                    <motion.circle
-                      key={`pulse-${m.code}`}
-                      r="3"
-                      fill="#93C5FD"
-                      initial={{ cx: HQ.x, cy: HQ.y, opacity: 0 }}
-                      animate={{ cx: [HQ.x, m.x], cy: [HQ.y, m.y], opacity: [0, 1, 1, 0] }}
-                      transition={{
-                        duration: 2.4,
-                        repeat: Infinity,
-                        repeatDelay: 1.6,
-                        delay: 1 + i * 0.4,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  ))}
-
-                {/* Malaysia peninsula + Philippine islands — shaped fills for the two multi-part markets */}
-                <path d={MALAYSIA_PENINSULA} fill={STATUS_COLOR.partner.fill} stroke={STATUS_COLOR.partner.stroke} strokeWidth="1.5" />
-                {PHILIPPINES_ISLANDS.map((d, i) => (
-                  <path key={i} d={d} fill={STATUS_COLOR.partner.fill} stroke={STATUS_COLOR.partner.stroke} strokeWidth="1.5" />
-                ))}
+                  markets.map((m, i) => {
+                    const arc = arcPath(HQ.x, HQ.y, m.x, m.y);
+                    const pts = SAMPLE_T.map((t) => bezierPoint(t, HQ.x, HQ.y, arc.cx, arc.cy, m.x, m.y));
+                    return (
+                      <motion.circle
+                        key={`pulse-${m.name}`}
+                        r="3.5"
+                        fill="white"
+                        initial={{ opacity: 0 }}
+                        animate={{
+                          cx: pts.map((p) => p.x),
+                          cy: pts.map((p) => p.y),
+                          opacity: [0, 1, 1, 1, 1, 0],
+                        }}
+                        transition={{
+                          duration: 2.4,
+                          repeat: Infinity,
+                          repeatDelay: 1.8,
+                          delay: 1.2 + i * 0.4,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    );
+                  })}
 
                 {/* HQ marker */}
                 <motion.g
@@ -166,55 +195,72 @@ export function RegionalPresence() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.5, ease: EASE }}
                 >
-                  <circle cx={HQ.x} cy={HQ.y} r="14" fill="rgba(96,165,250,0.18)" />
-                  <circle cx={HQ.x} cy={HQ.y} r="5" fill="#60A5FA" stroke="#0b1120" strokeWidth="2" />
-                  <text x={HQ.x + 12} y={HQ.y + 4} fill="#DBEAFE" fontSize="13" fontWeight="700" fontFamily="var(--font-display-var), sans-serif">
-                    SG · HQ
-                  </text>
+                  <circle cx={HQ.x} cy={HQ.y} r="16" fill="color-mix(in oklab, var(--color-brand-400) 22%, transparent)" />
+                  <circle cx={HQ.x} cy={HQ.y} r="5.5" fill="var(--color-brand-400)" stroke="#0b1120" strokeWidth="2.5" />
+                  <foreignObject x={HQ.x - 85} y={HQ.y + 12} width="170" height="34">
+                    <div className="flex justify-center">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-white backdrop-blur">
+                        <Building2 className="h-3 w-3 text-[color:var(--color-brand-300)]" />
+                        Singapore · HQ
+                      </span>
+                    </div>
+                  </foreignObject>
                 </motion.g>
 
-                {/* market markers */}
+                {/* market markers + pill labels */}
                 {markets.map((m, i) => {
-                  const c = STATUS_COLOR[m.status];
+                  const above = m.y > 90;
+                  const labelY = above ? m.y - 44 : m.y + 12;
                   return (
                     <motion.g
-                      key={m.code}
+                      key={m.name}
                       initial={{ opacity: 0, scale: 0.5 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 0.5, delay: 0.3 + i * 0.08, ease: EASE }}
+                      transition={{ duration: 0.5, delay: 0.35 + i * 0.08, ease: EASE }}
                     >
                       <motion.circle
                         cx={m.x}
                         cy={m.y}
                         r="5"
-                        fill={c.dot}
+                        fill={STATUS_DOT[m.status]}
                         stroke="#0b1120"
                         strokeWidth="2"
                         animate={reduce ? undefined : { opacity: [1, 0.55, 1] }}
                         transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }}
                       />
-                      <text x={m.x + 10} y={m.y + 4} fill="#E5E7EB" fontSize="12" fontWeight="600" fontFamily="ui-monospace, monospace">
-                        {m.code}
-                      </text>
+                      <foreignObject x={m.x - 85} y={labelY} width="170" height="32">
+                        <div className="flex justify-center">
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[11px] font-medium tracking-wide text-white/90 backdrop-blur">
+                            <span
+                              className="h-1.5 w-1.5 shrink-0 rounded-full"
+                              style={{ background: STATUS_DOT[m.status] }}
+                            />
+                            {m.name}
+                          </span>
+                        </div>
+                      </foreignObject>
                     </motion.g>
                   );
                 })}
               </svg>
 
               {/* subsidiary footnote — Australia sits outside the ASEAN frame */}
-              <div className="absolute bottom-4 right-4 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-white/60 backdrop-blur sm:bottom-6 sm:right-6">
-                + Australia — subsidiary
+              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-[11px] font-medium text-white/55 backdrop-blur">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: STATUS_DOT.partner }} />
+                  + Australia — subsidiary
+                </span>
               </div>
             </div>
 
             {/* Legend */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 px-6 py-4 text-xs text-white/60 sm:px-8">
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#4ADE80]" /> Active markets — Brunei, Cambodia, Laos
+                <span className="h-2 w-2 rounded-full" style={{ background: STATUS_DOT.active }} /> Active markets — Brunei, Cambodia, Laos
               </span>
               <span className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#FBBF24]" /> Partner networks &amp; subsidiary — Malaysia, Philippines, Australia
+                <span className="h-2 w-2 rounded-full" style={{ background: STATUS_DOT.partner }} /> Partner networks &amp; subsidiary — Malaysia, Philippines, Australia
               </span>
             </div>
           </div>
