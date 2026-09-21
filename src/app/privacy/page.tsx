@@ -4,11 +4,11 @@ import { LegalPage, type LegalSection } from "@/components/layout/legal-page";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Nimbus collects, uses and protects the personal information you share with us.",
+    "How Sinvonix collects, uses and protects the personal information you share with us.",
   openGraph: {
-    title: "Privacy Policy · Nimbus",
+    title: "Privacy Policy · Sinvonix",
     description:
-      "How Nimbus collects, uses and protects the personal information you share with us.",
+      "How Sinvonix collects, uses and protects the personal information you share with us.",
   },
 };
 
@@ -31,7 +31,7 @@ const sections: LegalSection[] = [
     heading: "How we share information",
     body: [
       "We do not sell your personal information. We share it only with the service providers that help us operate — for example email, scheduling and hosting platforms — and only to the extent needed to provide those services.",
-      "We may disclose information where required by law, or to protect the rights, safety and property of Nimbus, our clients or others.",
+      "We may disclose information where required by law, or to protect the rights, safety and property of Sinvonix, our clients or others.",
     ],
   },
   {
@@ -44,7 +44,7 @@ const sections: LegalSection[] = [
     heading: "Your rights",
     body: [
       "Depending on where you live, you may have the right to access, correct, export or delete the personal information we hold about you, and to object to or restrict certain processing.",
-      "To exercise any of these rights, email us at hello@nimbus.dev and we will respond within a reasonable timeframe.",
+      "To exercise any of these rights, email us at hello@sinvonix.com and we will respond within a reasonable timeframe.",
     ],
   },
   {
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
     <LegalPage
       title="Privacy Policy"
       updated="July 2026"
-      intro="Your privacy matters to us. This policy explains what information we collect, why we collect it, and the choices you have. It applies to nimbus.dev and the services we provide through it."
+      intro="Your privacy matters to us. This policy explains what information we collect, why we collect it, and the choices you have. It applies to sinvonix.com and the services we provide through it."
       sections={sections}
     />
   );

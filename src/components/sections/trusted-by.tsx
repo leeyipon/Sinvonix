@@ -5,10 +5,10 @@ import { Reveal } from "@/components/motion/reveal";
 import { clients } from "@/lib/site";
 
 const compliance = [
-  { icon: ShieldCheck, label: "SOC 2 Type II" },
-  { icon: FileCheck2, label: "ISO 27001" },
-  { icon: Lock, label: "GDPR compliant" },
-  { icon: Activity, label: "99.99% uptime SLA" },
+  { icon: ShieldCheck, label: "FATF-Aligned" },
+  { icon: FileCheck2, label: "NIST Cryptographic Standards" },
+  { icon: Lock, label: "Regional Data Protection" },
+  { icon: Activity, label: "24/7 MDR Coverage" },
 ];
 
 export function TrustedBy() {
@@ -16,7 +16,7 @@ export function TrustedBy() {
     <section className="border-y border-line bg-bg-subtle/60 py-14 sm:py-16">
       <Container>
         <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-faint">
-          Trusted by teams shipping at scale
+          Backed by world-class technology alliances
         </p>
       </Container>
 

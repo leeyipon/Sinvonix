@@ -8,16 +8,17 @@
 
 /* ---- guided flow vocabulary ------------------------------------------ */
 
+/** Which Sinvonix product the visitor's need points to. */
 export type SolutionId =
-  | "web"
-  | "mobile"
-  | "ai"
-  | "system"
-  | "automation"
-  | "design"
+  | "cordon"
+  | "aevix"
+  | "conversa-ci-hub"
+  | "chronicle-ai"
+  | "managed-security"
   | "unsure";
 
-export type SizeId = "startup" | "small" | "medium" | "enterprise";
+/** Deployment scope (field/type name kept as `size` for minimal churn). */
+export type SizeId = "standalone" | "multi" | "platform" | "evaluating";
 
 /** The steps of the guided qualification flow, in order. */
 export type FlowStepId = "solution" | "industry" | "size" | "features";
@@ -63,29 +64,24 @@ export type Option = { value: string; label: string; hint?: string };
 export type Widget =
   | { kind: "options"; step: FlowStepId; options: Option[]; multi?: boolean }
   | { kind: "recommendation"; data: Recommendation }
-  | { kind: "estimate"; data: Estimate }
   | { kind: "lead-form" }
   | { kind: "escalation" };
 
-/* ---- recommendation + estimate payloads ------------------------------ */
+/* ---- recommendation payload -------------------------------------------
+ * Sinvonix doesn't publish self-serve pricing, so there's no dollar
+ * "Estimate" type here — every guided flow ends in a product recommendation
+ * and a call to schedule a briefing, never a fabricated cost range. */
 
 export type Recommendation = {
   title: string;
   summary: string;
+  /** Capabilities included in the recommended product(s). */
   modules: string[];
   timeline: string;
+  /** How the visitor said they want to deploy (standalone / multi / platform). */
+  deployment: string;
+  /** Short "why it fits" highlight tags. */
   team: string[];
-};
-
-export type Estimate = {
-  complexity: "Starter" | "Standard" | "Advanced" | "Enterprise-grade";
-  teamSize: number;
-  team: string[];
-  timeline: string;
-  stack: string[];
-  phases: { name: string; desc: string }[];
-  costLow: number;
-  costHigh: number;
 };
 
 /* ---- leads ----------------------------------------------------------- */
@@ -145,15 +141,10 @@ export interface AgentEngine {
 /* ---- quick actions --------------------------------------------------- */
 
 export type QuickActionId =
-  | "web"
-  | "mobile"
-  | "ai-agent"
-  | "logistics"
-  | "crm"
-  | "erp"
-  | "cloud"
-  | "automation"
-  | "design"
-  | "transformation"
-  | "book"
-  | "estimate";
+  | "cordon"
+  | "aevix"
+  | "conversa-ci-hub"
+  | "chronicle-ai"
+  | "managed-security"
+  | "recommend"
+  | "book";

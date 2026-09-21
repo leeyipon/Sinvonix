@@ -85,11 +85,11 @@ export function Navbar() {
         )}
       >
         {onHome ? (
-          <a href="#top" aria-label="Nimbus home" className="shrink-0">
+          <a href="#top" aria-label="Sinvonix home" className="shrink-0">
             <MainLogo className="h-9 sm:h-10" />
           </a>
         ) : (
-          <Link href="/" aria-label="Nimbus home" className="shrink-0">
+          <Link href="/" aria-label="Sinvonix home" className="shrink-0">
             <MainLogo className="h-9 sm:h-10" />
           </Link>
         )}
@@ -135,7 +135,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button onClick={openScheduler} size="sm" className="hidden sm:inline-flex">
-            Get Started
+            Schedule a Briefing
           </Button>
           <button
             type="button"
@@ -185,7 +185,7 @@ export function Navbar() {
                     openScheduler();
                   }}
                 >
-                  Get Started
+                  Schedule a Briefing
                 </Button>
               </li>
             </ul>

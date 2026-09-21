@@ -1,7 +1,8 @@
 /**
  * Scripted implementation of {@link AgentEngine}. It routes the visitor's
- * actions through the guided flow, the knowledge base, the estimator and the
- * escalation paths, returning assistant turns plus an updated context.
+ * actions through the guided flow, the knowledge base, the product
+ * recommendation and the escalation paths, returning assistant turns plus an
+ * updated context.
  *
  * Everything here is a pure function of (context, action) — no I/O, no React —
  * which is exactly what a future LLM-backed engine would replace.
@@ -22,7 +23,6 @@ import type {
 import { FEATURES, INDUSTRIES, SIZES, SOLUTIONS, SOLUTION_LABEL } from "./flow";
 import { searchKnowledge } from "./knowledge";
 import { recommend } from "./recommend";
-import { estimate } from "./estimator";
 import { scoreFromCollected, scoreLead } from "./leads";
 import { saveLead } from "./store";
 import { notifyLead } from "./notify";
@@ -30,48 +30,42 @@ import { notifyLead } from "./notify";
 /* ---- quick actions (also consumed by the UI) ------------------------- */
 
 export const QUICK_ACTIONS: { id: QuickActionId; label: string }[] = [
-  { id: "web", label: "Create a Web Application" },
-  { id: "mobile", label: "Build a Mobile App" },
-  { id: "ai-agent", label: "Develop an AI Agent" },
-  { id: "logistics", label: "Logistics Management System" },
-  { id: "crm", label: "CRM System" },
-  { id: "erp", label: "ERP Solution" },
-  { id: "cloud", label: "Cloud Migration" },
-  { id: "automation", label: "Automation" },
-  { id: "design", label: "UI/UX Design" },
-  { id: "transformation", label: "Digital Transformation" },
-  { id: "book", label: "Book Consultation" },
-  { id: "estimate", label: "Get Project Estimate" },
+  { id: "cordon", label: "Fraud & AML (CORDON)" },
+  { id: "aevix", label: "Payment Security (AEVIX)" },
+  { id: "conversa-ci-hub", label: "Contact Centre" },
+  { id: "chronicle-ai", label: "AI & Automation" },
+  { id: "managed-security", label: "Managed Security" },
+  { id: "recommend", label: "Recommend a Product" },
+  { id: "book", label: "Schedule a Briefing" },
 ];
 
 const NEXT_STEP_SUGGESTIONS = [
-  "Get a project estimate",
-  "Book a consultation",
+  "Schedule a briefing",
+  "Share my details",
   "Talk to an expert",
 ];
 
 /* ---- welcome --------------------------------------------------------- */
 
-const WELCOME = `👋 Hello! I'm your **AI Solutions Consultant**.
+const WELCOME = `👋 Hello! I'm **Navi**, your Sinvonix platform consultant.
 
 I can help you:
 
-- Recommend the best software solution
-- Explain our services
-- Estimate project costs
-- Book a free consultation
-- Answer technical questions
-- Connect you with our experts
+- Recommend the right product for your needs
+- Explain CORDON, AEVIX, Conversa CI Hub, Chronicle AI & Managed Security
+- Answer questions on compliance, regions & deployment
+- Schedule a briefing with our team
+- Connect you with a specialist
 
-**What would you like to build today?**`;
+**What are you looking to solve?**`;
 
 /* ---- step prompts ---------------------------------------------------- */
 
 const STEP_PROMPT: Record<FlowStepId, string> = {
-  solution: "What type of solution are you looking for?",
-  industry: "Got it. What industry are you in?",
-  size: "And how big is this project?",
-  features: "Which features do you need? Pick all that apply, then hit Continue.",
+  solution: "What's the primary challenge you're looking to solve?",
+  industry: "Got it. Which industry are you in?",
+  size: "How would you like to deploy — one product, a few, or the full platform?",
+  features: "Which capabilities matter most? Pick all that apply, then hit Continue.",
 };
 
 function optionsFor(step: FlowStepId, collected: Collected) {
@@ -114,7 +108,7 @@ function finalize(collected: Collected): AssistantTurn[] {
   return [
     { text: rec.summary, widget: { kind: "recommendation", data: rec } },
     {
-      text: "Would you like a detailed **cost & timeline estimate**, or shall I set up a free consultation with our team?",
+      text: "Want to take the next step? I can schedule a briefing with our team, or capture your details for a tailored follow-up.",
     },
   ];
 }
@@ -133,23 +127,21 @@ function has(text: string, words: string[]): boolean {
   return words.some((w) => t.includes(w));
 }
 
-/** Infer a solution (and sometimes industry) from a free-text message. */
+/** Infer a product (and sometimes industry) from a free-text message. */
 function detectSolution(text: string): { solution?: SolutionId; industry?: string } {
   const t = text.toLowerCase();
   const out: { solution?: SolutionId; industry?: string } = {};
 
-  if (has(t, ["logistics", "delivery", "fleet", "warehouse", "inventory", "crm", "erp", "pos", "management system"])) {
-    out.solution = "system";
-  } else if (has(t, ["chatbot", "ai agent", " ai ", "artificial intelligence", "llm", "voice ai", "rag"])) {
-    out.solution = "ai";
-  } else if (has(t, ["mobile app", "ios", "android", "flutter", "react native"])) {
-    out.solution = "mobile";
-  } else if (has(t, ["automation", "automate", "workflow"])) {
-    out.solution = "automation";
-  } else if (has(t, ["ui", "ux", "design", "prototype", "wireframe"])) {
-    out.solution = "design";
-  } else if (has(t, ["web app", "website", "web application", "saas", "portal", "platform", "dashboard"])) {
-    out.solution = "web";
+  if (has(t, ["fraud", "aml", "money laundering", "transaction screening", "mule", "kyc", "pep"])) {
+    out.solution = "cordon";
+  } else if (has(t, ["payment security", "quantum", "pqc", "pos terminal", "cryptography", "encryption", "tls"])) {
+    out.solution = "aevix";
+  } else if (has(t, ["contact centre", "contact center", "call centre", "call center", "omnichannel", "agent assist"])) {
+    out.solution = "conversa-ci-hub";
+  } else if (has(t, ["automation", "workflow", "orchestration", "predictive analytics", "compliance workflow"])) {
+    out.solution = "chronicle-ai";
+  } else if (has(t, ["mdr", "managed detection", "endpoint", "iam", "identity access", "zero trust", "digital risk", "managed security"])) {
+    out.solution = "managed-security";
   }
 
   for (const ind of INDUSTRIES) {
@@ -160,24 +152,6 @@ function detectSolution(text: string): { solution?: SolutionId; industry?: strin
   }
   return out;
 }
-
-/* ---- quick action mapping -------------------------------------------- */
-
-const QUICK_SOLUTION: Partial<Record<QuickActionId, SolutionId>> = {
-  web: "web",
-  mobile: "mobile",
-  "ai-agent": "ai",
-  logistics: "system",
-  crm: "system",
-  erp: "system",
-  automation: "automation",
-  design: "design",
-  transformation: "unsure",
-};
-
-const QUICK_INDUSTRY: Partial<Record<QuickActionId, string>> = {
-  logistics: "Logistics",
-};
 
 /* ---- the engine ------------------------------------------------------ */
 
@@ -240,53 +214,25 @@ function advance(collected: Collected, ctx: EngineContext, prefix?: string): Eng
 
 function handleQuick(ctx: EngineContext, id: QuickActionId): EngineResult {
   if (id === "book") return openScheduler(ctx.collected, ctx);
-  if (id === "estimate") return startEstimate(ctx.collected, ctx);
-  if (id === "cloud") {
-    return {
-      turns: [
-        {
-          text: "**Cloud Migration** — we move you to AWS, Azure or Google Cloud with zero-downtime deploys, CI/CD and cost optimization, and can deploy into your own account so you own the infrastructure.",
-        },
-      ],
-      collected: ctx.collected,
-      leadScore: scoreWith(ctx.collected, ctx),
-      suggestions: ["Get a project estimate", "Book a consultation", "Talk to an expert"],
-    };
-  }
+  if (id === "recommend") return startRecommendation(ctx.collected, ctx);
 
-  const solution = QUICK_SOLUTION[id];
-  if (!solution) return handleText(ctx, id);
-
+  // The remaining quick-action ids are exactly the product slugs.
+  const solution = id as SolutionId;
   const collected: Collected = { ...ctx.collected, solution };
-  const industry = QUICK_INDUSTRY[id];
-  if (industry) collected.industry = industry;
-
   const ack = `Great — a ${SOLUTION_LABEL[solution]}.`;
   return advance(collected, ctx, ack);
 }
 
-function startEstimate(collected: Collected, ctx: EngineContext): EngineResult {
-  // Need at least a solution + size to estimate; otherwise gather via the flow.
+/** Jump straight to a recommendation if we already have enough, else keep asking. */
+function startRecommendation(collected: Collected, ctx: EngineContext): EngineResult {
   if (!collected.solution || !collected.size) {
-    return advance(collected, ctx, "To estimate accurately I need a few quick details.");
+    return advance(collected, ctx, "Let's find the right fit — a few quick questions.");
   }
-  return produceEstimate(collected, ctx);
-}
-
-function produceEstimate(collected: Collected, ctx: EngineContext): EngineResult {
   return {
-    turns: [
-      {
-        text: "Here's a ballpark based on what you've shared — every figure is a range, and we'll refine it together.",
-        widget: { kind: "estimate", data: estimate(collected) },
-      },
-      {
-        text: "Want the next step? I can capture your details for a tailored proposal, or set up a call.",
-      },
-    ],
+    turns: finalize(collected),
     collected,
     leadScore: scoreWith(collected, ctx, 20),
-    suggestions: ["Share my details", "Book a consultation", "Talk to an expert"],
+    suggestions: NEXT_STEP_SUGGESTIONS,
   };
 }
 
@@ -334,19 +280,21 @@ function handleLead(ctx: EngineContext, lead: Lead): EngineResult {
   return {
     turns: [
       {
-        text: `Thanks, ${lead.name.split(" ")[0] || "there"}! ✅ Your details are saved and our team will be in touch within one business day. In the meantime, would you like to book a time directly?`,
+        text: `Thanks, ${lead.name.split(" ")[0] || "there"}! ✅ Your details are saved and our team will be in touch within one business day. In the meantime, would you like to schedule a briefing directly?`,
       },
     ],
     collected: ctx.collected,
     leadScore: scored.score ?? ctx.leadScore,
-    suggestions: ["Book a consultation", "Get a project estimate"],
+    suggestions: ["Schedule a briefing", "Recommend a product"],
   };
 }
 
 function handleIntent(ctx: EngineContext, intent: "estimate" | "booking" | "human" | "restart"): EngineResult {
   switch (intent) {
+    // Named "estimate" for backward compatibility with dispatch call sites,
+    // but this now always yields a product recommendation, never a price.
     case "estimate":
-      return startEstimate(ctx.collected, ctx);
+      return startRecommendation(ctx.collected, ctx);
     case "booking":
       return openScheduler(ctx.collected, ctx);
     case "human":
@@ -366,7 +314,7 @@ function handleText(ctx: EngineContext, raw: string): EngineResult {
 
   // 1) explicit intents
   if (has(text, ["start over", "restart", "reset"])) return handleIntent(ctx, "restart");
-  if (has(text, ["book", "consultation", "schedule", "meeting", "appointment", "call"])) {
+  if (has(text, ["book", "briefing", "schedule", "meeting", "appointment", "call"])) {
     return openScheduler(collected, ctx);
   }
   if (has(text, ["talk to", "human", "expert", "architect", "representative", "sales rep", "someone", "real person"])) {
@@ -375,11 +323,11 @@ function handleText(ctx: EngineContext, raw: string): EngineResult {
   if (has(text, ["share my details", "my details", "proposal", "contact me", "reach me", "email me", "qualify"])) {
     return showLeadForm(collected, ctx);
   }
-  if (has(text, ["estimate", "cost", "price", "how much", "quote", "budget", "pricing"])) {
-    return startEstimate(collected, ctx);
+  if (has(text, ["recommend", "which product", "right fit", "help me choose", "not sure which"])) {
+    return startRecommendation(collected, ctx);
   }
 
-  // 2) infer a solution from natural language ("I need a logistics system…")
+  // 2) infer a product from natural language ("we need fraud screening…")
   if (!collected.solution) {
     const detected = detectSolution(text);
     if (detected.solution) {
@@ -410,6 +358,6 @@ function handleText(ctx: EngineContext, raw: string): EngineResult {
     ],
     collected,
     leadScore: scoreWith(collected, ctx),
-    suggestions: ["Recommend a solution", "Get a project estimate"],
+    suggestions: ["Recommend a product", "Schedule a briefing"],
   };
 }

@@ -13,17 +13,17 @@ export function WorkIndex() {
 
       <Container>
         <Reveal>
-          <Eyebrow>Case studies</Eyebrow>
+          <Eyebrow>Track record</Eyebrow>
         </Reveal>
         <Reveal delay={0.05}>
           <h1 className="mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.05] sm:text-5xl md:text-6xl">
-            Work that moved the <span className="text-accent">numbers</span>
+            Live in production, <span className="text-accent">not in pilot</span>
           </h1>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted sm:text-lg">
-            Five recent engagements across software, AI, growth and design — what the
-            client was up against, what we shipped, and the results that followed.
+            Three deployment tracks running as recurring operations across ASEAN — what
+            each one solves, how it&apos;s delivered, and where it stands today.
           </p>
         </Reveal>
 

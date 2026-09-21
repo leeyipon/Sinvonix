@@ -284,10 +284,10 @@ export function JoinWidget({
     <div className="grid gap-4 p-6 sm:grid-cols-2 sm:p-8">
       <ActionCard
         icon={Send}
-        title="Chat on Telegram"
+        title="Connect on LinkedIn"
         desc="Message us directly for a quick chat about openings and next steps."
-        cta="Open Telegram"
-        href={site.socials.telegram}
+        cta="Open LinkedIn"
+        href={site.socials.linkedin}
         onClick={onDone}
       />
       <ActionCard

@@ -36,13 +36,13 @@ export function CTA() {
 
           <Reveal>
             <h2 className="text-balance text-3xl font-semibold leading-tight text-white sm:text-5xl">
-              Ready to Build Something Amazing?
+              Ready to See the Platform?
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mx-auto mt-5 max-w-xl text-pretty text-lg text-white/85">
-              Tell us about your product, your goals and your timeline. We&apos;ll come back with a
-              plan — usually within a day.
+              Tell us what you need. Our team typically responds within one business day —
+              standalone product or unified platform, either way.
             </p>
           </Reveal>
 
@@ -53,10 +53,10 @@ export function CTA() {
                   onClick={open}
                   size="lg"
                   variant="secondary"
-                  className="bg-white text-brand-700 hover:bg-white"
+                  className="!bg-white text-brand-700 hover:!bg-white"
                 >
                   <CalendarDays className="h-4 w-4" />
-                  Schedule a Meeting
+                  Schedule a Briefing
                 </Button>
               </Magnetic>
               <Button
@@ -65,7 +65,7 @@ export function CTA() {
                 className="bg-white/10 text-white ring-1 ring-inset ring-white/30 backdrop-blur hover:bg-white/20"
               >
                 <Rocket className="h-4 w-4" />
-                Start Your Project
+                Explore Platform
               </Button>
             </div>
           </Reveal>

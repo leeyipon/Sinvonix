@@ -1,7 +1,7 @@
 import {
   Sparkles,
   Users,
-  GraduationCap,
+  Handshake,
   Target,
   Globe,
   Scale,
@@ -14,54 +14,55 @@ export const companyStats: {
   label: string;
   decimals?: number;
 }[] = [
-  { value: 48, suffix: "", label: "Team Members" },
-  { value: 180, suffix: "+", label: "Projects Delivered" },
-  { value: 95, suffix: "%", label: "Client Retention" },
-  { value: 12, suffix: "", label: "Countries Served" },
-  { value: 4.9, suffix: "/5", label: "Client Rating", decimals: 1 },
-  { value: 10, suffix: "", label: "Years in Business" },
+  { value: 50, suffix: "+", label: "Years Combined Experience" },
+  { value: 7, suffix: "", label: "ASEAN Markets" },
+  { value: 5, suffix: "", label: "Integrated Products" },
+  { value: 10, suffix: "+", label: "Global Tech Partners" },
+  { value: 4, suffix: "", label: "Industries Served" },
+  { value: 6, suffix: "", label: "Core Platform Pillars" },
 ];
 
+// "Why Sinvonix" — the six pillars Sinvonix itself leads with.
 export const culture: { icon: LucideIcon; title: string; desc: string }[] = [
-  { icon: Sparkles, title: "Innovation", desc: "We embrace emerging technologies to build future-ready solutions." },
-  { icon: Users, title: "Collaboration", desc: "Great ideas come from teamwork across disciplines." },
-  { icon: GraduationCap, title: "Continuous Learning", desc: "Every team member receives an annual learning budget and certification support." },
-  { icon: Target, title: "Ownership", desc: "Everyone takes responsibility for delivering meaningful results." },
-  { icon: Globe, title: "Diversity", desc: "We believe different perspectives create stronger products." },
-  { icon: Scale, title: "Work-Life Balance", desc: "Flexible schedules and remote-first collaboration." },
+  { icon: Globe, title: "ASEAN-Native Expertise", desc: "Over 50 years of combined experience operating across ASEAN's regulated markets — the regulatory landscape, procurement cycles and compliance requirements global vendors overlook." },
+  { icon: Target, title: "Proven Revenue Base", desc: "Active recurring contracts across multiple ASEAN markets. Our platforms protect live banking networks and enterprise infrastructure in production today, not in pilot." },
+  { icon: Sparkles, title: "Five Integrated Products", desc: "Fraud intelligence, quantum-readiness, contact centres, AI automation and managed security in a unified platform — cross-sell and expand within every client relationship." },
+  { icon: Users, title: "World-Class Alliances", desc: "Strategic partnerships with Google Cloud, Mandiant, IDEMIA, Trellix, Nutanix and more — global technology brought to local markets with implementation expertise that scales." },
+  { icon: Scale, title: "Compliance-First Design", desc: "Our platforms align with FATF recommendations, regional data protection laws and NIST cryptographic standards — built from day one for regulators, not retrofitted." },
+  { icon: Handshake, title: "Senior-Led Engagements", desc: "When you work with Sinvonix, you work directly with the people who built the platform. No layers of account managers between you and the team that can actually solve your problem." },
 ];
 
+// Attributed to Sinvonix's functional teams rather than named individuals —
+// the real site describes the org by function, not headshots and bylines.
 export const employeeTestimonials = [
   {
     quote:
-      "Working here has given me opportunities to solve challenging engineering problems while learning from an incredible team.",
-    name: "Sophia Nguyen",
-    role: "Backend Engineer",
-    initials: "SN",
+      "Clients don't get routed through account management layers here — you talk to the person who can actually solve the problem.",
+    name: "Enterprise Sales & Partnerships",
+    role: "Sinvonix",
+    initials: "ES",
   },
   {
     quote:
-      "Design decisions are always backed by research, and every designer has a voice in shaping the product.",
-    name: "Olivia Martinez",
-    role: "Senior UX/UI Designer",
-    initials: "OM",
+      "We build for ASEAN's regulatory landscape first, not retrofit a global product after the fact.",
+    name: "Engineering & Product",
+    role: "Sinvonix",
+    initials: "EP",
   },
   {
     quote:
-      "Automation and continuous improvement are part of our daily culture. Every week brings new technical challenges.",
-    name: "Daniel Wong",
-    role: "DevOps Engineer",
-    initials: "DW",
+      "Every deployment is checked against FATF and NIST before it goes live — compliance isn't a phase two.",
+    name: "Delivery & Compliance",
+    role: "Sinvonix",
+    initials: "DC",
   },
 ];
 
 export const openings = [
-  "Senior Frontend Engineer",
-  "Backend Developer",
-  "UX/UI Designer",
-  "QA Automation Engineer",
-  "AI Engineer",
-  "Project Manager",
+  "Senior Security Engineer — Singapore / Remote",
+  "Enterprise Account Executive — Singapore",
+  "AI/ML Engineer — Singapore / Remote",
+  "Solutions Architect — Singapore / Australia",
 ];
 
 export const benefits = [

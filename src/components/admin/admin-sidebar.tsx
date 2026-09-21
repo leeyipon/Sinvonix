@@ -52,7 +52,7 @@ export function AdminSidebar({
               </svg>
             </span>
             <span className="font-display text-sm font-semibold text-content">
-              Nimbus <span className="text-muted">CRM</span>
+              Sinvonix <span className="text-muted">CRM</span>
             </span>
           </Link>
           <button

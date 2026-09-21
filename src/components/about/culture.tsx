@@ -10,9 +10,9 @@ export function Culture() {
     <Section id="culture">
       <Container>
         <SectionHeading
-          eyebrow="Our culture"
-          title="What it feels like to work here"
-          description="The principles that shape how we build, collaborate and grow together."
+          eyebrow="Why Sinvonix"
+          title="Built by operators, not vendors"
+          description="Six reasons regulated institutions across ASEAN choose to work with us."
         />
 
         <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

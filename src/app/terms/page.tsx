@@ -4,11 +4,11 @@ import { LegalPage, type LegalSection } from "@/components/layout/legal-page";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "The terms that govern your use of the Nimbus website and the services we provide.",
+    "The terms that govern your use of the Sinvonix website and the services we provide.",
   openGraph: {
-    title: "Terms of Service · Nimbus",
+    title: "Terms of Service · Sinvonix",
     description:
-      "The terms that govern your use of the Nimbus website and the services we provide.",
+      "The terms that govern your use of the Sinvonix website and the services we provide.",
   },
 };
 
@@ -16,7 +16,7 @@ const sections: LegalSection[] = [
   {
     heading: "Acceptance of these terms",
     body: [
-      "By accessing or using the Nimbus website, you agree to these terms. If you do not agree, please do not use the site. These terms cover use of the site itself; the specific services we deliver to clients are governed by a separate signed agreement.",
+      "By accessing or using the Sinvonix website, you agree to these terms. If you do not agree, please do not use the site. These terms cover use of the site itself; the specific services we deliver to clients are governed by a separate signed agreement.",
     ],
   },
   {
@@ -28,7 +28,7 @@ const sections: LegalSection[] = [
   {
     heading: "Intellectual property",
     body: [
-      "The content on this site — including text, design, graphics, illustrations and code — is owned by Nimbus or its licensors and is protected by intellectual property laws. You may not reproduce, distribute or create derivative works from it without our written permission.",
+      "The content on this site — including text, design, graphics, illustrations and code — is owned by Sinvonix or its licensors and is protected by intellectual property laws. You may not reproduce, distribute or create derivative works from it without our written permission.",
       "Trademarks, logos and brand names shown on the site are the property of their respective owners.",
     ],
   },
@@ -47,13 +47,13 @@ const sections: LegalSection[] = [
   {
     heading: "Limitation of liability",
     body: [
-      "To the fullest extent permitted by law, Nimbus will not be liable for any indirect, incidental or consequential damages arising from your use of, or inability to use, this site.",
+      "To the fullest extent permitted by law, Sinvonix will not be liable for any indirect, incidental or consequential damages arising from your use of, or inability to use, this site.",
     ],
   },
   {
     heading: "Governing law",
     body: [
-      "These terms are governed by the laws applicable in the jurisdiction in which Nimbus is established, without regard to conflict-of-law principles.",
+      "These terms are governed by the laws applicable in the jurisdiction in which Sinvonix is established, without regard to conflict-of-law principles.",
     ],
   },
   {
@@ -69,7 +69,7 @@ export default function TermsPage() {
     <LegalPage
       title="Terms of Service"
       updated="July 2026"
-      intro="These terms govern your use of the Nimbus website. Please read them carefully — they set out the rules for using the site and the basis on which we make its content available."
+      intro="These terms govern your use of the Sinvonix website. Please read them carefully — they set out the rules for using the site and the basis on which we make its content available."
       sections={sections}
     />
   );

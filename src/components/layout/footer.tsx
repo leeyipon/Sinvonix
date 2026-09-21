@@ -12,20 +12,20 @@ type FooterLink = { label: string; href: string };
 
 const columns: { title: string; links: FooterLink[] }[] = [
   {
-    title: "Services",
+    title: "Platform",
     links: [
-      { label: "Software Development", href: "/services/software-development" },
-      { label: "AI Solutions", href: "/services/ai-solutions" },
-      { label: "Digital Marketing", href: "/services/digital-marketing" },
-      { label: "UI/UX Design", href: "/services/ui-ux-design" },
-      { label: "All Services", href: "/services" },
+      { label: "CORDON", href: "/services/cordon" },
+      { label: "AEVIX", href: "/services/aevix" },
+      { label: "Conversa CI Hub", href: "/services/conversa-ci-hub" },
+      { label: "Chronicle AI", href: "/services/chronicle-ai" },
+      { label: "Managed Security", href: "/services/managed-security" },
     ],
   },
   {
     title: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Case Studies", href: "/work" },
+      { label: "Track Record", href: "/work" },
       { label: "Careers", href: "/about#careers" },
       { label: "Contact", href: "/contact" },
     ],
@@ -33,9 +33,10 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Resources",
     links: [
-      { label: "Case Studies", href: "/work" },
+      { label: "Track Record", href: "/work" },
+      { label: "FAQs", href: "/faq" },
       { label: "Support", href: "/contact" },
-      { label: "Book a Call", href: "/contact" },
+      { label: "Schedule a Briefing", href: "/contact" },
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
     ],
@@ -43,10 +44,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
 ];
 
 const socials = [
-  { slug: "x", href: site.socials.twitter, label: "X" },
-  { slug: "github", href: site.socials.github, label: "GitHub" },
   { slug: "linkedin", href: site.socials.linkedin, label: "LinkedIn" },
-  { slug: "dribbble", href: site.socials.dribbble, label: "Dribbble" },
 ];
 
 export function Footer() {
@@ -60,8 +58,9 @@ export function Footer() {
           <StaggerItem className="max-w-sm">
             <MainLogo className="h-11 sm:h-12" />
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              We design and build custom software, AI systems and growth
-              marketing for ambitious teams.
+              Five integrated products, one unified platform — fraud intelligence, payment
+              security, contact centre, automation and managed security for ASEAN&apos;s
+              regulated markets.
             </p>
 
             <form
@@ -72,7 +71,7 @@ export function Footer() {
               className="mt-6"
             >
               <label htmlFor="newsletter" className="text-xs font-medium text-faint">
-                Get product & growth insights
+                Get platform & security insights
               </label>
               <div className="mt-2 flex items-center gap-2">
                 <input

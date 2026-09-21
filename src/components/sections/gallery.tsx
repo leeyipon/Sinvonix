@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/ui/primitives";
 import { cn } from "@/lib/utils";
 
-type Cat = "web" | "ai" | "marketing" | "design";
+type Cat = "product" | "industry";
 
 type Item = {
   title: string;
@@ -17,23 +17,21 @@ type Item = {
 };
 
 const items: Item[] = [
-  { title: "Atlas CRM", tag: "Enterprise SaaS", cat: "web", gradient: "from-electric via-indigo to-purple", h: "h-72" },
-  { title: "Helix AI", tag: "AI Platform", cat: "ai", gradient: "from-indigo via-purple to-cyan", h: "h-56" },
-  { title: "Pulse Analytics", tag: "Marketing", cat: "marketing", gradient: "from-cyan via-emerald to-electric", h: "h-80" },
-  { title: "Aperture Design", tag: "Design System", cat: "design", gradient: "from-purple via-electric to-cyan", h: "h-60" },
-  { title: "Nova Commerce", tag: "Headless E-com", cat: "web", gradient: "from-purple via-electric to-cyan", h: "h-64" },
-  { title: "Orbit Agents", tag: "AI Automation", cat: "ai", gradient: "from-emerald via-cyan to-indigo", h: "h-72" },
-  { title: "Beacon SEO", tag: "Growth", cat: "marketing", gradient: "from-electric via-cyan to-emerald", h: "h-56" },
-  { title: "Lumen App", tag: "Mobile Design", cat: "design", gradient: "from-indigo via-purple to-electric", h: "h-80" },
-  { title: "Vertex Cloud", tag: "Infrastructure", cat: "web", gradient: "from-cyan via-indigo to-purple", h: "h-60" },
+  { title: "CORDON", tag: "Fraud & AML", cat: "product", gradient: "from-electric via-indigo to-purple", h: "h-72" },
+  { title: "AEVIX", tag: "Payment & Quantum Security", cat: "product", gradient: "from-indigo via-purple to-cyan", h: "h-56" },
+  { title: "Conversa CI Hub", tag: "Contact Centre", cat: "product", gradient: "from-cyan via-emerald to-electric", h: "h-80" },
+  { title: "Chronicle AI", tag: "Intelligent Automation", cat: "product", gradient: "from-purple via-electric to-cyan", h: "h-60" },
+  { title: "Managed Security", tag: "MDR & Digital Risk", cat: "product", gradient: "from-emerald via-cyan to-indigo", h: "h-64" },
+  { title: "Banking & Finance", tag: "Industry", cat: "industry", gradient: "from-emerald via-cyan to-indigo", h: "h-72" },
+  { title: "Telecommunications", tag: "Industry", cat: "industry", gradient: "from-electric via-cyan to-emerald", h: "h-56" },
+  { title: "Payment Networks", tag: "Industry", cat: "industry", gradient: "from-indigo via-purple to-electric", h: "h-80" },
+  { title: "Government & CII", tag: "Industry", cat: "industry", gradient: "from-cyan via-indigo to-purple", h: "h-60" },
 ];
 
 const filters: { id: Cat | "all"; label: string }[] = [
   { id: "all", label: "All" },
-  { id: "web", label: "Web" },
-  { id: "ai", label: "AI" },
-  { id: "marketing", label: "Marketing" },
-  { id: "design", label: "Design" },
+  { id: "product", label: "Products" },
+  { id: "industry", label: "Industries" },
 ];
 
 export function Gallery() {
@@ -44,9 +42,9 @@ export function Gallery() {
     <Section id="gallery">
       <Container>
         <SectionHeading
-          eyebrow="Portfolio"
-          title="A closer look at the work"
-          description="Filter by discipline — every build ships design, engineering and measurable outcomes."
+          eyebrow="The platform"
+          title="Products, built for these industries"
+          description="Filter by product or industry — every product ships fraud, payment or security outcomes financial institutions can measure."
         />
 
         {/* Filter bar */}

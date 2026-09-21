@@ -75,7 +75,7 @@ export function AboutHero() {
             className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-3.5 py-1.5 text-xs font-medium text-muted backdrop-blur"
           >
             <Users className="h-3.5 w-3.5 text-accent" />
-            About Nimbus
+            About Sinvonix
           </motion.div>
 
           <motion.h1
@@ -84,8 +84,8 @@ export function AboutHero() {
             transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
             className="mt-6 text-balance text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
           >
-            Meet the People Building{" "}
-            <span className="text-gradient">Tomorrow&apos;s Technology</span>
+            Built by Operators Who Understand{" "}
+            <span className="text-gradient">ASEAN&apos;s Regulated Markets</span>
           </motion.h1>
 
           <motion.p
@@ -94,8 +94,10 @@ export function AboutHero() {
             transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
             className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted"
           >
-            Our diverse team of engineers, designers, QA specialists, marketers, and project
-            leaders work together to create scalable digital products that help businesses grow.
+            Sinvonix is built by a team with over 50 years of combined experience selling,
+            deploying and supporting enterprise technology across ASEAN&apos;s toughest
+            regulated markets — not Silicon Valley vendors retrofitting global tools to local
+            markets.
           </motion.p>
 
           <motion.div
@@ -106,7 +108,7 @@ export function AboutHero() {
           >
             <Magnetic>
               <Button href="#culture" size="lg">
-                Meet Our Experts
+                Why Sinvonix
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Magnetic>

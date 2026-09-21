@@ -95,17 +95,17 @@ export function Showcase() {
           Featured work
         </span>
         <h2 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-[1.1] sm:text-4xl md:text-5xl">
-          Outcomes we&apos;re proud of
+          Live in production, not in pilot
         </h2>
         <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-white/75 sm:text-lg">
-          Recent builds, pinned to the board — the challenge, what we shipped, and the numbers
-          that followed.
+          Recent deployments, pinned to the board — the challenge, what went live, and where it
+          stands today.
         </p>
         <Link
           href="/work"
           className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#C7E85A] transition-colors hover:text-white"
         >
-          Browse all case studies <ArrowUpRight className="h-4 w-4" />
+          Browse the track record <ArrowUpRight className="h-4 w-4" />
         </Link>
       </Container>
 

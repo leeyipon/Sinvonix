@@ -17,20 +17,6 @@ import { cn } from "@/lib/utils";
 
 const TOTAL = process.length;
 
-type RowState = "done" | "active" | "queued";
-
-function rowState(i: number, active: number): RowState {
-  if (i < active) return "done";
-  if (i === active) return "active";
-  return "queued";
-}
-
-const stateLabel: Record<RowState, string> = {
-  done: "Done",
-  active: "In progress",
-  queued: "Queued",
-};
-
 export function Process() {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -52,8 +38,6 @@ export function Process() {
   });
 
   const active = hoverIndex ?? scrollIndex;
-  const activeStep = process[active];
-  const progress = (active / (TOTAL - 1)) * 100;
 
   return (
     <Section id="process">
@@ -61,130 +45,10 @@ export function Process() {
         <SectionHeading
           eyebrow="How we work"
           title="A process built for momentum"
-          description="Seven deliberate steps that take an idea from discovery to continuous optimization — and a shared board so you can watch every one of them move."
+          description="A deliberate sequence from discovery to continuous optimization."
         />
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
-          {/* ------------------------------------------------------------ */}
-          {/* Left: on-brand delivery board that mirrors the active step   */}
-          {/* ------------------------------------------------------------ */}
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <Reveal>
-              <div className="glass relative rounded-3xl p-5 sm:p-6">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-brand-500)_26%,transparent),transparent)] opacity-60 blur-2xl"
-                />
-
-                {/* Board header */}
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-semibold text-content">
-                      Your delivery board
-                    </p>
-                    <p className="text-xs text-muted">Live, shared, always current</p>
-                  </div>
-                  <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-brand-500/12 px-2.5 py-1 text-xs font-medium text-accent">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-70 motion-safe:animate-ping" />
-                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-500" />
-                    </span>
-                    Live
-                  </span>
-                </div>
-
-                {/* Progress meter — reflects how far the active step has moved */}
-                <div className="mt-5">
-                  <div className="flex items-baseline justify-between text-xs">
-                    <span className="font-medium text-content">
-                      Phase {active + 1}
-                      <span className="text-muted"> of {TOTAL}</span>
-                    </span>
-                    <motion.span
-                      key={activeStep.title}
-                      initial={reduce ? false : { opacity: 0, y: 4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="font-medium text-accent"
-                    >
-                      {activeStep.title}
-                    </motion.span>
-                  </div>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
-                    <div
-                      className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-brand-600),var(--color-brand-400))] transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                </div>
-
-                {/* Board rows — one per phase, status synced to `active` */}
-                <ul className="mt-5 space-y-0.5">
-                  {process.map((step, i) => {
-                    const s = rowState(i, active);
-                    const isActive = s === "active";
-                    return (
-                      <li key={step.title} className="relative">
-                        {isActive &&
-                          (reduce ? (
-                            <div className="absolute inset-0 rounded-xl bg-brand-500/10 ring-1 ring-inset ring-brand-500/30" />
-                          ) : (
-                            <motion.div
-                              layoutId="board-active"
-                              className="absolute inset-0 rounded-xl bg-brand-500/10 ring-1 ring-inset ring-brand-500/30"
-                              transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                            />
-                          ))}
-                        <div className="relative flex items-center gap-3 rounded-xl px-3 py-2.5">
-                          {/* Status marker */}
-                          <span
-                            className={cn(
-                              "grid h-5 w-5 shrink-0 place-items-center rounded-full transition-colors duration-300",
-                              s === "done" && "bg-brand-500 text-white",
-                              s === "active" &&
-                                "bg-surface text-accent ring-2 ring-brand-500",
-                              s === "queued" && "border border-line text-transparent"
-                            )}
-                          >
-                            {s === "done" && <Check className="h-3 w-3" strokeWidth={3} />}
-                            {s === "active" && (
-                              <span className="h-1.5 w-1.5 rounded-full bg-brand-500 motion-safe:animate-pulse" />
-                            )}
-                          </span>
-
-                          <span
-                            className={cn(
-                              "flex-1 truncate text-sm transition-colors duration-300",
-                              s === "queued"
-                                ? "text-muted"
-                                : "font-medium text-content"
-                            )}
-                          >
-                            {step.title}
-                          </span>
-
-                          <span
-                            className={cn(
-                              "shrink-0 text-[11px] font-medium tabular-nums transition-colors duration-300",
-                              s === "done" && "text-faint",
-                              s === "active" && "text-accent",
-                              s === "queued" && "text-faint"
-                            )}
-                          >
-                            {stateLabel[s]}
-                          </span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* ------------------------------------------------------------ */}
-          {/* Right: interactive step timeline — the control surface       */}
-          {/* ------------------------------------------------------------ */}
+        <div className="mx-auto mt-16 max-w-2xl">
           <div ref={ref} className="relative">
             {/* Track + scroll-driven fill (aligned to node centers at left-7) */}
             <div className="absolute left-7 top-7 bottom-7 w-px -translate-x-1/2 bg-line" />

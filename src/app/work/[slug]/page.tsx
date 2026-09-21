@@ -21,10 +21,10 @@ export async function generateMetadata({
   if (!cs) return {};
 
   return {
-    title: `${cs.name} — Case Study`,
+    title: `${cs.name} — Track Record`,
     description: cs.summary,
     openGraph: {
-      title: `${cs.name} · Nimbus`,
+      title: `${cs.name} · Sinvonix`,
       description: cs.summary,
     },
   };

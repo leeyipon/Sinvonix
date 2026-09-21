@@ -4,11 +4,11 @@ import { FaqPage } from "@/components/faq/faq-page";
 export const metadata: Metadata = {
   title: "FAQs",
   description:
-    "Answers to the questions teams usually ask before starting a project with Nimbus — process, pricing, timelines and support.",
+    "Answers to the questions institutions usually ask before deploying with Sinvonix — regions, compliance, deployment model and support.",
   openGraph: {
-    title: "FAQs · Nimbus",
+    title: "FAQs · Sinvonix",
     description:
-      "Answers to the questions teams usually ask before starting a project with Nimbus.",
+      "Answers to the questions institutions usually ask before deploying with Sinvonix.",
   },
 };
 

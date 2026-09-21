@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Wordmark + geometric mark for Nimbus. */
+/** Wordmark + geometric mark for Sinvonix. */
 export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5 font-display", className)}>
@@ -25,7 +25,7 @@ export function Logo({ className }: { className?: string }) {
         </svg>
       </span>
       <span className="text-lg font-semibold tracking-tight text-content">
-        Nimbus
+        Sinvonix
       </span>
     </span>
   );

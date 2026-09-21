@@ -1,9 +1,9 @@
 "use client";
 
-import { Boxes, Clock, Users, Sparkles } from "lucide-react";
+import { Boxes, Clock, Network, ShieldCheck, Sparkles } from "lucide-react";
 import type { Recommendation } from "@/lib/chat/types";
 
-/** The Step-5 recommended solution package. */
+/** The Step-5 product recommendation — capabilities and fit, never a price. */
 export function RecommendationCard({ data }: { data: Recommendation }) {
   return (
     <div className="mt-2.5 overflow-hidden rounded-2xl border border-line bg-surface-2/50">
@@ -13,7 +13,7 @@ export function RecommendationCard({ data }: { data: Recommendation }) {
       </div>
 
       <div className="space-y-3.5 p-4">
-        <Section icon={Boxes} label="Recommended build">
+        <Section icon={Boxes} label="What's included">
           <ul className="space-y-1">
             {data.modules.map((m) => (
               <li key={m} className="flex items-start gap-2 text-[13px] text-content">
@@ -28,19 +28,19 @@ export function RecommendationCard({ data }: { data: Recommendation }) {
           <Section icon={Clock} label="Timeline">
             <p className="text-[13px] font-medium text-content">{data.timeline}</p>
           </Section>
-          <Section icon={Users} label="Team">
-            <p className="text-[13px] font-medium text-content">{data.team.length} people</p>
+          <Section icon={Network} label="Deployment">
+            <p className="text-[13px] font-medium text-content">{data.deployment}</p>
           </Section>
         </div>
 
-        <Section icon={Users} label="Recommended team">
+        <Section icon={ShieldCheck} label="Why Sinvonix">
           <div className="flex flex-wrap gap-1.5">
-            {data.team.map((role) => (
+            {data.team.map((highlight) => (
               <span
-                key={role}
+                key={highlight}
                 className="rounded-full border border-line bg-surface px-2.5 py-1 text-[11px] text-muted"
               >
-                {role}
+                {highlight}
               </span>
             ))}
           </div>

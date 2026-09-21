@@ -1,7 +1,8 @@
 /**
- * Lead scoring. As the visitor reveals intent (picks a solution, an enterprise
- * size, requests an estimate, submits their details, books a call) the score
- * climbs. The engine uses the band to decide when to proactively offer a human.
+ * Lead scoring. As the visitor reveals intent (picks a product, a deployment
+ * scope, requests a recommendation, submits their details, books a briefing)
+ * the score climbs. The engine uses the band to decide when to proactively
+ * offer a human.
  */
 
 import type { Collected, Lead, LeadBand } from "./types";
@@ -11,11 +12,11 @@ export const SCORE = {
   industry: 5,
   perFeature: 2,
   featureCap: 12,
-  sizeStartup: 5,
-  sizeSmall: 10,
-  sizeMedium: 15,
-  sizeEnterprise: 25,
-  estimate: 20,
+  scopeStandalone: 10,
+  scopeMulti: 15,
+  scopePlatform: 25,
+  scopeEvaluating: 5,
+  recommend: 20,
   booking: 30,
   leadSubmitted: 40,
   budgetProvided: 15,
@@ -34,10 +35,10 @@ export function scoreFromCollected(collected: Collected): number {
   if (collected.industry) s += SCORE.industry;
   if (collected.size) {
     s += {
-      startup: SCORE.sizeStartup,
-      small: SCORE.sizeSmall,
-      medium: SCORE.sizeMedium,
-      enterprise: SCORE.sizeEnterprise,
+      standalone: SCORE.scopeStandalone,
+      multi: SCORE.scopeMulti,
+      platform: SCORE.scopePlatform,
+      evaluating: SCORE.scopeEvaluating,
     }[collected.size];
   }
   s += Math.min((collected.features?.length ?? 0) * SCORE.perFeature, SCORE.featureCap);

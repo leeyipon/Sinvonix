@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 /** Generated at /manifest.webmanifest — basic PWA/install metadata. */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Nimbus — Digital Solutions, AI Systems & Growth Marketing",
+    name: "Sinvonix — Securing the Future of Digital Transformation",
     short_name: site.name,
     description: site.description,
     start_url: "/",

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useChat } from "@/components/chat/chat-provider";
 import type { Lead } from "@/lib/chat/types";
 
-const BUDGETS = ["< $25k", "$25k–$75k", "$75k–$150k", "$150k+", "Not sure"];
+const BUDGETS = ["Evaluating options", "Planned this fiscal year", "Approved & ready to move", "Not sure"];
 const TIMELINES = ["ASAP", "1–3 months", "3–6 months", "6+ months", "Flexible"];
 
 const EMPTY: Lead = {
@@ -68,11 +68,11 @@ export function LeadForm({ active }: { active: boolean }) {
         <Input placeholder="Phone" type="tel" value={form.phone} onChange={(v) => set("phone", v)} disabled={locked} />
         <Input placeholder="Country" value={form.country} onChange={(v) => set("country", v)} disabled={locked} />
         <Input placeholder="Industry" value={form.industry} onChange={(v) => set("industry", v)} disabled={locked} />
-        <Select placeholder="Budget" value={form.budget} options={BUDGETS} onChange={(v) => set("budget", v)} disabled={locked} />
+        <Select placeholder="Buying stage" value={form.budget} options={BUDGETS} onChange={(v) => set("budget", v)} disabled={locked} />
         <Select placeholder="Timeline" value={form.timeline} options={TIMELINES} onChange={(v) => set("timeline", v)} disabled={locked} />
       </div>
       <textarea
-        placeholder="Briefly, what are you building?"
+        placeholder="Briefly, what are you looking to solve?"
         value={form.description}
         disabled={locked}
         onChange={(e) => set("description", e.target.value)}

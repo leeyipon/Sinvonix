@@ -1,46 +1,40 @@
 import {
   Code2,
   Brain,
-  Megaphone,
-  PenTool,
   Rocket,
   Search,
   Layout,
   Cog,
-  TestTube2,
-  CloudUpload,
-  LineChart,
+  Activity,
+  ShieldCheck,
+  ShieldAlert,
+  Lock,
+  Headset,
+  Workflow,
   type LucideIcon,
 } from "lucide-react";
 
 export const site = {
-  name: "Nimbus",
-  url: "https://nimbus.dev",
-  tagline: "Building Digital Solutions That Grow Businesses.",
+  name: "Sinvonix",
+  url: "https://sinvonix.com",
+  tagline: "Securing the Future of Digital Transformation",
   description:
-    "We build custom web applications, AI-powered systems, and marketing strategies that accelerate business growth.",
-  email: "hello@nimbus.dev",
+    "Five integrated products, one unified platform — fraud intelligence, payment security, contact centre, automation and managed security, built for ASEAN's regulated financial and critical infrastructure sectors.",
+  email: "hello@sinvonix.com",
   socials: {
-    twitter: "https://twitter.com",
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    dribbble: "https://dribbble.com",
-    telegram: "https://t.me/nimbus",
+    linkedin: "https://www.linkedin.com/company/sinvonix",
   },
 };
 
 // "Home" resolves to the hero anchor: on the home page it scrolls back to the
 // top (and lights up via scrollspy); on any sub-page it becomes /#top, so it
-// doubles as the way back home. "Process" is folded into Work, and "AI" is
-// folded into Services (see /services/ai-solutions), which is where those
-// stories now live.
+// doubles as the way back home.
 export const nav = [
   { label: "Home", href: "#top" },
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "About Us", href: "/about" },
-  { label: "FAQs", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Platform", href: "/services" },
+  { label: "Track Record", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Get in Touch", href: "/contact" },
 ];
 
 export type Service = {
@@ -69,400 +63,490 @@ export function getService(slug: string): Service | undefined {
 
 export const services: Service[] = [
   {
-    icon: Code2,
-    slug: "software-development",
-    title: "Software Development",
+    icon: ShieldAlert,
+    slug: "cordon",
+    title: "CORDON",
     blurb:
-      "Custom web apps, enterprise systems and SaaS platforms engineered to scale.",
-    tagline: "Custom software, engineered to scale.",
+      "Real-time fraud and AML intelligence — transaction screening across APP, ATO, BEC, AML, mule and KYC risk typologies.",
+    tagline: "Fraud intelligence built for ASEAN's regulators.",
     overview:
-      "We design and build the systems your business runs on — web applications, internal platforms and SaaS products that stay fast and maintainable long after launch. Typed end to end, tested, and shipped in tight iterations you can actually watch happen.",
+      "CORDON screens transactions in real time across the risk typologies that matter most to regulated financial institutions — authorised push payment fraud, account takeover, business email compromise, money laundering, mule networks and KYC gaps. Rulesets are FATF-aligned and backed by a live global PEP database, so detection logic stays current with the regulatory landscape it was built for.",
     points: [
-      "Custom Web Applications",
-      "Enterprise Systems",
-      "CRM & ERP Solutions",
-      "SaaS Platforms",
-      "API Development",
-      "Cloud & System Integration",
+      "Real-Time Transaction Screening",
+      "APP & ATO Detection",
+      "BEC Protection",
+      "AML Monitoring",
+      "Mule Network Detection",
+      "KYC Risk Typologies",
     ],
-    accent: "from-[#65A30D] to-[#3F6212]",
+    accent: "from-brand-400 to-brand-600",
     deliverables: [
       {
-        title: "Custom Web Applications",
-        desc: "Bespoke product experiences built on a modern React/Next.js foundation — no templates, no bloat.",
+        title: "Real-Time Screening",
+        desc: "Every transaction screened as it happens, not in a nightly batch — so risk is caught before it settles.",
       },
       {
-        title: "Enterprise Systems",
-        desc: "Internal platforms, admin tooling and control planes that replace spreadsheets and manual ops.",
+        title: "FATF-Aligned Rulesets",
+        desc: "Detection logic built to FATF recommendations from day one, kept current as guidance evolves.",
       },
       {
-        title: "SaaS Platforms",
-        desc: "Multi-tenant products with billing, auth, roles and analytics wired in from day one.",
+        title: "Live Global PEP Database",
+        desc: "Politically exposed person screening against a continuously updated global list.",
       },
       {
-        title: "API Development",
-        desc: "Typed, documented REST and realtime APIs designed for the integrations you'll need next year.",
+        title: "APP & ATO Coverage",
+        desc: "Purpose-built typologies for authorised push payment fraud and account takeover — ASEAN's fastest-growing fraud vectors.",
       },
       {
-        title: "CRM & ERP Solutions",
-        desc: "Systems of record tailored to how your team actually works, not how the software wishes you did.",
+        title: "AML & Mule Detection",
+        desc: "Pattern detection tuned to the mule-network structures regulators are actively chasing across the region.",
       },
       {
-        title: "Cloud & Integration",
-        desc: "Infrastructure, CI/CD and third-party integrations that deploy with zero downtime.",
+        title: "KYC Risk Signals",
+        desc: "Know-your-customer gaps surfaced as risk signals, not buried in a separate onboarding system.",
       },
     ],
     approach: [
       {
-        title: "Architect",
-        desc: "We model the domain, define the data and agree the system boundaries before writing code.",
+        title: "Map your risk typologies",
+        desc: "We start with the fraud and AML patterns specific to your institution and market — not a generic template.",
       },
       {
-        title: "Build in slices",
-        desc: "Vertical, shippable increments — you see working software every week, not a big-bang reveal.",
+        title: "Configure to your regulator",
+        desc: "Rulesets are aligned to FATF recommendations and tuned to the specific requirements of your jurisdiction.",
       },
       {
-        title: "Harden",
-        desc: "Automated tests, load checks and observability so the system holds up under real traffic.",
+        title: "Deploy standalone or unified",
+        desc: "CORDON runs on its own or plugs directly into the wider Sinvonix platform — your call.",
       },
       {
-        title: "Ship & evolve",
-        desc: "Zero-downtime releases, monitoring, and a roadmap for the next iteration.",
+        title: "Tune with a senior team",
+        desc: "The people who built CORDON stay involved post-launch, refining detection as your risk landscape shifts.",
       },
     ],
-    techSlugs: ["react", "nextdotjs", "typescript", "nodedotjs", "laravel", "postgresql", "docker", "amazonaws"],
+    techSlugs: [],
     outcome: {
       stats: [
-        { value: 42, suffix: "%", label: "Rep productivity" },
-        { value: 87, suffix: "%", label: "Faster load time" },
-        { value: 200, suffix: "+", label: "Users unified" },
+        { value: 6, suffix: "", label: "Risk typologies covered" },
+        { value: 7, suffix: "", label: "ASEAN markets" },
+        { value: 10, suffix: "+", label: "Global technology partners" },
       ],
       result:
-        "Atlas CRM: we unified a 200-person sales org and cut page load from 3.1s to 0.4s.",
+        "CORDON runs on FATF-aligned rulesets with a live global PEP database — built for institutions that need fraud intelligence in production, not in pilot.",
     },
     faqs: [
       {
-        q: "Do you work with our existing codebase?",
-        a: "Yes. We regularly pick up existing systems — auditing, stabilising and extending them — as well as building greenfield. We start with a short discovery to map what's there before proposing changes.",
+        q: "Does CORDON replace our existing fraud rules, or work alongside them?",
+        a: "Either. CORDON runs standalone with its own rulesets, or alongside your existing controls as an additional screening layer — the deployment model is yours to choose.",
       },
       {
-        q: "What stack do you build on?",
-        a: "A modern TypeScript foundation: React/Next.js on the front end, Node or Laravel on the back end, Postgres for data, containerised and deployed to AWS. We pick boring-reliable where it matters and cutting-edge where it wins.",
+        q: "How current is the PEP database?",
+        a: "It's a live global feed, not a periodic import, so politically exposed person screening reflects the current list at the moment a transaction is screened.",
       },
       {
-        q: "How do you keep projects on schedule?",
-        a: "We ship in weekly vertical slices with a shared board, so scope, progress and trade-offs are visible the whole way through. No surprises at the end.",
+        q: "Is CORDON built for a specific jurisdiction?",
+        a: "Rulesets are FATF-aligned as a baseline and then configured to the specific regulatory requirements of your market — we operate across seven ASEAN jurisdictions today.",
       },
       {
-        q: "Do you handle hosting and maintenance?",
-        a: "We can. Most engagements include deployment, monitoring and a support window; ongoing maintenance and optimisation are available as a retainer.",
+        q: "Who configures the detection rules?",
+        a: "A senior Sinvonix engineer works directly with your compliance team — there's no layer of account managers between you and the person tuning the model.",
       },
     ],
   },
   {
-    icon: Brain,
-    slug: "ai-solutions",
-    title: "AI Solutions",
+    icon: Lock,
+    slug: "aevix",
+    title: "AEVIX",
     blurb:
-      "AI agents, automations and intelligence layers wired into your business.",
-    tagline: "AI that does real work, not demos.",
+      "Post-quantum cryptography advisory and payment infrastructure hardening — securing today's rails against tomorrow's threats.",
+    tagline: "Payment security, quantum-ready.",
     overview:
-      "We build AI systems that plug into the way your business already runs — agents that resolve tickets, automations that remove busywork, and intelligence layers that turn your data into decisions. Grounded in your own context, measured on outcomes, not novelty.",
+      "AEVIX prepares payment infrastructure for the post-quantum era — advisory on cryptographic migration, vulnerability scanning across payment systems, and POS terminal hardening. As quantum computing threatens current encryption standards, AEVIX gets acquirers, processors and card networks ahead of the migration instead of reacting to it.",
     points: [
-      "AI Agents",
-      "Workflow Automation",
-      "Chatbots",
-      "Internal AI Tools",
-      "Business Intelligence",
-      "AI Integration",
+      "Post-Quantum Cryptography Advisory",
+      "PQC Migration Readiness",
+      "Vulnerability Scanning",
+      "POS Terminal Security",
+      "Payment Infrastructure Hardening",
+      "TLS Upgrade Planning",
     ],
-    accent: "from-[#8B5CF6] to-[#6D28D9]",
+    accent: "from-brand-500 to-brand-700",
     deliverables: [
       {
-        title: "AI Agents",
-        desc: "Task-completing agents that classify, draft, route and act — with humans in the loop where it counts.",
+        title: "PQC Readiness Assessment",
+        desc: "A full audit of where your cryptography stands against post-quantum migration timelines.",
       },
       {
-        title: "Workflow Automation",
-        desc: "End-to-end automations that remove repetitive work across support, ops and back office.",
+        title: "Migration Advisory",
+        desc: "A practical roadmap for moving payment systems to quantum-resistant cryptography without disrupting live rails.",
       },
       {
-        title: "Chatbots & Assistants",
-        desc: "Retrieval-grounded assistants that answer from your docs and data, not the open internet.",
+        title: "Vulnerability Scanning",
+        desc: "Continuous scanning across payment infrastructure to surface exposure before it's exploited.",
       },
       {
-        title: "Internal AI Tools",
-        desc: "Purpose-built copilots that make your team faster at the work only they can do.",
+        title: "POS Terminal Hardening",
+        desc: "Security review and hardening for point-of-sale terminals — a favorite target for payment fraud.",
       },
       {
-        title: "Business Intelligence",
-        desc: "Natural-language analytics and summaries over your operational data.",
+        title: "TLS Upgrade Planning",
+        desc: "A staged plan to move payment traffic onto current and future-proof TLS standards.",
       },
       {
-        title: "AI Integration",
-        desc: "Model APIs, vector search and evals wired safely into your existing systems.",
+        title: "Infrastructure Hardening",
+        desc: "End-to-end review of payment infrastructure against NIST cryptographic standards.",
       },
     ],
     approach: [
       {
-        title: "Find the leverage",
-        desc: "We identify the workflows where AI removes the most cost or delay — and where it shouldn't be used at all.",
+        title: "Assess current cryptography",
+        desc: "We map every place your payment infrastructure relies on cryptography that quantum computing will eventually break.",
       },
       {
-        title: "Ground it",
-        desc: "We connect the model to your data with retrieval and guardrails so answers are accurate and traceable.",
+        title: "Prioritize by exposure",
+        desc: "Migration is sequenced by risk — the systems most exposed to quantum and conventional attack move first.",
       },
       {
-        title: "Evaluate",
-        desc: "We measure accuracy, cost and latency against real cases before anything touches customers.",
+        title: "Harden without downtime",
+        desc: "POS terminals and payment rails get hardened in place, aligned to NIST standards, with zero disruption to live transactions.",
       },
       {
-        title: "Deploy with a human loop",
-        desc: "We roll out with oversight and monitoring, then widen autonomy as the numbers earn it.",
+        title: "Advise, don't just audit",
+        desc: "AEVIX stays engaged through the migration — advisory, not a one-off report that sits on a shelf.",
       },
     ],
-    techSlugs: ["python", "openai", "nextdotjs", "nodedotjs", "mongodb", "docker", "amazonaws"],
+    techSlugs: [],
     outcome: {
       stats: [
-        { value: 68, suffix: "%", label: "Tickets auto-resolved" },
-        { value: 30, suffix: "s", label: "First response" },
-        { value: 10, suffix: "k+", label: "Tickets / month" },
+        { value: 10, suffix: "+", label: "Global technology partners" },
+        { value: 7, suffix: "", label: "ASEAN markets" },
+        { value: 0, suffix: "", label: "Layers to a senior engineer" },
       ],
       result:
-        "Helix AI: an agent that resolves 68% of 10k+ monthly tickets with sub-30-second first response.",
+        "AEVIX gets payment networks and acquirers ahead of the post-quantum migration — hardened infrastructure and PQC advisory built by people who understand ASEAN's payment landscape.",
     },
     faqs: [
       {
-        q: "Which models do you use?",
-        a: "We're model-agnostic and pick per use case — defaulting to the latest, most capable Claude and OpenAI models, with smaller or open models where cost and latency matter. We design so you can swap providers without a rewrite.",
+        q: "Why does post-quantum cryptography matter now?",
+        a: "Quantum computing will eventually break current encryption standards. Payment systems with long data-retention requirements are exposed today to data harvested now and decrypted later — migration planning needs to start before the threat is live, not after.",
       },
       {
-        q: "How do you stop the AI from making things up?",
-        a: "We ground responses in your own data with retrieval, constrain outputs, and add evals plus human review for high-stakes paths. Every answer can be traced back to a source.",
+        q: "Will PQC migration disrupt our payment rails?",
+        a: "No — migration is sequenced by exposure and staged so live payment traffic is never disrupted. Hardening happens alongside normal operations.",
       },
       {
-        q: "Is our data used to train models?",
-        a: "No. We use enterprise API tiers that don't train on your data, and we can deploy within your own cloud when data residency requires it.",
+        q: "Do you assess POS terminals we already have deployed?",
+        a: "Yes. AEVIX reviews and hardens existing POS terminal fleets, not just new deployments.",
       },
       {
-        q: "How do you prove ROI before we commit?",
-        a: "We start with a scoped pilot on a single workflow, measured against your current baseline. You see the accuracy and cost numbers before we scale it.",
+        q: "Is AEVIX aligned to a specific cryptographic standard?",
+        a: "Yes — AEVIX's advisory and hardening work is aligned to NIST post-quantum cryptographic standards.",
       },
     ],
   },
   {
-    icon: Megaphone,
-    slug: "digital-marketing",
-    title: "Digital Marketing",
+    icon: Headset,
+    slug: "conversa-ci-hub",
+    title: "Conversa CI Hub",
     blurb:
-      "Full-funnel growth — from strategy and SEO to performance campaigns.",
-    tagline: "Growth you can measure to the dollar.",
+      "Omnichannel contact centre with intelligent routing, real-time agent assist and quality management — built for financial institutions.",
+    tagline: "One hub for every customer conversation.",
     overview:
-      "We run full-funnel growth as one connected system — strategy, SEO, performance media and content that compound instead of competing for budget. Every channel is instrumented, so you always know what a customer costs and what they're worth.",
+      "Conversa CI Hub unifies every customer channel — voice, chat, email and social — into a single contact centre platform. Intelligent routing gets customers to the right agent faster, real-time agent assist surfaces the right answer mid-call, and quality management keeps every interaction measurable, built specifically for the demands of regulated financial institutions.",
     points: [
-      "Marketing Strategy",
-      "SEO",
-      "Performance Marketing",
-      "Social & Content",
-      "Email Marketing",
-      "Brand Identity",
+      "Omnichannel Routing",
+      "Intelligent Call Routing",
+      "Real-Time Agent Assist",
+      "Quality Management",
+      "Financial Services Ready",
+      "Cross-Sector Deployment",
     ],
-    accent: "from-[#F97316] to-[#C2410C]",
+    accent: "from-brand-600 to-brand-800",
     deliverables: [
       {
-        title: "Marketing Strategy",
-        desc: "Positioning, ICP and a channel plan tied to revenue targets — not vanity metrics.",
+        title: "Omnichannel Routing",
+        desc: "Voice, chat, email and social unified into one queue, so no channel is a silo.",
       },
       {
-        title: "SEO",
-        desc: "Technical, content and authority work that turns organic search into a durable acquisition channel.",
+        title: "Intelligent Routing",
+        desc: "Customers reach the right agent on the first attempt, based on intent and history, not a static phone tree.",
       },
       {
-        title: "Performance Marketing",
-        desc: "Paid search and social managed to CAC and ROAS, with creative testing built into the cadence.",
+        title: "Real-Time Agent Assist",
+        desc: "Agents get the right answer surfaced mid-conversation, grounded in your own knowledge base.",
       },
       {
-        title: "Content & Social",
-        desc: "A content engine that earns trust and feeds every other channel.",
+        title: "Quality Management",
+        desc: "Every interaction scored and reviewable, so coaching is based on evidence, not spot checks.",
       },
       {
-        title: "Email & Lifecycle",
-        desc: "Automated sequences that convert, onboard and retain across the customer lifecycle.",
+        title: "Multi-Client Platform",
+        desc: "Built to run across sectors and business units from a single platform instance.",
       },
       {
-        title: "Brand Identity",
-        desc: "A coherent brand system that makes every campaign work harder.",
+        title: "Financial-Grade Reliability",
+        desc: "Engineered for the uptime and compliance expectations of regulated institutions.",
       },
     ],
     approach: [
       {
-        title: "Instrument",
-        desc: "We set up clean tracking and attribution first, so every decision after is based on real numbers.",
+        title: "Map every channel",
+        desc: "We start with how your customers actually contact you — voice, chat, email, social — and where the friction is today.",
       },
       {
-        title: "Find the winners",
-        desc: "We test channels and creative fast, then concentrate budget on what's actually converting.",
+        title: "Design the routing logic",
+        desc: "Intent-based routing rules built around your team's structure, not a generic IVR tree.",
       },
       {
-        title: "Scale",
-        desc: "We push spend into proven channels while protecting CAC and unit economics.",
+        title: "Equip agents in real time",
+        desc: "Agent assist is grounded in your own knowledge base, so answers are accurate and consistent.",
       },
       {
-        title: "Compound",
-        desc: "SEO, content and lifecycle build assets that keep returning long after the ad spend stops.",
+        title: "Measure and coach",
+        desc: "Quality management goes live from day one, so improvement is continuous, not a quarterly audit.",
       },
     ],
-    techSlugs: ["nextdotjs", "typescript", "python", "postgresql", "amazonaws", "docker"],
+    techSlugs: [],
     outcome: {
       stats: [
-        { value: 27, suffix: "%", label: "Lower CAC" },
-        { value: 3, suffix: "x", label: "Return on ad spend" },
-        { value: 1, suffix: "qtr", label: "To payback" },
+        { value: 1, suffix: "", label: "Unified omnichannel platform" },
+        { value: 7, suffix: "", label: "ASEAN markets" },
+        { value: 10, suffix: "+", label: "Global technology partners" },
       ],
       result:
-        "Pulse Analytics: we cut CAC 27% while scaling spend to 3.4x ROAS in a single quarter.",
+        "Conversa CI Hub runs as a multi-client, cross-sector platform today — live omnichannel operations, not a pilot deployment.",
     },
     faqs: [
       {
-        q: "How soon will we see results?",
-        a: "Paid channels can move within weeks once tracking is clean. SEO and content compound over months — we set expectations per channel up front and report against them.",
+        q: "Can Conversa CI Hub integrate with our existing telephony?",
+        a: "Yes — Conversa CI Hub is designed to sit across your existing channels and integrate with the telephony and CRM systems you already run.",
       },
       {
-        q: "Do you require a long contract?",
-        a: "No. We work in quarterly engagements with clear targets. Most clients stay because the numbers work, not because they're locked in.",
+        q: "Is agent assist grounded in our own knowledge base?",
+        a: "Yes. Real-time agent assist pulls from your own product, policy and compliance documentation — not generic answers.",
       },
       {
-        q: "Can you work with our in-house team?",
-        a: "Absolutely. We often act as the strategy and performance layer on top of an in-house content or design team, and we hand over playbooks as we go.",
+        q: "Does it handle multiple business units or clients?",
+        a: "Yes — Conversa CI Hub is built as a multi-client platform and already runs across sectors from a single deployment.",
       },
       {
-        q: "How do you report on performance?",
-        a: "A live dashboard tied to revenue — CAC, ROAS, pipeline and payback — plus a plain-English readout every cycle. No screenshots of vanity metrics.",
+        q: "How is quality measured?",
+        a: "Every interaction is scored against configurable quality criteria, giving supervisors evidence-based coaching data instead of spot-check reviews.",
       },
     ],
   },
   {
-    icon: PenTool,
-    slug: "ui-ux-design",
-    title: "UI/UX Design",
+    icon: Workflow,
+    slug: "chronicle-ai",
+    title: "Chronicle AI",
     blurb:
-      "Research-led product design and design systems people love to use.",
-    tagline: "Interfaces people actually enjoy using.",
+      "AI orchestration for conversational intelligence, automated compliance workflows and predictive analytics.",
+    tagline: "The AI layer underneath every product.",
     overview:
-      "We design products end to end — research, flows, interface and a design system your team can build on. Every decision is grounded in how real users behave, and every screen ships as production-ready specs your engineers can implement without guesswork.",
+      "Chronicle AI is the orchestration layer that runs across the Sinvonix platform — conversational intelligence for customer and case interactions, automated workflows for compliance tasks that used to be manual, and predictive analytics that turn operational data into decisions. It can run standalone or power the AI inside CORDON, AEVIX, Conversa CI Hub and Managed Security.",
     points: [
-      "Product Design",
-      "UX Research",
-      "Design Systems",
-      "Mobile App Design",
-      "Website Design",
-      "Prototyping",
+      "AI Orchestration",
+      "Conversational Intelligence",
+      "Automated Compliance Workflows",
+      "Predictive Analytics",
+      "Cross-Product Intelligence",
+      "Model Governance",
     ],
-    accent: "from-[#EC4899] to-[#BE185D]",
+    accent: "from-brand-700 to-brand-900",
     deliverables: [
       {
-        title: "Product Design",
-        desc: "End-to-end design of features and flows, from first sketch to polished, buildable screens.",
+        title: "AI Orchestration Layer",
+        desc: "A single orchestration layer that coordinates AI across every Sinvonix product, instead of five disconnected models.",
       },
       {
-        title: "UX Research",
-        desc: "Interviews, usability testing and analytics that replace opinions with evidence.",
+        title: "Conversational Intelligence",
+        desc: "Understanding and routing customer and case conversations with context, not keyword matching.",
       },
       {
-        title: "Design Systems",
-        desc: "Token-driven component libraries that keep your product consistent as it scales.",
+        title: "Automated Compliance Workflows",
+        desc: "Manual compliance checklists turned into automated workflows with a full audit trail.",
       },
       {
-        title: "Mobile App Design",
-        desc: "Native-feeling iOS and Android experiences designed for touch, speed and clarity.",
+        title: "Predictive Analytics",
+        desc: "Operational data turned into forward-looking risk and performance signals, not just historical dashboards.",
       },
       {
-        title: "Website Design",
-        desc: "Marketing sites that convert — fast, on-brand and accessible by default.",
+        title: "Cross-Product Intelligence",
+        desc: "The same AI layer that powers Chronicle AI also strengthens detection in CORDON and routing in Conversa CI Hub.",
       },
       {
-        title: "Prototyping",
-        desc: "Interactive prototypes to validate ideas with users before a line of code is written.",
+        title: "Model Governance",
+        desc: "Every model decision is traceable — built for institutions that have to explain automated decisions to a regulator.",
       },
     ],
     approach: [
       {
-        title: "Understand",
-        desc: "We research users and goals to define what a great outcome actually looks like.",
+        title: "Identify the manual work",
+        desc: "We find the compliance and operational workflows still run by hand, and the cost each one carries.",
       },
       {
-        title: "Shape the flows",
-        desc: "Information architecture and low-fi flows to get the structure right before the pixels.",
+        title: "Ground the models",
+        desc: "Automation is grounded in your own data and workflows — not a generic model bolted onto your systems.",
       },
       {
-        title: "Design the system",
-        desc: "A polished, on-brand interface built from reusable, tokenised components.",
+        title: "Automate with an audit trail",
+        desc: "Every automated decision is logged and explainable, built for institutions that answer to a regulator.",
       },
       {
-        title: "Validate & hand off",
-        desc: "We test with real users and deliver specs engineers can build from directly.",
+        title: "Extend across the platform",
+        desc: "Chronicle AI can stay standalone, or extend its orchestration layer into CORDON, AEVIX, Conversa CI Hub and Managed Security.",
       },
     ],
-    techSlugs: ["react", "nextdotjs", "typescript"],
+    techSlugs: [],
     outcome: {
       stats: [
-        { value: 98, suffix: "", label: "Mobile Lighthouse" },
-        { value: 2, suffix: "x", label: "Engagement" },
-        { value: 40, suffix: "%", label: "Less drop-off" },
+        { value: 5, suffix: "", label: "Products it can power" },
+        { value: 7, suffix: "", label: "ASEAN markets" },
+        { value: 10, suffix: "+", label: "Global technology partners" },
       ],
       result:
-        "Nova: a headless redesign that lifted mobile Lighthouse from 45 to 98 — and sales followed.",
+        "Chronicle AI runs as the orchestration layer across the Sinvonix platform — automated compliance workflows and predictive analytics built for regulated institutions, not generic AI demos.",
     },
     faqs: [
       {
-        q: "Do you only design, or do you build too?",
-        a: "Both. Design and engineering sit in one team, so what we design is what gets shipped — no lossy hand-off. We're happy to design for your engineers as well.",
+        q: "Does Chronicle AI only work with other Sinvonix products?",
+        a: "No — it runs standalone. It's also the orchestration layer that can extend into CORDON, AEVIX, Conversa CI Hub and Managed Security if you run more than one product.",
       },
       {
-        q: "Will we get a reusable design system?",
-        a: "Yes. We deliver a tokenised component library (typically in Figma and code) so your team can keep building consistently after we're done.",
+        q: "Can automated decisions be explained to a regulator?",
+        a: "Yes — model governance and an audit trail are built in, so every automated decision is traceable, not a black box.",
       },
       {
-        q: "How do you validate designs?",
-        a: "With real users — interviews and usability tests on interactive prototypes — before anything expensive gets built.",
+        q: "Is our data used to train shared models?",
+        a: "No. Automation is grounded in your own data and workflows; it isn't pooled into a shared model across clients.",
       },
       {
-        q: "Is accessibility included?",
-        a: "Always. We design to WCAG AA by default: colour contrast, keyboard flows, focus states and reduced-motion support are part of the work, not an add-on.",
+        q: "What kind of compliance workflows can it automate?",
+        a: "Workflows that are currently manual checklist work — KYC documentation checks, case escalation routing, regulatory reporting prep — become automated, auditable processes.",
+      },
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    slug: "managed-security",
+    title: "Managed Security",
+    blurb:
+      "24/7 managed detection and response, endpoint protection and identity access management.",
+    tagline: "24/7 protection, senior-led.",
+    overview:
+      "Managed Security is Sinvonix's always-on layer — 24/7 managed detection and response, endpoint protection, and identity and access management, delivered through world-class technology partnerships including Google Cloud, Mandiant, IDEMIA, Trellix and Nutanix. It's live in production across our markets today, not a pilot program.",
+    points: [
+      "24/7 Managed Detection & Response",
+      "Endpoint Protection",
+      "Identity & Access Management",
+      "Digital Risk Protection",
+      "Zero-Trust Architecture",
+      "World-Class Alliances",
+    ],
+    accent: "from-brand-800 to-brand-950",
+    deliverables: [
+      {
+        title: "24/7 Managed Detection & Response",
+        desc: "Live threat monitoring and response around the clock — recurring operations, not scheduled reviews.",
+      },
+      {
+        title: "Endpoint Protection",
+        desc: "Endpoints monitored and protected through our partnership with world-class security technology vendors.",
+      },
+      {
+        title: "Identity & Access Management",
+        desc: "Zero-trust access governance, deployed and managed on your behalf.",
+      },
+      {
+        title: "Digital Risk Protection",
+        desc: "Monitoring for exposure beyond your perimeter — brand, credentials and data appearing where they shouldn't.",
+      },
+      {
+        title: "Privileged Access Governance",
+        desc: "Standing privileged access reduced and governed under a zero-trust model.",
+      },
+      {
+        title: "World-Class Alliances",
+        desc: "Delivered through strategic partnerships with Google Cloud, Mandiant, IDEMIA, Trellix and Nutanix.",
+      },
+    ],
+    approach: [
+      {
+        title: "Assess your exposure",
+        desc: "We map endpoints, identities and existing controls to find where digital risk actually sits.",
+      },
+      {
+        title: "Deploy zero-trust access",
+        desc: "Privileged access governance is deployed and standing access reduced before monitoring goes live.",
+      },
+      {
+        title: "Go live, not pilot",
+        desc: "24/7 detection and response begins in production from day one — Managed Security doesn't run as a trial.",
+      },
+      {
+        title: "Operate as an extension of your team",
+        desc: "A senior-led team monitors and responds around the clock, backed by world-class technology partnerships.",
+      },
+    ],
+    techSlugs: [],
+    outcome: {
+      stats: [
+        { value: 24, suffix: "/7", label: "Live monitoring & response" },
+        { value: 5, suffix: "+", label: "Technology alliance partners" },
+        { value: 7, suffix: "", label: "ASEAN markets" },
+      ],
+      result:
+        "Managed Security runs 24/7 in production across multiple ASEAN markets — zero-trust access deployed, recurring detection and response live today.",
+    },
+    faqs: [
+      {
+        q: "Is Managed Security a pilot or a live service?",
+        a: "Live. It runs as 24/7 operations in production across our markets — there's no pilot phase.",
+      },
+      {
+        q: "Which technology partners power Managed Security?",
+        a: "Delivered through strategic alliances including Google Cloud, Mandiant, IDEMIA, Trellix and Nutanix.",
+      },
+      {
+        q: "Does this replace our existing IAM setup, or govern it?",
+        a: "Managed Security deploys a zero-trust access model and governs privileged access — it can replace a legacy IAM setup or sit alongside one during migration.",
+      },
+      {
+        q: "Who responds when a threat is detected?",
+        a: "A senior Sinvonix security team, directly — engagements are senior-led, so you're never routed through layers of account management during an incident.",
       },
     ],
   },
 ];
 
 export const stats = [
-  { value: 100, suffix: "+", label: "Projects Delivered" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
-  { value: 5, suffix: "+", label: "Years Experience" },
-  { value: 24, suffix: "/7", label: "Support & Monitoring" },
+  { value: 50, suffix: "+", label: "Years Combined Experience" },
+  { value: 7, suffix: "", label: "ASEAN Markets Served" },
+  { value: 5, suffix: "", label: "Integrated Products" },
+  { value: 10, suffix: "+", label: "Global Tech Partners" },
 ];
 
 export type Step = { icon: LucideIcon; title: string; desc: string };
 
 export const process: Step[] = [
-  { icon: Search, title: "Discovery", desc: "We map goals, users and constraints to define what winning looks like." },
-  { icon: LineChart, title: "Strategy", desc: "Architecture, roadmap and success metrics agreed before a line of code." },
-  { icon: Layout, title: "UX/UI Design", desc: "Research-led flows and a polished, on-brand interface." },
-  { icon: Code2, title: "Development", desc: "Clean, typed, testable code shipped in tight iterations." },
-  { icon: TestTube2, title: "Testing", desc: "Automated + manual QA across devices, load and edge cases." },
-  { icon: CloudUpload, title: "Deployment", desc: "Zero-downtime releases with monitoring baked in." },
-  { icon: Cog, title: "Optimization", desc: "Continuous performance, conversion and reliability tuning." },
+  { icon: Search, title: "Discovery & Risk Assessment", desc: "We map your regulatory environment, existing stack and risk exposure before recommending a single product." },
+  { icon: Layout, title: "Solution Design", desc: "A senior architect — not an account manager — designs the deployment: standalone product or unified platform." },
+  { icon: ShieldCheck, title: "Compliance Alignment", desc: "Every configuration is checked against FATF, NIST and your local regulator's requirements before go-live." },
+  { icon: Code2, title: "Integration & Deployment", desc: "Connected into your existing core banking, telco or infrastructure systems with zero-downtime cutover." },
+  { icon: Activity, title: "Live Monitoring", desc: "24/7 monitoring begins from day one — MDR, fraud screening and contact centre operations run live, not in pilot." },
+  { icon: Cog, title: "Continuous Optimization", desc: "Senior engineers tune detection models, routing rules and compliance mappings as your risk landscape evolves." },
 ];
 
-// Trusted-by wordmarks (kept as styled text to avoid fake brand logos)
+// Trusted-by wordmarks (kept as styled text — real technology alliance partners)
 export const clients = [
-  "Northwind",
-  "Vertex",
-  "Lumina",
-  "Quanta",
-  "Everest",
-  "Momentum",
-  "Cobalt",
-  "Aperture",
+  "Google Cloud",
+  "Mandiant",
+  "IDEMIA",
+  "Trellix",
+  "Nutanix",
+  "AhnLab",
+  "NETAND",
+  "FORCS",
 ];
 
 // Simple Icons slugs for the tech stack (rendered via CDN svg)
@@ -481,36 +565,36 @@ export const techStack = [
   { name: "Firebase", slug: "firebase", color: "#DD2C00" },
 ];
 
-/** Company-level FAQs shown on the home page (services have their own set). */
+/** Company-level FAQs shown on the home page (products have their own set). */
 export const faqs: { q: string; a: string }[] = [
   {
-    q: "How quickly can we get started?",
-    a: "Discovery usually begins within a week of the first call. We scope in days, not months — most engagements have working software in front of you inside the first two weeks.",
+    q: "Can we deploy a single product, or does it have to be the full platform?",
+    a: "Every Sinvonix product — CORDON, AEVIX, Conversa CI Hub, Chronicle AI and Managed Security — runs standalone or as part of the unified platform. Most clients start with one product and expand as the relationship proves out.",
   },
   {
-    q: "How do you price engagements?",
-    a: "Fixed-scope projects are quoted up front after a short discovery; longer partnerships run as a monthly retainer. Either way you get the number before we start, and we don't bill surprises.",
+    q: "Which markets do you operate in?",
+    a: "We're headquartered in Singapore with active deployments in Brunei, Cambodia and Laos, partner networks in the Philippines and Malaysia, and a subsidiary in Australia.",
   },
   {
-    q: "Can you work with our existing team and codebase?",
-    a: "Yes — a good share of our work is picking up systems someone else built. We start by auditing what's there, stabilise it, then extend. We're just as happy embedding alongside your in-house engineers.",
+    q: "How do you handle regional compliance?",
+    a: "Our platforms are built compliance-first — aligned to FATF recommendations, regional data protection laws, and NIST cryptographic standards — not retrofitted after the fact.",
   },
   {
-    q: "What happens after launch?",
-    a: "Every build ships with monitoring, documentation and a support window. Most clients continue on a retainer for ongoing optimisation, but you're never locked in — the code and infrastructure are yours.",
+    q: "Who do we actually work with day to day?",
+    a: "Directly with the people who built the platform. Sinvonix engagements are senior-led — no layers of account managers between you and the team that can solve your problem.",
   },
   {
-    q: "How do you handle security and confidentiality?",
-    a: "We sign NDAs as standard and work to SOC 2 practices: least-privilege access, encrypted data in transit and at rest, and no client data used to train models. We can deploy inside your own cloud where residency demands it.",
+    q: "What industries do you serve?",
+    a: "Primarily banking and finance, telecommunications, payment networks, and government and critical information infrastructure across ASEAN.",
   },
   {
-    q: "Which industries do you work in?",
-    a: "We're industry-agnostic but deepest in B2B SaaS, fintech, logistics and e-commerce. What matters more than the sector is whether the problem is worth solving well.",
+    q: "How quickly can we expect a response?",
+    a: "Tell us what you need — our team typically responds within one business day.",
   },
 ];
 
 export const heroHighlights: { icon: LucideIcon; label: string }[] = [
-  { icon: Rocket, label: "Ship in weeks" },
-  { icon: Brain, label: "AI-native" },
-  { icon: LineChart, label: "Growth-focused" },
+  { icon: Rocket, label: "Live in weeks" },
+  { icon: ShieldCheck, label: "Bank-grade security" },
+  { icon: Brain, label: "AI-native detection" },
 ];

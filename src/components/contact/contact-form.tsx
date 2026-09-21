@@ -237,10 +237,7 @@ export function ContactForm() {
               <h3 className="font-display text-base font-semibold text-content">Follow along</h3>
               <div className="mt-4 flex items-center gap-2">
                 {[
-                  { slug: "x", href: site.socials.twitter, label: "X" },
-                  { slug: "github", href: site.socials.github, label: "GitHub" },
                   { slug: "linkedin", href: site.socials.linkedin, label: "LinkedIn" },
-                  { slug: "dribbble", href: site.socials.dribbble, label: "Dribbble" },
                 ].map(({ slug, href, label }) => (
                   <a
                     key={label}

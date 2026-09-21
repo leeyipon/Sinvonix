@@ -3,13 +3,13 @@ import { WorkIndex } from "@/components/work/work-index";
 import { ServiceCTA } from "@/components/services/service-cta";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Track Record",
   description:
-    "Selected work from Nimbus — software, AI, growth and design engagements, with the challenge each client faced and the measurable results we delivered.",
+    "Sinvonix's track record — three deployment tracks running as recurring, live operations across multiple ASEAN markets, not pilots.",
   openGraph: {
-    title: "Case Studies · Nimbus",
+    title: "Track Record · Sinvonix",
     description:
-      "Selected work from Nimbus — the challenge each client faced and the measurable results we delivered.",
+      "Live in production, not in pilot — Sinvonix's managed detection & response, contact centre and identity governance deployments.",
   },
 };
 

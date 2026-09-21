@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { CustomCursor } from "@/components/effects/custom-cursor";
@@ -20,6 +21,7 @@ import { ChatWidget } from "@/components/chat/chat-widget";
  */
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
 
   if (pathname?.startsWith("/admin")) {
     return <>{children}</>;
@@ -36,7 +38,21 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           <ChatProvider>
             <SmoothScroll>
               <Navbar />
-              <main className="flex-1">{children}</main>
+              {/* Route-change transition — first paint is skipped (the
+                  preloader already owns that moment); only navigations
+                  between pages cross-fade. */}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.main
+                  key={pathname}
+                  className="flex-1"
+                  initial={reduce ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? { opacity: 1 } : { opacity: 0, y: -8 }}
+                  transition={{ duration: reduce ? 0 : 0.35, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {children}
+                </motion.main>
+              </AnimatePresence>
               <Footer />
             </SmoothScroll>
             <ChatWidget />

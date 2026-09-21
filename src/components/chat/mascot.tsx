@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Navi — the Nimbus AI consultant mascot.
+ * Navi — the Sinvonix AI consultant mascot.
  *
  * A self-contained SVG droid: a glossy light head, a dark visor with two
  * glowing eyes, a bobbing antenna and a twinkling spark. It reads well on the
@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 export function NimbusMascot({
   className,
   animate = false,
-  title = "Navi, the Nimbus AI consultant",
+  title = "Navi, the Sinvonix AI consultant",
 }: {
   className?: string;
   animate?: boolean;

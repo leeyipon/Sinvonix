@@ -5,11 +5,11 @@ import { ContactForm } from "@/components/contact/contact-form";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Tell us about your project and we'll reply within one business day, or book a free consultation. Get in touch with Nimbus about software, AI, marketing and design.",
+    "Tell us what you need. Our team typically responds within one business day — get in touch with Sinvonix about fraud intelligence, payment security, contact centre, automation or managed security.",
   openGraph: {
-    title: "Contact · Nimbus",
+    title: "Contact · Sinvonix",
     description:
-      "Start a project or book a free consultation with the Nimbus team — software, AI, marketing and design.",
+      "Tell us what you need, or schedule a briefing with the Sinvonix team.",
   },
 };
 

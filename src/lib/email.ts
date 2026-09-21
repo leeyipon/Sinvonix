@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = "Nimbus Website <onboarding@resend.dev>";
+const FROM = "Sinvonix Website <onboarding@resend.dev>";
 const NOTIFY_TO = process.env.LEAD_NOTIFY_EMAIL || "leeyipon02@gmail.com";
 
 /**
