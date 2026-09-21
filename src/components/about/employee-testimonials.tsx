@@ -16,7 +16,7 @@ export function EmployeeTestimonials() {
         <Stagger className="mt-14 grid gap-5 md:grid-cols-3">
           {employeeTestimonials.map((t) => (
             <StaggerItem key={t.name}>
-              <figure className="glass relative flex h-full flex-col rounded-3xl p-7">
+              <figure className="glass relative flex h-full flex-col overflow-hidden rounded-3xl p-7 transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:shadow-glow">
                 <Quote className="absolute right-6 top-6 h-9 w-9 text-accent/10" />
                 <blockquote className="flex-1 text-pretty leading-relaxed text-content">
                   “{t.quote}”

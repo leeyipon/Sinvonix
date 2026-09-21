@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { type ReactNode } from "react";
+import { forwardRef, type ComponentProps, type ReactNode } from "react";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
@@ -71,28 +71,29 @@ const staggerChild: Variants = {
   },
 };
 
-export function Stagger({
-  children,
-  className,
-  once = true,
-}: {
-  children: ReactNode;
-  className?: string;
-  once?: boolean;
-}) {
+export const Stagger = forwardRef<
+  HTMLDivElement,
+  {
+    children: ReactNode;
+    className?: string;
+    once?: boolean;
+  } & Omit<ComponentProps<typeof motion.div>, "variants" | "className" | "children" | "ref">
+>(function Stagger({ children, className, once = true, ...rest }, ref) {
   const reduce = useReducedMotion();
   return (
     <motion.div
+      ref={ref}
       className={className}
       variants={staggerParent}
       initial={reduce ? undefined : "hidden"}
       whileInView={reduce ? undefined : "show"}
       viewport={{ once, margin: "-60px" }}
+      {...rest}
     >
       {children}
     </motion.div>
   );
-}
+});
 
 /**
  * Child of <Stagger>. Exported directly (not as Stagger.Item) so it works
@@ -102,12 +103,13 @@ export function Stagger({
 export function StaggerItem({
   children,
   className,
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
-}) {
+} & Omit<ComponentProps<typeof motion.div>, "variants" | "className" | "children">) {
   return (
-    <motion.div variants={staggerChild} className={className}>
+    <motion.div variants={staggerChild} className={className} {...rest}>
       {children}
     </motion.div>
   );

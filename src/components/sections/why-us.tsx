@@ -46,12 +46,13 @@ export function WhyUs() {
             const Icon = r.icon;
             return (
               <Reveal key={r.title} delay={i * 0.06}>
-                <div className="h-full rounded-3xl border border-line bg-surface p-6">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-500/10 text-accent">
+                <div className="group relative h-full overflow-hidden rounded-3xl border border-line bg-surface p-6 transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:border-brand-500/40">
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <span className="relative grid h-11 w-11 place-items-center rounded-xl bg-brand-500/10 text-accent">
                     <Icon className="h-5 w-5" />
                   </span>
-                  <h3 className="mt-4 font-semibold text-content">{r.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted">{r.desc}</p>
+                  <h3 className="relative mt-4 font-semibold text-content">{r.title}</h3>
+                  <p className="relative mt-1.5 text-sm leading-relaxed text-muted">{r.desc}</p>
                 </div>
               </Reveal>
             );

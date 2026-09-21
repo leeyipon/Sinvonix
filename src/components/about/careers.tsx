@@ -94,7 +94,7 @@ export function Careers() {
                   onClick={() => join.open()}
                   size="lg"
                   variant="secondary"
-                  className="bg-white text-brand-700 hover:bg-white"
+                  className="!bg-white text-brand-700 hover:!bg-white"
                 >
                   View Open Positions
                   <ArrowRight className="h-4 w-4" />

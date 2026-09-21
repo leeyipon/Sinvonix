@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,6 +16,9 @@ if (typeof window !== "undefined") {
  * users who prefer reduced motion — native scroll is used instead.
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {
+  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
@@ -25,6 +29,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
     });
+    lenisRef.current = lenis;
 
     // Keep ScrollTrigger in sync with Lenis' virtual scroll position
     lenis.on("scroll", ScrollTrigger.update);
@@ -52,8 +57,28 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       document.removeEventListener("click", onClick);
       gsap.ticker.remove(raf);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  // Client-side route changes swap the page content without a full reload,
+  // but Lenis caches its scroll limit from whatever height the DOM had when
+  // it last measured — so navigating to a taller page left it stuck at the
+  // previous (shorter) page's max scroll. Re-measure after the new page has
+  // actually painted (double rAF: one for the DOM swap, one for layout).
+  useEffect(() => {
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => {
+        lenisRef.current?.resize();
+        ScrollTrigger.refresh();
+      });
+    });
+    return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [pathname]);
 
   return <>{children}</>;
 }

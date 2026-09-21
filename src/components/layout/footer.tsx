@@ -34,6 +34,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Resources",
     links: [
       { label: "Track Record", href: "/work" },
+      { label: "FAQs", href: "/faq" },
       { label: "Support", href: "/contact" },
       { label: "Schedule a Briefing", href: "/contact" },
       { label: "Privacy", href: "/privacy" },

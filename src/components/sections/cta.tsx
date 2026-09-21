@@ -53,7 +53,7 @@ export function CTA() {
                   onClick={open}
                   size="lg"
                   variant="secondary"
-                  className="bg-white text-brand-700 hover:bg-white"
+                  className="!bg-white text-brand-700 hover:!bg-white"
                 >
                   <CalendarDays className="h-4 w-4" />
                   Schedule a Briefing

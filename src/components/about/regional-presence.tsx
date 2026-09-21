@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Container, Section, SectionHeading } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
+import { cn } from "@/lib/utils";
 
 const SG_FLAG = "\u{1F1F8}\u{1F1EC}";
 const AU_FLAG = "\u{1F1E6}\u{1F1FA}";
@@ -49,6 +51,7 @@ function pillOrigin(x: number, y: number, dir: Dir) {
 
 export function RegionalPresence() {
   const reduce = useReducedMotion();
+  const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <Section className="bg-bg-subtle/50">
@@ -72,13 +75,32 @@ export function RegionalPresence() {
                 <circle key={i} cx={d.x} cy={d.y} r="2" fill="var(--color-brand-300)" opacity="0.5" />
               ))}
 
+              {/* selection ring — grows around whichever market the legend below points at */}
+              {markets.map(
+                (m) =>
+                  m.name === selected && (
+                    <motion.circle
+                      key={`select-${m.name}`}
+                      cx={m.x}
+                      cy={m.y}
+                      r="7"
+                      fill="none"
+                      stroke="var(--color-brand-500)"
+                      strokeWidth="2"
+                      initial={{ opacity: 0, scale: 1 }}
+                      animate={{ opacity: [0.9, 0.3, 0.9], scale: reduce ? 1 : [1, 2.2, 1] }}
+                      transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  )
+              )}
+
               {/* market markers — solid, high-contrast against the muted texture */}
               {markets.map((m, i) => (
                 <motion.circle
                   key={m.name}
                   cx={m.x}
                   cy={m.y}
-                  r="7"
+                  r={m.name === selected ? 9 : 7}
                   fill="var(--color-brand-500)"
                   stroke="var(--color-surface)"
                   strokeWidth="2.5"
@@ -86,6 +108,7 @@ export function RegionalPresence() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.4, delay: 0.1 + i * 0.08, ease: EASE }}
+                  style={{ transition: "r 0.3s cubic-bezier(0.16,1,0.3,1)" }}
                 />
               ))}
               {!reduce &&
@@ -163,28 +186,40 @@ export function RegionalPresence() {
           </div>
         </Reveal>
 
-        {/* Legend — kept as plain, readable HTML instead of crowding the map with pills */}
+        {/* Legend — bigger, clickable cards; picking one rings its pin on the map above */}
         <Reveal delay={0.2}>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5">
-            {markets.map((m) => (
-              <span
-                key={m.name}
-                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3.5 text-xs font-medium text-muted"
-              >
-                <span className="grid h-5 w-5 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-[11px] leading-none ring-1 ring-inset ring-line">
-                  {m.flag}
-                </span>
-                <span className="text-content">{m.name}</span>
-                <span className="text-faint">· {m.label}</span>
-              </span>
-            ))}
-            <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pl-1 pr-3.5 text-xs font-medium text-muted">
-              <span className="grid h-5 w-5 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-[11px] leading-none ring-1 ring-inset ring-line">
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {markets.map((m) => {
+              const isSelected = m.name === selected;
+              return (
+                <button
+                  key={m.name}
+                  type="button"
+                  onClick={() => setSelected(isSelected ? null : m.name)}
+                  aria-pressed={isSelected}
+                  className={cn(
+                    "flex cursor-pointer flex-col items-center gap-2 rounded-2xl border bg-surface px-3 py-4 text-center transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1",
+                    isSelected
+                      ? "border-brand-500/50 shadow-glow"
+                      : "border-line hover:border-brand-500/40"
+                  )}
+                >
+                  <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-xl leading-none ring-1 ring-inset ring-line">
+                    {m.flag}
+                  </span>
+                  <span className="text-sm font-semibold text-content">{m.name}</span>
+                  <span className="text-xs text-faint">{m.label}</span>
+                </button>
+              );
+            })}
+
+            <div className="flex flex-col items-center gap-2 rounded-2xl border border-line bg-surface px-3 py-4 text-center">
+              <span className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-full bg-surface-2 text-xl leading-none ring-1 ring-inset ring-line">
                 {AU_FLAG}
               </span>
-              <span className="text-content">Australia</span>
-              <span className="text-faint">· Subsidiary</span>
-            </span>
+              <span className="text-sm font-semibold text-content">Australia</span>
+              <span className="text-xs text-faint">Subsidiary</span>
+            </div>
           </div>
         </Reveal>
       </Container>

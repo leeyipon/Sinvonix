@@ -8,7 +8,7 @@
  */
 
 import type { Collected, Recommendation, SizeId } from "./types";
-import { getService } from "@/lib/site";
+import { getService, services } from "@/lib/site";
 
 const DEPLOYMENT_LABEL: Record<SizeId, string> = {
   standalone: "Standalone product",
@@ -26,13 +26,9 @@ const TIMELINE_BY_SCOPE: Record<SizeId, string> = {
 
 const HIGHLIGHTS = ["Senior-led engagement", "Compliance-first design", "Standalone or unified"];
 
-const DEFAULT_MODULES = [
-  "Fraud & AML intelligence",
-  "Payment & quantum security",
-  "Omnichannel contact centre",
-  "Intelligent automation",
-  "24/7 managed security",
-];
+// All five real products, named — not vague capability phrases. Sourced
+// directly from `services` so it stays in sync if a product's tagline changes.
+const DEFAULT_MODULES = services.map((s) => `${s.title} — ${s.tagline.replace(/\.$/, "")}`);
 
 function titleFor(collected: Collected): string {
   const industry = collected.industry && collected.industry !== "Other" ? collected.industry : undefined;

@@ -34,7 +34,6 @@ export const nav = [
   { label: "Platform", href: "/services" },
   { label: "Track Record", href: "/work" },
   { label: "About", href: "/about" },
-  { label: "FAQs", href: "/faq" },
   { label: "Get in Touch", href: "/contact" },
 ];
 
