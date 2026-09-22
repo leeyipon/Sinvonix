@@ -2,15 +2,16 @@ import { cn } from "@/lib/utils";
 
 /**
  * Sinvonix brand lockup: a shield enclosing a network mark, plus the
- * "SINVONIX" wordmark. The icon mark stays a fixed brand blue in both
- * themes (like most logo marks); the wordmark rides `currentColor` (set via
- * text-*) so it stays legible on dark chrome and adapts on light surfaces —
- * the "O" keeps the brighter accent shade as a fixed brand pop. Colors come
- * from the site's actual brand-* ramp, not one-off hex values.
+ * "SINVONIX" wordmark. The icon mark is two-tone brand blue on light and
+ * goes solid white on dark (via --logo-shield/--logo-accent, themed in
+ * globals.css) so the whole mark reads as one clean shape on dark chrome
+ * instead of staying a fixed blue against a fixed blue. The wordmark rides
+ * `currentColor` (set via text-*) so it adapts the same way; the "O" keeps
+ * the accent token as its brand pop.
  */
 export function MainLogo({ className }: { className?: string }) {
-  const deep = "var(--color-brand-700)";
-  const accent = "var(--color-brand-500)";
+  const deep = "var(--logo-shield)";
+  const accent = "var(--logo-accent)";
   return (
     <svg
       viewBox="0 0 350 100"
@@ -53,7 +54,7 @@ export function MainLogo({ className }: { className?: string }) {
         x="90"
         y="65"
         fill="currentColor"
-        className="font-display"
+        style={{ fontFamily: "var(--font-logo-var), \"Space Grotesk\", ui-sans-serif, system-ui, sans-serif" }}
         fontSize="50"
         fontWeight="800"
         letterSpacing="-1.5"

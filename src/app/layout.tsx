@@ -1,19 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono, Caveat } from "next/font/google";
+import { Montserrat, Poppins, JetBrains_Mono, Caveat, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { SiteShell } from "@/components/layout/site-shell";
 
-const display = Space_Grotesk({
+const display = Montserrat({
   variable: "--font-display-var",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   display: "swap",
 });
 
-const sans = Inter({
+// Kept separate from --font-display-var so the wordmark's typeface stays
+// fixed even when the site's display font changes.
+const logo = Space_Grotesk({
+  variable: "--font-logo-var",
+  subsets: ["latin"],
+  weight: ["700"],
+  display: "swap",
+});
+
+const sans = Poppins({
   variable: "--font-sans-var",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -81,13 +91,11 @@ export const viewport: Viewport = {
 const themeScript = `
 (function () {
   try {
-    // Dark by default (Aurora's native look); only light if the user opted in.
-    if (localStorage.getItem('theme') !== 'light') {
+    // Light by default; only dark if the visitor has explicitly opted in.
+    if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark');
     }
-  } catch (e) {
-    document.documentElement.classList.add('dark');
-  }
+  } catch (e) {}
 })();
 `;
 
@@ -98,7 +106,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable} ${logo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-bg text-content">
         <Script

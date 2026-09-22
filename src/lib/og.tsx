@@ -11,8 +11,9 @@ type OgProps = {
 };
 
 /**
- * A branded 1200×630 social card — near-black ground with a lime accent, built
- * with next/og (satori). Inline flex styles only; no Tailwind, no webfonts.
+ * A branded 1200×630 social card — deep navy ground with the real Sinvonix
+ * shield mark and brand-blue accent, built with next/og (satori). Inline
+ * flex styles only; no Tailwind, no webfonts.
  */
 export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
   return new ImageResponse(
@@ -24,14 +25,14 @@ export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0D0D0F",
+          background: "#021529",
           color: "#FAFAFA",
           padding: 76,
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        {/* ambient lime glow */}
+        {/* ambient brand-blue glow */}
         <div
           style={{
             position: "absolute",
@@ -41,7 +42,7 @@ export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
             height: 560,
             borderRadius: 9999,
             background:
-              "radial-gradient(closest-side, rgba(188,233,39,0.34), rgba(188,233,39,0))",
+              "radial-gradient(closest-side, rgba(42,140,239,0.30), rgba(42,140,239,0))",
             display: "flex",
           }}
         />
@@ -53,16 +54,21 @@ export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
               width: 46,
               height: 46,
               borderRadius: 13,
-              background: "#BCE927",
-              color: "#0E0D0D",
+              background: "linear-gradient(135deg,#2A8CEF,#013A74)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 28,
-              fontWeight: 800,
             }}
           >
-            S
+            <svg width="24" height="27" viewBox="0 0 88 100" fill="none">
+              <path
+                d="M18 24 Q18 20 22 20 L66 20 Q70 20 70 24 L70 52 Q70 74 44 90 Q18 74 18 52 Z"
+                fill="none"
+                stroke="#fff"
+                strokeWidth="8"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
           <div style={{ display: "flex", fontSize: 28, fontWeight: 700 }}>Sinvonix</div>
         </div>
@@ -72,7 +78,7 @@ export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
           <div
             style={{
               display: "flex",
-              color: "#C6ED45",
+              color: "#72B2F3",
               fontSize: 24,
               fontWeight: 600,
               textTransform: "uppercase",
@@ -122,7 +128,7 @@ export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
           <div style={{ display: "flex" }}>Fraud · Payments · Contact Centre · AI · Security</div>
         </div>
 
-        {/* lime base bar */}
+        {/* brand-blue base bar */}
         <div
           style={{
             position: "absolute",
@@ -130,7 +136,7 @@ export function ogImage({ eyebrow = "Sinvonix", title, subtitle }: OgProps) {
             left: 0,
             width: "100%",
             height: 12,
-            background: "linear-gradient(90deg,#BCE927,#16A34A,#0D9488)",
+            background: "linear-gradient(90deg,#2A8CEF,#0152A5,#013A74)",
             display: "flex",
           }}
         />

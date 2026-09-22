@@ -53,7 +53,6 @@ export function Hero() {
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.28]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
@@ -95,7 +94,7 @@ export function Hero() {
 
           {/* Centered copy */}
           <motion.div
-            style={{ y: contentY, opacity: contentOpacity }}
+            style={{ y: contentY }}
             className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center"
           >
             <motion.div
@@ -150,9 +149,9 @@ export function Hero() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Magnetic>
-              <Button href="#work" variant="secondary" size="lg">
+              <Button href="/work" variant="secondary" size="lg">
                 <Play className="h-4 w-4" />
-                View Our Work
+                View Our Products
               </Button>
             </motion.div>
 

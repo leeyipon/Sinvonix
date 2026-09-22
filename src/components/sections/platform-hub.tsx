@@ -11,23 +11,37 @@ import {
 } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/ui/primitives";
 import { MainLogo } from "@/components/ui/main-logo";
-import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-type Node = { name: string; icon: LucideIcon; accent: string; x: number; y: number; delay: number; float: number };
+type Node = { name: string; icon: LucideIcon; x: number; y: number; delay: number; float: number };
 
 const HUB_X = 380;
 const HUB_Y = 220;
+const BEND = 24; // px the connector curve bows away from a straight line
+
+/** A control point offset perpendicular to the node→hub line, so every
+ *  connector curves — even one whose node shares the hub's exact x or y,
+ *  where "just use the midpoint" would degenerate into a straight line. */
+function bendControlPoint(x: number, y: number) {
+  const dx = HUB_X - x;
+  const dy = HUB_Y - y;
+  const len = Math.hypot(dx, dy) || 1;
+  return {
+    x: (x + HUB_X) / 2 - (dy / len) * BEND,
+    y: (y + HUB_Y) / 2 + (dx / len) * BEND,
+  };
+}
 
 // Flat icon tiles in two columns flanking the hub — three left, two right —
-// instead of an isometric scatter. Clean, simple, no 3D shading.
+// instead of an isometric scatter. Clean, simple, no 3D shading. Every icon
+// sits on the same flat Primary color, not a per-node gradient.
 const nodes: Node[] = [
-  { name: "CORDON", icon: ShieldAlert, accent: "from-brand-400 to-brand-600", x: 110, y: 90, delay: 0.1, float: -8 },
-  { name: "AEVIX", icon: Lock, accent: "from-brand-500 to-brand-700", x: 650, y: 150, delay: 0.2, float: 9 },
-  { name: "Conversa CI Hub", icon: Headset, accent: "from-brand-600 to-brand-800", x: 110, y: 220, delay: 0.3, float: 8 },
-  { name: "Chronicle AI", icon: Workflow, accent: "from-brand-700 to-brand-900", x: 650, y: 290, delay: 0.4, float: -9 },
-  { name: "Managed Security", icon: ShieldCheck, accent: "from-brand-800 to-brand-950", x: 110, y: 350, delay: 0.5, float: -7 },
+  { name: "CORDON", icon: ShieldAlert, x: 110, y: 90, delay: 0.1, float: -8 },
+  { name: "AEVIX", icon: Lock, x: 650, y: 150, delay: 0.2, float: 9 },
+  { name: "Conversa CI Hub", icon: Headset, x: 110, y: 220, delay: 0.3, float: 8 },
+  { name: "Chronicle AI", icon: Workflow, x: 650, y: 290, delay: 0.4, float: -9 },
+  { name: "Managed Security", icon: ShieldCheck, x: 110, y: 350, delay: 0.5, float: -7 },
 ];
 
 export function PlatformHub() {
@@ -76,10 +90,15 @@ export function PlatformHub() {
               </filter>
             </defs>
 
-            {/* Connectors — simple curved lines, drawn on from each tile into the hub */}
+            {/* Connectors — curved lines, drawn on from each tile into the hub.
+                The control point is offset perpendicular to the node→hub line
+                (not just "the midpoint's own y"), so a node that happens to
+                share the hub's exact y (Conversa CI Hub) still gets a real
+                curve instead of degenerating into a straight line that runs
+                invisibly under the opaque hub card. */}
             {nodes.map((n, i) => {
-              const midX = (n.x + HUB_X) / 2;
-              const d = `M ${n.x} ${n.y} Q ${midX} ${n.y} ${HUB_X} ${HUB_Y}`;
+              const { x: ctrlX, y: ctrlY } = bendControlPoint(n.x, n.y);
+              const d = `M ${n.x} ${n.y} Q ${ctrlX} ${ctrlY} ${HUB_X} ${HUB_Y}`;
               return (
                 <motion.path
                   key={`line-${n.name}`}
@@ -89,8 +108,7 @@ export function PlatformHub() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 1 }}
-                  viewport={{ once: true, margin: "-80px" }}
+                  animate={{ pathLength: 1, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.1 + i * 0.07, ease: EASE }}
                 />
               );
@@ -130,8 +148,7 @@ export function PlatformHub() {
                 <motion.g
                   key={n.name}
                   initial={{ opacity: 0, scale: 0.85 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-80px" }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: n.delay, ease: EASE }}
                 >
                   <motion.g
@@ -149,7 +166,7 @@ export function PlatformHub() {
                       stroke="var(--color-line)"
                     />
                     <foreignObject x={n.x - 16} y={n.y - 16} width="32" height="32">
-                      <div className={cn("grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br text-white", n.accent)}>
+                      <div className="grid h-8 w-8 place-items-center rounded-xl bg-brand-500 text-white">
                         <Icon className="h-4 w-4" />
                       </div>
                     </foreignObject>
@@ -167,8 +184,7 @@ export function PlatformHub() {
             {/* Hub — the Sinvonix mark itself, so the centre reads unmistakably as "the platform" */}
             <motion.g
               initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-80px" }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: EASE }}
             >
               <motion.g

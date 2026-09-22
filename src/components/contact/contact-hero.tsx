@@ -22,7 +22,7 @@ export function ContactHero() {
             className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-3.5 py-1.5 text-xs font-medium text-muted backdrop-blur"
           >
             <MessageSquare className="h-3.5 w-3.5 text-accent" />
-            Get in touch
+            Contacts
           </motion.div>
 
           <motion.h1

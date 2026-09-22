@@ -32,9 +32,9 @@ export const site = {
 export const nav = [
   { label: "Home", href: "#top" },
   { label: "Platform", href: "/services" },
-  { label: "Track Record", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Get in Touch", href: "/contact" },
+  { label: "Products", href: "/work" },
+  { label: "About Us", href: "/about" },
+  { label: "Contacts", href: "/contact" },
 ];
 
 export type Service = {

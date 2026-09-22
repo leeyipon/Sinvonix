@@ -53,8 +53,21 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     };
     document.addEventListener("click", onClick);
 
+    // Backgrounded tabs get their rAF loop throttled or paused entirely; the
+    // first frame after the tab is visible again can carry a huge elapsed-
+    // time delta. Re-measuring here keeps Lenis' scroll limits honest
+    // instead of letting a stale/oversized delta leave anything stuck.
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     return () => {
       document.removeEventListener("click", onClick);
+      document.removeEventListener("visibilitychange", onVisibility);
       gsap.ticker.remove(raf);
       lenis.destroy();
       lenisRef.current = null;
